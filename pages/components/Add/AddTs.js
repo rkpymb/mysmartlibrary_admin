@@ -96,7 +96,7 @@ export default function ScrollDialog() {
         const Pid = Title.replace(/\s/g, '-');
 
 
-        const sendUM = { pid: Pid, catid: Category, title: Title, details: Details, img: e, mprice: Mprice, Sprice: Sprice, isActive: IsActive, date: Date, time: Time, stock: Stock, duration: Duration, tagline: Tagline, taglinetwo: Taglinetwo, isFree: IsFree }
+        const sendUM = { pid: Pid, catid: Category, title: Title, details: Details, img: e, mprice: Mprice, sprice: Sprice, isActive: IsActive, date: Date, time: Time, stock: Stock, duration: Duration, tagline: Tagline, taglinetwo: Taglinetwo, isFree: IsFree }
         const data = await fetch("/api/V3/Add/AddTS", {
             method: "POST",
             headers: {
