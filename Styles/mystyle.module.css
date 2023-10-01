@@ -1,13 +1,57 @@
-.Logomain{
-    width:80px;
+.LogoBox{
+  
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
+}
+.LogoBoxB{
+    font-weight: 500;
+    font-size: 15px;
+}
+.Logomain{
+    padding: 10px;
+    width:100px;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 .Logomain img{
     width:100%;
 }
+.MainContainer{
+    min-height:100vh;
+    padding: 20px;
+    background-color: white;
+}
+.TitleWithBackHeader{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.EditCatBox{
+    margin: auto;
+    width: 50%;
+    padding: 20px;
+    border-radius: 5px;
+   
+}
+.TitleWithBackHeaderA{
+    display: flex;
+    align-items: center;
+   
+}
+.TitleWithBackHeaderA span{
+    font-weight: bold;
+}
+.TitleWithBackHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .Logomain small{
     text-transform: uppercase;
     font-weight: 500;
@@ -103,4 +147,38 @@ margin: 0;
 }
 .Curserpointer{
     cursor: pointer;
+}
+.DashboardCounterBox{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.DashboardCounterItem{
+    padding: 15px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+    border-radius: 10px;
+    display: flex;
+    justify-content:space-between;
+    margin: 10px;
+    background-color: white;
+    min-width:23%;
+}
+.DashboardCounterItemA{
+    display: flex;
+    flex-direction: column;
+}
+.DashboardCounterItemA span{
+    font-weight: 600;
+}
+.UserProfileBoxTop{
+    padding:20px;
+    display: flex;
+
+}
+.UserProfileBoxTopB{
+    margin-left: 10px;
+}
+.UserProfileBoxTopBName{
+    font-weight: 600;
+    font-size:25px;
 }

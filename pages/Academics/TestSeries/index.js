@@ -3,29 +3,22 @@ import Head from 'next/head';
 import CheckloginContext from '../../../context/auth/CheckloginContext'
 import SidebarLayout from 'src/layouts/SidebarLayout';
 import MYS from '../../../Styles/mystyle.module.css'
-import PageHeader from 'src/content/Dashboards/Crypto/PageHeader';
-import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import { Container, Grid } from '@mui/material';
 import Footer from 'src/components/Footer';
-import NextLink from 'next/link';
 
 import TSlist from '../../components/List/TSlist';
-
+import Badge from '@mui/material/Badge';
 import AddTs from '../../components/Add/AddTs'
+import { useRouter, useParams } from 'next/router'
 import {
-  Button,
-  Card,
-
-  Box,
-  CardContent,
-  Typography,
-  Avatar,
-  alpha,
-  Tooltip,
-  CardActionArea,
+ 
+  IconButton,
+ 
   styled
 } from '@mui/material';
+import { LuArrowLeft } from "react-icons/lu";
 function DashboardCrypto() {
+  const router = useRouter()
   const Contextdata = useContext(CheckloginContext)
   useEffect(() => {
     if (Contextdata.IsLogin == true) {
@@ -36,6 +29,14 @@ function DashboardCrypto() {
       console.log('Not Login')
     }
   });
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      right: -3,
+      top: 13,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: '0 4px',
+    },
+  }));
   return (
     <>
       <Head>
@@ -43,17 +44,22 @@ function DashboardCrypto() {
       </Head>
       
       <Container className={MYS.min100vh}>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          sx={{
-            pb: 3, mt: 5
-          }}
-        >
-          <Typography variant="h3">Test Series</Typography>
-          <AddTs/>
-        </Box>
+
+        <div className={MYS.TitleWithBackHeader}>
+          <div className={MYS.TitleWithBackHeaderA}>
+            <IconButton aria-label="cart" onClick={() => router.back()}>
+              <StyledBadge color="secondary" >
+                <LuArrowLeft />
+              </StyledBadge>
+            </IconButton>
+            <div>
+              <span>Test Series</span>
+            </div>
+          </div>
+          <div>
+            <AddTs />
+          </div>
+        </div>
         <TSlist />
       </Container>
       <Footer />

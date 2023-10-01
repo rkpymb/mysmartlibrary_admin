@@ -2,58 +2,91 @@ import { useState, useEffect, useContext } from 'react';
 import Head from 'next/head';
 import CheckloginContext from '../../../context/auth/CheckloginContext'
 import SidebarLayout from 'src/layouts/SidebarLayout';
-
-import PageHeader from 'src/content/Dashboards/Crypto/PageHeader';
-import PageTitleWrapper from 'src/components/PageTitleWrapper';
+import MYS from '../../../Styles/mystyle.module.css'
+import { useRouter, useParams } from 'next/router'
 import { Container, Grid } from '@mui/material';
 import Footer from 'src/components/Footer';
+import Badge from '@mui/material/Badge';
 
-import AccountBalance from 'src/content/Dashboards/Crypto/AccountBalance';
-import Wallets from 'src/content/Dashboards/Crypto/Wallets';
-import AccountSecurity from 'src/content/Dashboards/Crypto/AccountSecurity';
-import WatchList from 'src/content/Dashboards/Crypto/WatchList';
+import Image from 'next/image'
 
+import {
+ 
+  styled,
+ 
+
+} from '@mui/material';
 function DashboardCrypto() {
+  const router = useRouter()
+  const [Loading, setLoading] = useState(true);
   const Contextdata = useContext(CheckloginContext)
   useEffect(() => {
     if (Contextdata.IsLogin == true) {
-      console.log('Login')
+      setLoading(false)
     } else {
-      // setIsLoading(true);
-      // router.push('/Login')
-      console.log('Not Login')
+      router.push('/')
+    
     }
   });
+
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      right: -3,
+      top: 13,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: '0 4px',
+    },
+  }));
   return (
     <>
       <Head>
         <title>Supermarks Dashboard</title>
       </Head>
-      <PageTitleWrapper>
-        <PageHeader />
-      </PageTitleWrapper>
-      <Container maxWidth="lg">
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="stretch"
-          spacing={4}
-        >
-          <Grid item xs={12}>
-            <AccountBalance />
-          </Grid>
-          <Grid item lg={8} xs={12}>
-            <Wallets />
-          </Grid>
-          <Grid item lg={4} xs={12}>
-            <AccountSecurity />
-          </Grid>
-          <Grid item xs={12}>
-            <WatchList />
-          </Grid>
-        </Grid>
+     
+      <Container className={MYS.min100vh}>
+       
+        {!Loading &&
+          <div className={MYS.DashboardCounterBox}>
+            <div className={MYS.DashboardCounterItem}>
+              <div className={MYS.DashboardCounterItemA}>
+                <span>34343</span>
+                <small>Users</small>
+              </div>
+              <div className={MYS.DashboardCounterItemB}>
+                <Image src='/educator.png' alt='im' height='50' width='50' />
+              </div>
+            </div>
+            <div className={MYS.DashboardCounterItem}>
+              <div className={MYS.DashboardCounterItemA}>
+                <span>34343</span>
+                <small>Educators</small>
+              </div>
+              <div className={MYS.DashboardCounterItemB}>
+                <Image src='/educator.png' alt='im' height='50' width='50' />
+              </div>
+            </div>
+            <div className={MYS.DashboardCounterItem}>
+              <div className={MYS.DashboardCounterItemA}>
+                <span>34343</span>
+                <small>Test Series</small>
+              </div>
+              <div className={MYS.DashboardCounterItemB}>
+                <Image src='/educator.png' alt='im' height='50' width='50' />
+              </div>
+            </div>
+            <div className={MYS.DashboardCounterItem}>
+              <div className={MYS.DashboardCounterItemA}>
+                <span>34343</span>
+                <small>Sales</small>
+              </div>
+              <div className={MYS.DashboardCounterItemB}>
+                <Image src='/educator.png' alt='im' height='50' width='50' />
+              </div>
+            </div>
+          </div>
+        }
       </Container>
+     
       <Footer />
     </>
   );

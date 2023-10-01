@@ -13,7 +13,9 @@ import { useRouter, useParams } from 'next/router'
 import Image from 'next/image';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-
+import SendIcon from '@mui/icons-material/Send';
+import LoadingButton from '@mui/lab/LoadingButton';
+import CheckloginContext from '../../../context/auth/CheckloginContext'
 import Select from '@mui/material/Select';
 import { DO_SPACES_URL, DO_SPACES_FOLDER } from '../../../Data/config'
 import {
@@ -34,6 +36,8 @@ import {
     styled
 } from '@mui/material';
 export default function ScrollDialog() {
+    const Contextdata = useContext(CheckloginContext)
+    const [Btnloading, setBtnloading] = useState(false);
     const router = useRouter()
     const toast = useRef(null);
     const [open, setOpen] = useState(false);
@@ -77,6 +81,7 @@ export default function ScrollDialog() {
         let FinalFileName = document.querySelector('#FinalFileName').value
         if (Title !== '' && FinalFileName !== '' && Category !== '' && Sprice !== '' && Mprice !== '' && Duration !== '' && Tagline !== '' && Taglinetwo !== '' && IsFree !== '') {
             AddTs(FinalFileName)
+            setBtnloading(true)
 
         } else {
             alert('all fields are required');
@@ -96,7 +101,7 @@ export default function ScrollDialog() {
         const Pid = Title.replace(/\s/g, '-');
 
 
-        const sendUM = { pid: Pid, catid: Category, title: Title, details: Details, img: e, mprice: Mprice, sprice: Sprice, isActive: IsActive, date: Date, time: Time, stock: Stock, duration: Duration, tagline: Tagline, taglinetwo: Taglinetwo, isFree: IsFree }
+        const sendUM = { pid: Pid, catid: Category, title: Title, details: Details, img: e, mprice: Mprice, sprice: Sprice, isActive: IsActive, date: Date, time: Time, stock: Stock, duration: Duration, tagline: Tagline, taglinetwo: Taglinetwo, isFree: IsFree, JwtToken: Contextdata.JwtToken }
         const data = await fetch("/api/V3/Add/AddTS", {
             method: "POST",
             headers: {
@@ -107,9 +112,10 @@ export default function ScrollDialog() {
             return a.json();
         })
             .then((parsed) => {
-                console.log(parsed.senddta)
+                console.log(parsed)
                 if (parsed.senddta) {
                     setOpen(false)
+                    setBtnloading(false)
                     router.push('/Academics/TestSeries')
                 }
 
@@ -311,7 +317,17 @@ export default function ScrollDialog() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Save</Button>
+                   
+                    <LoadingButton
+                        size="small"
+                        onClick={handleSubmit}
+                        endIcon={<SendIcon />}
+                        loading={Btnloading}
+                        loadingPosition="end"
+                        variant="contained"
+                    >
+                        <span>Save</span>
+                    </LoadingButton>
                 </DialogActions>
             </Dialog>
         </div>

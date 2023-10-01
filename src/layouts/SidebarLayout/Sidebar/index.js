@@ -54,15 +54,8 @@ function Sidebar() {
         }}
       >
         <Scrollbar>
-          <Box mt={3}>
-            <Box
-              mx={2}
-              sx={{
-                width: 52
-              }}
-            >
-              <Logo />
-            </Box>
+          <Box m={3}>
+            <Logo />
           </Box>
           <Divider
             sx={{
@@ -79,17 +72,7 @@ function Sidebar() {
           }}
         />
         <Box p={2}>
-          <Button
-            href="https://bloomui.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="contained"
-            color="success"
-            size="small"
-            fullWidth
-          >
-            Upgrade to PRO
-          </Button>
+          V : 2.01
         </Box>
       </SidebarWrapper>
       <Drawer

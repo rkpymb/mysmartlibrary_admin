@@ -100,7 +100,26 @@ function RecentOrders() {
                                         <div style={{minHeight:'20px'}}>
                                             </div>
                                         <div style={{ display: 'flex', alignItems: 'center'}}>
-                                            <EditTSmodal ProductData={item} />
+                                            <EditTSmodal
+                                                title={item.title}
+                                                details={item.details}
+                                                stock={item.stock}
+                                                isActive={item.isActive}
+                                                catid={item.catid}
+                                                mprice={item.mprice}
+                                                sprice={item.sprice}
+                                                duration={item.duration}
+                                                tagline={item.tagline}
+                                                taglinetwo={item.taglinetwo}
+                                                isFree={item.isFree}
+                                                id={item._id}
+                                                img={item.img}
+                                              
+                                            
+                                            />
+
+
+
                                             <div style={{ minWidth:'10px'}}></div>
                                             <Link href={`/TSChapters/${item._id}`}>
                                                 <Button size='small' variant="outlined" startIcon={<RemoveRedEyeIcon />}>
@@ -109,7 +128,7 @@ function RecentOrders() {
                                             </Link>
 
                                             <div style={{ minWidth: '10px' }}></div>
-                                            <Link href={`/TSChapters/${item._id}`}>
+                                            <Link href={`/TSChapters/${item._id}/${item.title}`}>
                                                 <Button size='small' variant="outlined" startIcon={<ViewStreamIcon />}>
                                                     Chapters
                                                 </Button>

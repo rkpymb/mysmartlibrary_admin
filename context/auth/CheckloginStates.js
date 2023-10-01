@@ -1,21 +1,19 @@
 import CheckloginContext from './CheckloginContext'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { CryptoJSKEY } from '../../Data/config'
-
-import CryptoJS from "crypto-js";
 const CheckloginStates = (props) => {
     const [Data, setData] = useState({});
     const [IsLogin, setIsLogin] = useState(false);
-    const [ProfileDone, setProfileDone] = useState(false);
-  
+    const [JwtToken, setJwtToken] = useState(null);
     const router = useRouter()
 
     useEffect(() => {
-        // check login
         try {
             if (localStorage.getItem('userid')) {
                 setIsLogin(true)
+                const T = localStorage.getItem('userid')
+                setJwtToken(T)
+                CheckLogin(T)
             } else {
                 setIsLogin(false)
             }
@@ -27,25 +25,38 @@ const CheckloginStates = (props) => {
 
     }, [router.query]);
 
+   
 
+   
+    const CheckLogin = async (T)  => {
+        const sendUM = { JwtToken: T }
+        const data = await fetch("/api/V3/auth/CheckAccount", {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(sendUM)
+        }).then((a) => {
+            return a.json();
+        })
+            .then((parsed) => {
+                if (!parsed.ReqData.SatusData) {
+                    setIsLogin(false)
+                } 
 
-    const decryptData = (e) => {
-        const bytes = CryptoJS.AES.decrypt(e, CryptoJSKEY);
-        const dataNew = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-       
-        setData(dataNew)
-        CheckisProfileComplete(dataNew)
-        
+            })
     };
-    const CheckisProfileComplete = (UserD) => {
-        if (UserD.email == '') {
-            setProfileDone(true)
-            
-        }
+    const Logout = async (T) => {
+        let text = "Do you really want to logout ?";
+        if (confirm(text) == true) {
+            localStorage.clear()
+            router.push('/')
+        } 
+       
     };
 
     return (
-        <CheckloginContext.Provider value={{ Data, IsLogin, ProfileDone }}>
+        <CheckloginContext.Provider value={{ Data, IsLogin, JwtToken, Logout }}>
             {props.children}
         </CheckloginContext.Provider>
     )

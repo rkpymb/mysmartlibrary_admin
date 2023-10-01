@@ -6,31 +6,19 @@ import { Container, Grid } from '@mui/material';
 import Footer from 'src/components/Footer';
 import TSChapterQuesList from '../components/List/TSChapterQuesList';
 import AddTSChapterQues from '../components/Add/AddTSChapterQues'
+import { LuArrowLeft } from "react-icons/lu";
+import Badge from '@mui/material/Badge';
+import { useRouter, useParams } from 'next/router'
 import {
-    Button,
-    Card,
-
-    Box,
-    CardContent,
-    Typography,
-    Avatar,
-    alpha,
-    Tooltip,
-    CardActionArea,
+    IconButton,
+   
     styled
 } from '@mui/material';
 
 
 export async function getServerSideProps(context) {
     const DataSlug = context.query.pageno[0];
-    
-    // const requestOptions = {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ GETID: DataSlug, updatekey: KEY })
-    // };
-    // const response = await fetch(`${process.env.API_URL}Website/Course/CourseData.php`, requestOptions);
-    // const CourseFullData = await response.json();
+   
 
     return {
 
@@ -39,9 +27,17 @@ export async function getServerSideProps(context) {
 
 }
 
-
+const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+        right: -3,
+        top: 13,
+        border: `2px solid ${theme.palette.background.paper}`,
+        padding: '0 4px',
+    },
+}));
 function DashboardCrypto(DataSlug) {
-    console.log(DataSlug.DataSlug)
+    const router = useRouter()
+   
     const [TSID, setTSID] = useState(DataSlug.DataSlug);
     return (
         <>
@@ -50,17 +46,22 @@ function DashboardCrypto(DataSlug) {
             </Head>
 
             <Container className={MYS.min100vh}>
-                <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    sx={{
-                        pb: 3, mt: 5
-                    }}
-                >
-                    <Typography variant="h3">Questions</Typography>
-                    <AddTSChapterQues chid={DataSlug.DataSlug} />
-                </Box>
+                
+                <div className={MYS.TitleWithBackHeader}>
+                    <div className={MYS.TitleWithBackHeaderA}>
+                        <IconButton aria-label="cart" onClick={() => router.back()}>
+                            <StyledBadge color="secondary" >
+                                <LuArrowLeft />
+                            </StyledBadge>
+                        </IconButton>
+                        <div>
+                            <span>Test Series Chapter's Questions</span>
+                        </div>
+                    </div>
+                    <div>
+                        <AddTSChapterQues chid={DataSlug.DataSlug} />
+                    </div>
+                </div>
                 <TSChapterQuesList chid={DataSlug.DataSlug}/>
             </Container>
             <Footer />

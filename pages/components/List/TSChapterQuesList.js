@@ -1,38 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Card } from '@mui/material';
-import CatTable from './Extra/CatTable';
-import { subDays } from 'date-fns';
+
 import { useRouter } from 'next/router'
-import Link from 'next/link';
-import Label from 'src/components/Label';
-import Image from 'next/image';
+
 import EditTSChapterQuesModal from '../Edit/EditTSChapterQuesModal'
 import QuOptionModal from '../TS/QuOptionModal'
 import MYS from '../../../Styles/mystyle.module.css'
-import { DO_SPACES_URL, DO_SPACES_FOLDER } from '../../../Data/config'
-import Button from '@mui/material/Button';
-import ViewStreamIcon from '@mui/icons-material/ViewStream';
-import ListIcon from '@mui/icons-material/List';
-import {
-    Tooltip,
-    Divider,
-    Box,
-    FormControl,
-    InputLabel,
 
-    IconButton,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TablePagination,
-    TableRow,
-    TableContainer,
-    Select,
-    MenuItem,
-    Typography,
+import {
+    
     useTheme,
-    CardHeader
+   
 } from '@mui/material';
 
 function RecentOrders({ chid }) {
@@ -83,9 +61,22 @@ function RecentOrders({ chid }) {
                                         <div style={{minHeight:'20px'}}>
                                             </div>
                                         <div style={{ display: 'flex', alignItems: 'center'}}>
-                                            <EditTSChapterQuesModal ProductData={item} Chapterid={chid} />
+                                            <EditTSChapterQuesModal
+                                                title={item.title}
+                                                details={item.details}
+                                                marks={item.marks}
+                                                id={item._id}
+                                                Chapterid={chid}
+                                               
+                                            
+                                            />
                                             <div style={{ minWidth:'10px'}}></div>
-                                            <QuOptionModal ProductData={item} Chapterid={chid} />
+                                            <QuOptionModal
+                                                id={item._id}
+                                                title={item.title}
+                                                
+                                                
+                                                Chapterid={chid} />
 
 
                                         </div>

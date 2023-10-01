@@ -36,64 +36,25 @@ const OverviewWrapper = styled(Box)(
 
 function Overview() {
   const router = useRouter()
-  const [Loading, setLoading] = useState(true);
   const Contextdata = useContext(CheckloginContext)
   useEffect(() => {
-    setLoading(false)
-    if (Contextdata.IsLogin == true) {
-      // router.push('/dashboards/main')
+    if (Contextdata.IsLogin) {
+      router.push('/dashboards/main')
+    } else {
+      
     }
-   
   });
   return (
     <OverviewWrapper>
       <Head> 
         <title>Admin Panel : SuperMarks</title>
       </Head>
-      <HeaderWrapper>
-        <Container maxWidth="lg">
-          <Box display="flex" alignItems="center">
-
-            <Logo />
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-              flex={1}
-            >
-              <Box />
-              <Box>
-                <Button
-                  component={Link}
-                  href="/dashboards/main"
-                  variant="contained"
-                  sx={{ ml: 2 }}
-                >
-                  Live Preview
-                </Button>
-              </Box>
-            </Box>
-          </Box>
-        </Container>
-      </HeaderWrapper>
-
-      {Loading &&
-        <p>Loading...</p>
-      }
-      {!Loading &&
-        <div>
-          {!Contextdata.IsLogin && 
-            <LoginBox />
-          }
-          {Contextdata.IsLogin && 
-            <Hero />
-          }
-      
-        </div>
-      }
-
-
-    
+      <div style={{minHeight:'50px'}}></div>
+      <div style={{margin:'20px'}}>
+        {!Contextdata.IsLogin &&
+          <LoginBox />
+        }
+     </div>
     </OverviewWrapper>
   );
 }

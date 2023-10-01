@@ -119,8 +119,10 @@ function RecentOrders() {
                                         </TableCell>
                                         <TableCell align="right">
                                             <div style={{display:'flex', alignItems: 'center'}}>
-                                                <EditCatModal  catData={item}/>
-                                               
+                                                {/* <Link href={`/managecategory/${item._id}`} >
+                                                    <span>Manage</span>
+                                                </Link> */}
+                                                <EditCatModal CatID={item._id} Title={item.name} CatImg={item.image} CatOrder={item.order} />
                                           </div>
                                            
                                         </TableCell>

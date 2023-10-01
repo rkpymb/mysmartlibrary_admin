@@ -1,36 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Card } from '@mui/material';
-import CatTable from './Extra/CatTable';
-import { subDays } from 'date-fns';
+
 import { useRouter } from 'next/router'
 import Link from 'next/link';
-import Label from 'src/components/Label';
-import Image from 'next/image';
+
 import EditTSChaptersmodal from '../Edit/EditTSChaptersmodal'
-import DeleteCatModal from '../Edit/DeleteCatModal'
+
 import MYS from '../../../Styles/mystyle.module.css'
-import { DO_SPACES_URL, DO_SPACES_FOLDER } from '../../../Data/config'
+
 import Button from '@mui/material/Button';
-import ViewStreamIcon from '@mui/icons-material/ViewStream';
+
 import ListIcon from '@mui/icons-material/List';
 import {
-    Tooltip,
-    Divider,
-    Box,
-    FormControl,
-    InputLabel,
-
-    IconButton,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TablePagination,
-    TableRow,
-    TableContainer,
-    Select,
-    MenuItem,
-    Typography,
+   
     useTheme,
     CardHeader
 } from '@mui/material';
@@ -83,7 +65,16 @@ function RecentOrders({ tsid }) {
                                         <div style={{minHeight:'20px'}}>
                                             </div>
                                         <div style={{ display: 'flex', alignItems: 'center'}}>
-                                            <EditTSChaptersmodal ProductData={item} Chapterid={tsid} />
+                                            <EditTSChaptersmodal
+                                                Chapterid={tsid}
+                                                id={item._id}
+                                                title={item.title}
+                                                details={item.details}
+                                                isActive={item.isActive}
+                                                duration={item.duration}
+                                                isFree={item.isFree}
+                                            
+                                            />
                                             <div style={{ minWidth:'10px'}}></div>
                                             <div style={{ minWidth: '10px' }}></div>
                                             <Link href={`/TSChapterQues/${item._id}`}>

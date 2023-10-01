@@ -1,3 +1,4 @@
+import { useState, useEffect, useContext } from 'react';
 import {
   Box,
   Button,
@@ -18,12 +19,13 @@ import {
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import Link from 'src/components/Link';
 import MYS from '../../../Styles/mystyle.module.css'
-import React, { useState, useEffect, useContext } from 'react';
 
 
+import CheckloginContext from '../../../context/auth/CheckloginContext'
 
 
 function Hero() {
+  const Contextdata = useContext(CheckloginContext)
   const [MobileNumber, setMobileNumber] = useState('');
 
   const [Password, setPassword] = useState('');
@@ -56,6 +58,7 @@ function Hero() {
     })
       .then((parsed) => {
         if (parsed.ReqD.token) {
+
           localStorage.setItem('userid', parsed.ReqD.token);
           window.location.reload();
         } else {

@@ -3,28 +3,29 @@ import Head from 'next/head';
 import CheckloginContext from '../../../context/auth/CheckloginContext'
 import SidebarLayout from 'src/layouts/SidebarLayout';
 import MYS from '../../../Styles/mystyle.module.css'
-
+import { useRouter, useParams } from 'next/router'
 import { Container, Grid } from '@mui/material';
 import Footer from 'src/components/Footer';
-
-
+import Badge from '@mui/material/Badge';
+import { LuArrowLeft } from "react-icons/lu";
 import Catlist from '../../components/List/Catlist';
 
 import AddCat from '../../components/Add/AddCat'
 import {
   Button,
   Card,
-
+  IconButton,
   Box,
-  CardContent,
+  styled,
   Typography,
   Avatar,
   alpha,
   Tooltip,
   CardActionArea,
-  styled
+
 } from '@mui/material';
 function DashboardCrypto() {
+  const router = useRouter()
   const Contextdata = useContext(CheckloginContext)
   useEffect(() => {
     if (Contextdata.IsLogin == true) {
@@ -35,6 +36,15 @@ function DashboardCrypto() {
       console.log('Not Login')
     }
   });
+
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      right: -3,
+      top: 13,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: '0 4px',
+    },
+  }));
   return (
     <>
       <Head>
@@ -42,17 +52,22 @@ function DashboardCrypto() {
       </Head>
       
       <Container className={MYS.min100vh}>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          sx={{
-            pb: 3, mt: 5
-          }}
-        >
-          <Typography variant="h3">Main Categories</Typography>
-          <AddCat/>
-        </Box>
+      
+        <div className={MYS.TitleWithBackHeader}>
+          <div className={MYS.TitleWithBackHeaderA}>
+            <IconButton aria-label="cart" onClick={() => router.back()}>
+              <StyledBadge color="secondary" >
+                <LuArrowLeft />
+              </StyledBadge>
+            </IconButton>
+            <div>
+            <span>Main Categories</span>
+            </div>
+          </div>
+          <div>
+            <AddCat />
+          </div>
+        </div>
         <Catlist />
       </Container>
       <Footer />

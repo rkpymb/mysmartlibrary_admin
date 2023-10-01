@@ -3,39 +3,24 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+import CheckloginContext from '../../../context/auth/CheckloginContext'
 import DialogTitle from '@mui/material/DialogTitle';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import MYS from '../../../Styles/mystyle.module.css'
-import UploadDoimg from '../UploadDo/UploadDoimg'
-import { Toast } from 'primereact/toast';
-import { useRouter, useParams } from 'next/router'
-import Image from 'next/image';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 
-import Select from '@mui/material/Select';
+import { useRouter, useParams } from 'next/router'
+
+
 import { DO_SPACES_URL, DO_SPACES_FOLDER } from '../../../Data/config'
 import {
-    Box,
-
-    Container,
-    Grid,
-    CardHeader,
-    CardContent,
-    Card,
-    Typography,
+  
     TextField,
-    Divider,
-
-    FormControl,
-    OutlinedInput,
-    InputAdornment,
     styled
 } from '@mui/material';
 export default function ScrollDialog({ chid }) {
+    const Contextdata = useContext(CheckloginContext)
     const router = useRouter()
-    const toast = useRef(null);
+   
     const [open, setOpen] = useState(false);
    
     const [scroll, setScroll] = useState('paper');
@@ -80,15 +65,13 @@ export default function ScrollDialog({ chid }) {
 
 
     };
-    const handleChangeFree = (event) => {
-        setIsFree(event.target.value);
-    };
+  
    
 
 
     const AddnewChapter = async () => {
     
-        const sendUM = { chid: chid, title: Title, details: Details,  isActive: IsActive, marks: Marks }
+        const sendUM = { chid: chid, title: Title, details: Details, isActive: IsActive, marks: Marks, JwtToken: Contextdata.JwtToken }
         const data = await fetch("/api/V3/Add/AddTSChapterQues", {
             method: "POST",
             headers: {

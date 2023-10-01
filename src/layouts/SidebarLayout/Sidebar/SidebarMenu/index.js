@@ -188,7 +188,7 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-              Dashboards
+             Main Dashboards
             </ListSubheader>
           }
         >
@@ -224,6 +224,65 @@ function SidebarMenu() {
                   </Button>
                 </NextLink>
               </ListItem>
+              <ListItem component="div">
+                <NextLink href="/Users/main" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/Users/main' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<EmojiEventsTwoToneIcon />}
+                  >
+                    Users
+                  </Button>
+                </NextLink>
+              </ListItem>
+              <ListItem component="div">
+                <NextLink href="/Educators/main" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/Educators/main' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<EmojiEventsTwoToneIcon />}
+                  >
+                    Educators
+                  </Button>
+                </NextLink>
+              </ListItem>
+            </List>
+          </SubMenuWrapper>
+        </List>
+        <List
+          component="div"
+          subheader={
+            <ListSubheader component="div" disableSticky>
+            Reports
+            </ListSubheader>
+          }
+        >
+          <SubMenuWrapper>
+            <List component="div">
+              <ListItem component="div">
+                <NextLink href="/SalesReports/main" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/SalesReports/main' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<BrightnessLowTwoToneIcon />}
+                  >
+                    Sales Reports
+                  </Button>
+                </NextLink>
+              </ListItem>
+             
             </List>
           </SubMenuWrapper>
         </List>

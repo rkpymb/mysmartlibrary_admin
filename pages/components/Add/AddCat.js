@@ -4,34 +4,27 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
+import CheckloginContext from '../../../context/auth/CheckloginContext'
 import DialogTitle from '@mui/material/DialogTitle';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import MYS from '../../../Styles/mystyle.module.css'
 import UploadDoimg from '../UploadDo/UploadDoimg'
 import { Toast } from 'primereact/toast';
 import { useRouter, useParams } from 'next/router'
-import Image from 'next/image';
-import { DO_SPACES_URL, DO_SPACES_FOLDER } from '../../../Data/config'
+
 import {
-    Box,
-
-    Container,
-    Grid,
-    CardHeader,
-    CardContent,
-    Card,
-    Typography,
+  
     TextField,
-    Divider,
-
-    FormControl,
-    OutlinedInput,
-    InputAdornment,
+  
     styled
 } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import LoadingButton from '@mui/lab/LoadingButton';
 export default function ScrollDialog() {
+    const [Btnloading, setBtnloading] = useState(false);
+    const Contextdata = useContext(CheckloginContext)
     const router = useRouter()
-    const toast = useRef(null);
+  
     const [open, setOpen] = useState(false);
     const [Mainimg, setMainimg] = useState('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png');
     const [scroll, setScroll] = useState('paper');
@@ -59,6 +52,7 @@ export default function ScrollDialog() {
         e.preventDefault();
         let FinalFileName = document.querySelector('#FinalFileName').value
         if (Title !== '' && FinalFileName !== '') {
+            setBtnloading(true)
             AddCat(FinalFileName)
         } else {
             alert('all fields are required');
@@ -71,7 +65,7 @@ export default function ScrollDialog() {
     const AddCat = async (e) => {
         
         const slug = Title.replace(/\s/g, '-'); 
-        const sendUM = { imageUrl: e, name: Title, slug: slug }
+        const sendUM = { imageUrl: e, name: Title, slug: slug, JwtToken: Contextdata.JwtToken }
         const data = await fetch("/api/V3/Add/Addcat", {
             method: "POST",
             headers: {
@@ -82,12 +76,15 @@ export default function ScrollDialog() {
             return a.json();
         })
             .then((parsed) => {
-
-                if (parsed.senddta.categories) {
-                    // console.log(parsed.senddta.categories)
+                setBtnloading(false)
+                if (parsed.ReqData.categories) {
+                   
                     setOpen(false)
                     router.push('/Academics/Categories')
+                } else {
+                    alert('Something went wrong')
                 }
+               
 
             })
     }
@@ -152,7 +149,16 @@ export default function ScrollDialog() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Save</Button>
+                    <LoadingButton
+                        size="small"
+                        onClick={handleSubmit}
+                        endIcon={<SendIcon />}
+                        loading={Btnloading}
+                        loadingPosition="end"
+                        variant="contained"
+                    >
+                        <span>Save</span>
+                    </LoadingButton>
                 </DialogActions>
             </Dialog>
         </div>

@@ -6,7 +6,7 @@ export default function handler(req, res) {
             Authorization: `Bearer ${req.body.JwtToken}`,
         };
 
-        axios.post(`${process.env.API_URL}admin/saveCategory`, { token: process.env.MYKEY, imageUrl: req.body.imageUrl, name: req.body.name, slug: req.body.slug }, { headers }).then((response) => {
+        axios.post(`${process.env.API_URL}admin/UserByid`, { token: process.env.MYKEY, userid: req.body.userid}, { headers }).then((response) => {
             console.log(response.data.MYTSData)
             res.status(200).json({ ReqData: response.data });
         });

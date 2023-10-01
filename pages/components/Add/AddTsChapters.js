@@ -3,17 +3,17 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+import CheckloginContext from '../../../context/auth/CheckloginContext'
 import DialogTitle from '@mui/material/DialogTitle';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import MYS from '../../../Styles/mystyle.module.css'
-import UploadDoimg from '../UploadDo/UploadDoimg'
-import { Toast } from 'primereact/toast';
+
 import { useRouter, useParams } from 'next/router'
-import Image from 'next/image';
+
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-
+import SendIcon from '@mui/icons-material/Send';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Select from '@mui/material/Select';
 import { DO_SPACES_URL, DO_SPACES_FOLDER } from '../../../Data/config'
 import {
@@ -34,8 +34,9 @@ import {
     styled
 } from '@mui/material';
 export default function ScrollDialog({ tsid }) {
+    const [Btnloading, setBtnloading] = useState(false);
     const router = useRouter()
-    const toast = useRef(null);
+    const Contextdata = useContext(CheckloginContext)
     const [open, setOpen] = useState(false);
    
     const [scroll, setScroll] = useState('paper');
@@ -43,13 +44,9 @@ export default function ScrollDialog({ tsid }) {
     const [Details, setDetails] = useState('');
     
     const [IsActive, setIsActive] = useState(false);
-   
-    const [Category, setCategory] = useState('');
-    const [Sprice, setSprice] = useState('');
-    const [Mprice, setMprice] = useState('');
+  
     const [Duration, setDuration] = useState('');
-    const [Tagline, setTagline] = useState('');
-    const [Taglinetwo, setTaglinetwo] = useState('');
+  
     const [IsFree, setIsFree] = useState('');
    
     const handleClickOpen = (scrollType) => () => {
@@ -75,6 +72,7 @@ export default function ScrollDialog({ tsid }) {
         e.preventDefault();
       
         if (Title !== '' && Duration !== '' && IsFree !== '' && Details !== '') {
+            setBtnloading(true)
             AddnewChapter()
 
         } else {
@@ -91,7 +89,7 @@ export default function ScrollDialog({ tsid }) {
 
     const AddnewChapter = async () => {
     
-        const sendUM = { tsid: tsid, title: Title, details: Details,  isActive: IsActive, duration: Duration, isFree: IsFree }
+        const sendUM = { tsid: tsid, title: Title, details: Details, isActive: IsActive, duration: Duration, isFree: IsFree, JwtToken: Contextdata.JwtToken }
         const data = await fetch("/api/V3/Add/AddTSChapter", {
             method: "POST",
             headers: {
@@ -102,10 +100,12 @@ export default function ScrollDialog({ tsid }) {
             return a.json();
         })
             .then((parsed) => {
-                console.log(parsed.senddta)
+                setBtnloading(false)
                 if (parsed.senddta) {
                     setOpen(false)
                     router.push(`/TSChapters/${tsid}`)
+                } else {
+                    alert('Something went Wrong')
                 }
 
             })
@@ -196,7 +196,16 @@ export default function ScrollDialog({ tsid }) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Save</Button>
+                    <LoadingButton
+                        size="small"
+                        onClick={handleSubmit}
+                        endIcon={<SendIcon />}
+                        loading={Btnloading}
+                        loadingPosition="end"
+                        variant="contained"
+                    >
+                        <span>Save</span>
+                    </LoadingButton>
                 </DialogActions>
             </Dialog>
         </div>

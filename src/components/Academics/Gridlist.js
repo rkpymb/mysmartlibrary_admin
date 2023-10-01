@@ -99,7 +99,7 @@ function Wallets() {
             </Box>
             <Grid container spacing={3}>
                 <Grid xs={12} sm={6} md={3} item >
-                    <NextLink href="/Academics/FreeContents" passHref>
+                    {/* <NextLink href="/Academics/FreeContents" passHref>
                         <Card
                             sx={{
                                 px: 1
@@ -122,7 +122,7 @@ function Wallets() {
                                
                             </CardContent>
                         </Card>   
-                    </NextLink>
+                    </NextLink> */}
                  
                 </Grid>
                 <Grid xs={12} sm={6} md={3} item >
@@ -152,7 +152,7 @@ function Wallets() {
                     </NextLink>
                  
                 </Grid>
-                <Grid xs={12} sm={6} md={3} item >
+                {/* <Grid xs={12} sm={6} md={3} item >
                     <NextLink href="/Academics/Courses" passHref>
                         <Card
                             sx={{
@@ -178,7 +178,7 @@ function Wallets() {
                         </Card>   
                     </NextLink>
                  
-                </Grid>
+                </Grid> */}
                 <Grid xs={12} sm={6} md={3} item >
                     <NextLink href="/Academics/TestSeries" passHref>
                         <Card
