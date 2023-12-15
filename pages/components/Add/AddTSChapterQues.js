@@ -11,7 +11,7 @@ import MYS from '../../../Styles/mystyle.module.css'
 import { useRouter, useParams } from 'next/router'
 
 
-import { DO_SPACES_URL, DO_SPACES_FOLDER } from '../../../Data/config'
+
 import {
   
     TextField,

@@ -15,7 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import SendIcon from '@mui/icons-material/Send';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Select from '@mui/material/Select';
-import { DO_SPACES_URL, DO_SPACES_FOLDER } from '../../../Data/config'
+
 import {
     Box,
 
@@ -101,7 +101,8 @@ export default function ScrollDialog({ tsid }) {
         })
             .then((parsed) => {
                 setBtnloading(false)
-                if (parsed.senddta) {
+                if (parsed.senddta.done) {
+                    alert('Chapter Added successfully')
                     setOpen(false)
                     router.push(`/TSChapters/${tsid}`)
                 } else {

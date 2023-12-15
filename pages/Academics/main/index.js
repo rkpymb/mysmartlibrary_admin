@@ -1,11 +1,9 @@
-import { useState, useEffect, useContext } from 'react';
+
 import Head from 'next/head';
-import CheckloginContext from '../../../context/auth/CheckloginContext'
+
 import SidebarLayout from 'src/layouts/SidebarLayout';
 import MYS from '../../../Styles/mystyle.module.css'
 
-import { Container, Grid } from '@mui/material';
-import Footer from 'src/components/Footer';
 import Button from '@mui/material/Button';
 import Link from 'next/link'
 import SendIcon from '@mui/icons-material/Send';
@@ -21,16 +19,7 @@ import Image from 'next/image'
 import { useRouter, useParams } from 'next/router'
 function DashboardCrypto() {
   const router = useRouter()
-  const Contextdata = useContext(CheckloginContext)
-  const [Loading, setLoading] = useState(true);
-  useEffect(() => {
-    if (Contextdata.IsLogin == true) {
-      setLoading(false)
-    } else {
-      router.push('/')
-    
-    }
-  });
+ 
   const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
       right: -3,
@@ -42,28 +31,24 @@ function DashboardCrypto() {
   return (
     <>
       <Head>
-        <title>Supermarks Dashboard</title>
+        <title>Academics</title>
       </Head>
-
-      <Container className={MYS.min100vh}>
-        {!Loading &&
-          <div>
-            <div className={MYS.TitleWithBackHeader}>
-              <div className={MYS.TitleWithBackHeaderA}>
-                <IconButton aria-label="cart" onClick={() => router.back()}>
-                  <StyledBadge color="secondary" >
-                    <LuArrowLeft />
-                  </StyledBadge>
-                </IconButton>
-                <div>
-                  <span>Academics</span>
-                </div>
-              </div>
-              <div>
-
-              </div>
+      <div className={MYS.marginTopMain}>
+        <div className={MYS.TitleWithBackHeader}>
+          <div className={MYS.TitleWithBackHeaderA}>
+            <IconButton aria-label="cart" onClick={() => router.back()}>
+              <StyledBadge color="secondary" >
+                <LuArrowLeft />
+              </StyledBadge>
+            </IconButton>
+            <div>
+              <span>Academics</span>
             </div>
-            <div className={MYS.DashboardCounterBox}>
+          </div>
+        </div>
+        <div className={MYS.stickyContainerBox} >
+          <div className={MYS.stickyContainer}>
+            <div className={MYS.DashboardCounterGrid}>
               <div className={MYS.DashboardCounterItem}>
                 <div className={MYS.DashboardCounterItemA}>
                   <span>Categories</span>
@@ -96,15 +81,62 @@ function DashboardCrypto() {
                   <Image src='/exam.png' alt='im' height='50' width='50' />
                 </div>
               </div>
+              <div className={MYS.DashboardCounterItem}>
+                <div className={MYS.DashboardCounterItemA}>
+                  <span>Courses</span>
+                  <small>manage all Courses</small>
+                  <div style={{ minHeight: '10px' }}></div>
+                  <Link href='/Academics/Courses'>
+                    <Button size='small' variant="outlined" endIcon={<SendIcon />}>
+                      view course
+                    </Button>
+                  </Link>
+
+                </div>
+                <div className={MYS.DashboardCounterItemB}>
+                  <Image src='/online-learning.png' alt='im' height='50' width='50' />
+                </div>
+              </div>
+              <div className={MYS.DashboardCounterItem}>
+                <div className={MYS.DashboardCounterItemA}>
+                  <span>Videos</span>
+                  <small>manage all Videos</small>
+                  <div style={{ minHeight: '10px' }}></div>
+                  <Link href='/Academics/Videos'>
+                    <Button size='small' variant="outlined" endIcon={<SendIcon />}>
+                      view Videos
+                    </Button>
+                  </Link>
+
+                </div>
+                <div className={MYS.DashboardCounterItemB}>
+                  <Image src='/video-lecture.png' alt='im' height='50' width='50' />
+                </div>
+              </div>
+              <div className={MYS.DashboardCounterItem}>
+                <div className={MYS.DashboardCounterItemA}>
+                  <span>Study Materials</span>
+                  <small>manage all StudyMaterials</small>
+                  <div style={{ minHeight: '10px' }}></div>
+                  <Link href='/Academics/StudyMaterials'>
+                    <Button size='small' variant="outlined" endIcon={<SendIcon />}>
+                      view more
+                    </Button>
+                  </Link>
+
+                </div>
+                <div className={MYS.DashboardCounterItemB}>
+                  <Image src='/learning-tools.png' alt='im' height='50' width='50' />
+                </div>
+              </div>
 
             </div>
-
+            
           </div>
-        }
-      </Container>
-     
-     
-      <Footer />
+        </div>
+      </div>
+
+
     </>
   );
 }

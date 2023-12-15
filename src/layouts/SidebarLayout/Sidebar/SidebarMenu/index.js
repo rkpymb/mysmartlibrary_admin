@@ -268,17 +268,17 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                <NextLink href="/SalesReports/main" passHref>
+                <NextLink href="/SubscriptionOrders" passHref>
                   <Button
                     className={
-                      currentRoute === '/SalesReports/main' ? 'active' : ''
+                      currentRoute === '/SubscriptionOrders' ? 'active' : ''
                     }
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
                     startIcon={<BrightnessLowTwoToneIcon />}
                   >
-                    Sales Reports
+                    Subscription Orders
                   </Button>
                 </NextLink>
               </ListItem>

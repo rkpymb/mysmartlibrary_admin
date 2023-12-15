@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DeleteCatModal = () => {
+const CourseList = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const DeleteCatModal = () => {
   )
 }
 
-export default DeleteCatModal
+export default CourseList

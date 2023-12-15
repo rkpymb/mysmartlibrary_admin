@@ -40,8 +40,10 @@ const CheckloginStates = (props) => {
             return a.json();
         })
             .then((parsed) => {
+                console.log(parsed)
                 if (!parsed.ReqData.SatusData) {
                     setIsLogin(false)
+                    AutoLogout()
                 } 
 
             })
@@ -52,6 +54,12 @@ const CheckloginStates = (props) => {
             localStorage.clear()
             router.push('/')
         } 
+       
+    };
+    const AutoLogout = async (T) => {
+       alert('Account logout out due to logged into another device')
+       localStorage.clear()
+       window.location.reload();
        
     };
 

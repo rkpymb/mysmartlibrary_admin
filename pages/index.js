@@ -9,11 +9,10 @@ import {
 } from '@mui/material';
 import BaseLayout from 'src/layouts/BaseLayout';
 import CheckloginContext from '../context/auth/CheckloginContext'
-import Link from 'src/components/Link';
+
 import Head from 'next/head';
 import LoginBox from './components/Login/LoginBox'
-import Logo from 'src/components/LogoSign';
-import Hero from 'src/content/Overview/Hero';
+
 import { useRouter, useParams } from 'next/router'
 const HeaderWrapper = styled(Card)(
   ({ theme }) => `
@@ -40,6 +39,7 @@ function Overview() {
   useEffect(() => {
     if (Contextdata.IsLogin) {
       router.push('/dashboards/main')
+      // router.push('/videoplay')
     } else {
       
     }
@@ -47,7 +47,7 @@ function Overview() {
   return (
     <OverviewWrapper>
       <Head> 
-        <title>Admin Panel : SuperMarks</title>
+        <title>Admin Dashboard Panel</title>
       </Head>
       <div style={{minHeight:'50px'}}></div>
       <div style={{margin:'20px'}}>

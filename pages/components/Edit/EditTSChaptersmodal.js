@@ -22,22 +22,24 @@ import {
   FormControl,
   styled
 } from '@mui/material';
-export default function ScrollDialog({ title, details, isActive, duration, id, isFree, Chapterid }) {
+export default function ScrollDialog({ Chdata, tsid }) {
+ 
   const router = useRouter()
   const Contextdata = useContext(CheckloginContext)
   const [open, setOpen] = useState(false);
   const [Btnloading, setBtnloading] = useState(false);
   const [scroll, setScroll] = useState('paper');
-  const [Title, setTitle] = useState(title);
-  const [Details, setDetails] = useState(details);
+  const [Title, setTitle] = useState();
+  const [Details, setDetails] = useState();
+  const [TestID, setTestID] = useState();
 
-  const [IsActive, setIsActive] = useState(isActive);
+  const [IsActive, setIsActive] = useState();
 
-  const [Duration, setDuration] = useState(duration);
+  const [Duration, setDuration] = useState();
 
-  const [IsFree, setIsFree] = useState(isFree);
+  const [IsFree, setIsFree] = useState();
 
-  const [Productid, setProductid] = useState(id);
+  const [Productid, setProductid] = useState();
 
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);
@@ -58,6 +60,19 @@ export default function ScrollDialog({ title, details, isActive, duration, id, i
     }
   }, [open]);
 
+
+  useEffect(() => {
+    setTestID(tsid)
+    setTitle(Chdata.title)
+    setDetails(Chdata.details)
+    setIsActive(Chdata.isActive)
+    setDuration(Chdata.duration)
+    setIsFree(Chdata.isFree)
+    setProductid(Chdata._id)
+
+
+  }, [router.query])
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -72,6 +87,9 @@ export default function ScrollDialog({ title, details, isActive, duration, id, i
   };
   const handleChangeFree = (event) => {
     setIsFree(event.target.value);
+  };
+  const handleChangeisActive = (event) => {
+    setIsActive(event.target.value);
   };
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
@@ -92,7 +110,7 @@ export default function ScrollDialog({ title, details, isActive, duration, id, i
         setBtnloading(false)
         if (parsed.senddta) {
           setOpen(false)
-          router.push(`/TSChapters/${Chapterid}`)
+          router.push(`/TSChapters/${TestID}`)
         } else {
           alert('Something went wrong')
         }
@@ -168,6 +186,22 @@ export default function ScrollDialog({ title, details, isActive, duration, id, i
                 >
                   <MenuItem value={false}>No</MenuItem>
                   <MenuItem value={true}>Yes</MenuItem>
+
+                </Select>
+              </FormControl>
+            </div>
+            <div className={MYS.inputlogin}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Chapter Status ?</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={IsActive}
+                  label="Is this product is Free ?"
+                  onChange={handleChangeisActive}
+                >
+                  <MenuItem value={false}>Deactivated</MenuItem>
+                  <MenuItem value={true}>Active</MenuItem>
 
                 </Select>
               </FormControl>

@@ -7,17 +7,17 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import MYS from '../../../Styles/mystyle.module.css'
-import UploadDoimg from '../UploadDo/UploadDoimg'
-import { Toast } from 'primereact/toast';
+
 import { useRouter, useParams } from 'next/router'
 import Image from 'next/image';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import FileUpload from '../Upload/FileUpload'
 import SendIcon from '@mui/icons-material/Send';
 import LoadingButton from '@mui/lab/LoadingButton';
 import CheckloginContext from '../../../context/auth/CheckloginContext'
 import Select from '@mui/material/Select';
-import { DO_SPACES_URL, DO_SPACES_FOLDER } from '../../../Data/config'
+
 import {
     Box,
 
@@ -182,8 +182,8 @@ export default function ScrollDialog() {
                             </div>
                         </div>
                         <div className={MYS.featuresimageboxB}>
-                            <UploadDoimg />
-                        </div>
+                                <FileUpload />
+                            </div>
                     </div>
                     <form onSubmit={handleSubmit} >
                         <div className={MYS.inputlogin}>

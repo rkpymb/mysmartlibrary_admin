@@ -17,11 +17,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import {
-  
+
   TextField,
 
   FormControl,
- 
+
   styled
 } from '@mui/material';
 export default function ScrollDialog({ id, Chapterid, title }) {
@@ -107,7 +107,7 @@ export default function ScrollDialog({ id, Chapterid, title }) {
   const AddNewOption = async (e) => {
     e.preventDefault();
     if (Title !== '' && Details !== '' && IsActive !== '') {
-      const sendUM = { title: Title, details: Details, isActive: IsActive, quid: Productid }
+      const sendUM = { title: Title, details: Details, isActive: IsActive, quid: Productid, chid: Chapterid }
       const data = await fetch("/api/V3/Add/AddTSOptions", {
         method: "POST",
         headers: {

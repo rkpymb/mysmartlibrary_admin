@@ -1,108 +1,641 @@
-.LogoBox{
-  
+.ProfileTabbox {
+    margin-top: 10px;
+}
+.logomainMobile{
+    width: 100px;
+}
+.urlitem{
+    color:#5569ff;
+    cursor: pointer;
+}
+.urlitem:hover{
+    color:#ffbe55;
+    cursor: pointer;
+}
+
+.ProfileTabboxHeader {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(240, 215, 215);
+    padding-bottom: 10px;
+}
+
+.ProfileTabboxMenuItem {
+
+    padding: 10px;
+    background-color: rgb(246, 241, 241);
+    margin: 5px;
+    color: black;
+    font-weight: 500;
+    min-width: 140px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+
+}
+
+.ProfileTabboxMenuItemActive {
+
+    padding: 10px;
+
+    margin: 5px;
+
+    font-weight: 500;
+    min-width: 140px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #5569ff;
+
+    color: rgb(255, 255, 255);
+
+}
+
+
+
+.Profileboxgrid {
+    margin: 0 auto;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(49%, 1fr));
+}
+
+.ProfileboxgridItem {
+
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+
+    padding: 20px;
+    background-color: white;
+    margin-top: 10px;
+    border-radius: 10px;
+
+}
+
+.MainProfileBox {
+    display: flex;
+}
+
+.MainProfileBoxB {
+    margin-left: 10px;
+}
+
+.MainProfileBoxB span {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.OrdedetailsItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.OrderBoxData {
+
+    padding: 20px;
+    border-radius: 10px;
+
+}
+
+.OrderBoxGrid {
+    margin: 0 auto;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(49%, 1fr));
+}
+
+.OrdedetailsItemA {
+    font-weight: 600;
+}
+
+.OrderBoxGridItem {
+
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+
+    padding: 20px;
+    background-color: white;
+    margin-top: 10px;
+    border-radius: 10px;
+
+}
+
+.OrderBoxGridItemTitle {
+    font-weight: bold;
+}
+
+.MainCounterGrid {
+    margin: 0 auto;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+}
+
+.logomainDBimg {
+    width: 50px;
+}
+
+.logomainDB {
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    /* height: 40px; */
+    cursor: pointer;
+
+}
+
+
+.Flexbtnbox {
+    display: flex;
+    align-items: center;
+}
+
+.OnlyDesktop {
+    display: block;
+}
+
+.OnlyMobile {
+    display: none;
+}
+
+.EducatorCoursegrid {
+    margin: 0 auto;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+
+}
+
+.Prilename {
+    text-align: center;
+    margin: 10px;
+    font-weight: 600;
+}
+
+.EducatorProfileboxA {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.EducatorProfileboxB {
+    display: flex;
+    flex-direction: column;
+}
+
+.EducatorlistSearch {
+    width: 100%;
+
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.EducatorlistSearch:hover {
+    border: 1px solid black
+}
+
+.EducatorlistSearchA {
+    width: 50px;
+}
+
+.EducatorlistSearchB {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.EducatorlistSearchB span {
+
+    font-weight: 600;
+
+}
+
+.coursedetailsBox1Aimg {
+    width: 100%;
+}
+
+.EducatorCoursegridItem {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(235, 232, 255);
+    border-radius: 10px;
+    text-align: center;
+
+    padding: 20px;
+    color: rgb(0, 0, 0);
+
+}
+
+.EducatorCoursegridItem span {
+    font-weight: 600;
+}
+
+
+.CourseCounteritemGrid {
+    margin: 0 auto;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+}
+
+.Courseoverviewbox {
+    padding: 20px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+    margin: 10px;
+
+}
+
+.CourseCounteritem {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgb(235, 232, 255);
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: rgb(0, 0, 0);
+
+}
+
+.CourseCounteritem span {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.coursedetailsBox1 {
+    display: flex;
+}
+
+.stickyContainerBox {
+    width: 100%;
+    background-color: white;
+    min-height: 100%;
+}
+
+.coursedetailsBox1A {
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    margin: 10px;
+    overflow: hidden;
+    width: 50%;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+
+
+    display: flex;
+}
+
+
+
+.coursedetailsBox1B {
+
+    border-radius: 10px;
+
+
+    overflow: hidden;
+    width: 50%;
+
+    padding: 20px;
+}
+
+.Courselistimgbox {
+    display: flex;
+}
+
+.CourselistItemTable {
+    cursor: pointer;
+}
+
+
+
+.CourselistimgboxB {
+    margin-left: 10px;
+}
+
+.stickyContainer {
+    height: 560px;
+    padding: 20px;
+    overflow: auto;
+}
+
+.stickyContainer2 {
+    height: 560px;
+    padding: 20px;
+    overflow: auto;
+}
+
+.DashboardCounterGrid {
+    margin: 0 auto;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+}
+
+.Topbtnbox {
+    display: flex;
+    align-items: center;
+
+}
+
+.Topbtnbox::-webkit-scrollbar {
+    display: none;
+}
+
+.TopbtnboxSearch {
+    min-width: fit-content;
+}
+
+.Topbtnboxbtn {
+    min-width: fit-content;
+    margin-left: 5px;
+}
+
+.VideoBoxFlex {
+    display: flex;
+}
+
+.VideoBoxFlexA {
+    width: 50%;
+    overflow: hidden;
+}
+
+.VideoBoxFlexB {
+
+    width: 50%;
+
+}
+
+.Videoeditcard {
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
+
+.VideoeditcardContent {
+
+    padding: 20px;
+}
+
+.VideolistboxItem {
+    display: flex;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+    margin-top: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+.VideolistboxItemA {
+    width: 50%;
+    display: flex;
+}
+
+.videothumbimg {
+    width: 180px;
+    border-radius: 10px;
+    overflow: hidden;
+
+}
+
+.videothumbBox {
+    display: flex;
+    width: 50%;
+}
+
+.VideoContentbox {
+    margin-left: 15px;
+
+}
+
+
+.VideoContentbox h3 {
+    margin: 0;
+}
+
+.Vtitle {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+.stickyBoxList {
+    height: 500px;
+}
+
+
+.videothumbTitleBox {
+    width: 75%;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+.VideoStickList {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+
+}
+
+.VideoStickListA {
+    margin-top: 5px;
+}
+
+.VideoStickListB {
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+.VideoStickListBox {
+    display: flex;
+    align-items: center;
+}
+
+.TablevideotitleBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.TablevideotitleBoxA {
+    font-weight: 600;
+}
+
+.LogoBox {
+
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-.LogoBoxB{
+
+.TopActionBtn {
+    display: flex;
+    align-items: center;
+}
+
+.LogoBoxB {
     font-weight: 500;
     font-size: 15px;
 }
-.Logomain{
+
+.Logomain {
     padding: 10px;
-    width:100px;
+    width: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.Logomain img{
-    width:100%;
+
+.Logomain img {
+    width: 100%;
 }
-.MainContainer{
-    min-height:100vh;
+
+.MainContainer {
+    min-height: 100vh;
     padding: 20px;
     background-color: white;
 }
-.TitleWithBackHeader{
+
+.stickytableBox {
+    width: 100%;
+    overflow: hidden;
+    background-color: white;
+    min-height: 60vh;
+}
+
+.stickytable {
+    height: 550px;
+}
+
+.TitleWithBackHeader {
     margin-top: 10px;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px;
 }
-.EditCatBox{
+
+.marginTopMain {
+    margin-top: 10px;
+}
+
+
+.EditCatBox {
     margin: auto;
     width: 50%;
     padding: 20px;
     border-radius: 5px;
-   
+
 }
-.TitleWithBackHeaderA{
+
+.TitleWithBackHeaderA {
     display: flex;
     align-items: center;
-   
+
 }
-.TitleWithBackHeaderA span{
+
+.TitleWithBackHeaderA span {
     font-weight: bold;
 }
-.TitleWithBackHeader{
+
+.TitleWithBackHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.Logomain small{
+.Logomain small {
     text-transform: uppercase;
     font-weight: 500;
 }
-.LoginBox{
-    padding:20px;
-    background-color: red;
+
+.LoginBoxContainer {
+    margin: auto;
+    width: 50%;
+
 
 }
-.inputlogin{
-    min-width: 300px;
-    margin: 20px;
+
+.LoginBox {
+    margin-top: 50px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+    border-radius: 10px;
+    padding: 20px;
+
+
 }
-.Catgrid{
-cursor: pointer;
+
+.inputlogin {
+    margin-top: 20px;
 }
-.Catgrid:hover{
+
+.Catgrid {
+    cursor: pointer;
+}
+
+.Catgrid:hover {
     border: 1px dashed #5569ff;
 }
-.min100vh{
+
+.min100vh {
     margin-top: 20px;
     min-height: 100vh;
 }
-.featuresimagebox{
-    padding:10px;
+
+.featuresimagebox {
+    padding: 10px;
     border-radius: 10px;
     border: 1px dashed rgb(211, 199, 199);
     display: flex;
     align-items: center;
 
 }
-.featuresimageboxA{
-    width:50%;
+
+.featuresimageboxA {
+    width: 50%;
     text-align: center;
 }
-.ItemList{
+
+.ItemList {
     margin: 10px;
     border: 1px solid rgb(233, 222, 222);
     padding: 10px;
     border-radius: 10px;
 }
-.ItemListBox{
+
+.ItemListBox {
     display: flex;
 }
-.ItemListBoxA{
+
+.ItemListBoxA {
     max-width: 200px;
 }
-.ItemListBoxB{
+
+.ItemListBoxB {
     margin-left: 10px;
 }
-.ItemListBoxB h3{
+
+.ItemListBoxB h3 {
     margin: 0;
 }
 
@@ -114,71 +647,323 @@ cursor: pointer;
     cursor: pointer;
 }
 
-.OptionItem:hover{
+.OptionItem:hover {
     color: rgb(214, 95, 95);
 }
-.OptionItemBox{
+
+.OptionItemBox {
     display: flex;
     align-items: center;
 }
-.OptionItemBoxA{
-width: 100%;
-}
-.OptionItemBoxB{
-    margin-left: 10px;
-width: fit-content;
+
+.OptionItemBoxA {
+    width: 100%;
 }
 
-.OptionItemBox h3{
-margin: 0;
+.OptionItemBoxB {
+    margin-left: 10px;
+    width: fit-content;
 }
-.OptionItemBox span{
+
+.OptionItemBox h3 {
+    margin: 0;
+}
+
+.OptionItemBox span {
     color: blue;
     font-size: 12px;
 }
-.Modalheader{
+
+.Modalheader {
     display: flex;
     align-items: center;
-   
+
 }
-.ModalheaderText{
+
+.ModalheaderText {
     margin-left: 10px;
     font-weight: bold;
 }
-.Curserpointer{
+
+.Curserpointer {
     cursor: pointer;
 }
-.DashboardCounterBox{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.DashboardCounterItem{
+
+
+
+.DashboardCounterItem {
     padding: 15px;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
     border-radius: 10px;
     display: flex;
-    justify-content:space-between;
-    margin: 10px;
+    justify-content: space-between;
+
     background-color: white;
-    min-width:23%;
+
 }
-.DashboardCounterItemA{
+
+.DashboardCounterItemA {
     display: flex;
     flex-direction: column;
 }
-.DashboardCounterItemA span{
+
+.DashboardCounterItemA span {
     font-weight: 600;
 }
-.UserProfileBoxTop{
-    padding:20px;
+
+.UserProfileBoxTop {
+    padding: 20px;
     display: flex;
 
 }
-.UserProfileBoxTopB{
+
+.UserProfileBoxTopB {
     margin-left: 10px;
 }
-.UserProfileBoxTopBName{
+
+.UserProfileBoxTopBName {
     font-weight: 600;
-    font-size:25px;
+    font-size: 25px;
+}
+
+@media only screen and (max-width: 1100px) {
+    .TitleWithBackHeader {
+        flex-direction: column;
+        align-items: flex-start;
+
+    }
+
+
+
+    .stickytable {
+        height: 100%;
+    }
+
+
+    .DashboardGrid {
+        margin: 0 auto;
+        display: grid;
+        gap: 1rem;
+
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+    }
+
+    .OrderStatusBox {
+
+        flex-wrap: wrap;
+
+    }
+
+    .OrderStatusBoxA {
+        width: 100%;
+        padding: 5px;
+    }
+
+    .OrderStatusBoxB {
+        width: 100%;
+        padding: 5px;
+    }
+
+    .FullDilogBox {
+        width: 500px;
+    }
+
+    .featuresimagebox {
+        flex-direction: column;
+    }
+
+    .featuresimageboxB {
+        margin-top: 10px;
+    }
+
+    .bannerGrid {
+        margin: 0 auto;
+        display: grid;
+        gap: 1rem;
+
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+    }
+
+    .bannerGridItemImage {
+        width: 100%;
+    }
+
+    .LoginBox {
+        padding: 20px;
+        background-color: rgb(255, 255, 255);
+        width: 100%;
+        margin: auto;
+
+    }
+
+    .Topbtnbox {
+        width: 100%;
+        overflow: auto;
+        padding: 5px;
+
+    }
+
+    .TitleWithBackHeader {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0px;
+
+    }
+
+    .TitleWithBackHeaderA {
+        width: 100%;
+    }
+
+    .TitleWithBackHeaderB {
+        width: 100%;
+    }
+
+    .Acbtn {
+        min-width: fit-content;
+    }
+
+    .coursedetailsBox1 {
+        flex-direction: column;
+    }
+
+    .coursedetailsBox1A {
+        background-color: rgb(255, 255, 255);
+        border-radius: 10px;
+        margin: 0px;
+        overflow: hidden;
+        width: 100%;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+
+
+        display: flex;
+    }
+
+
+
+    .coursedetailsBox1B {
+
+        border-radius: 10px;
+
+        margin-top: 20px;
+        overflow: hidden;
+        width: 100%;
+
+        padding: 0px;
+    }
+
+    .Courseoverviewbox {
+        padding: 10px;
+        box-shadow: none;
+        margin: 0px;
+
+    }
+
+    .stickyContainer2 {
+
+        padding: 5px;
+
+    }
+
+    .OnlyDesktop {
+        display: none;
+    }
+
+    .OnlyMobile {
+        display: block;
+    }
+
+    .VideolistboxItem {
+        flex-direction: column;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        background-color: white;
+        margin-top: 10px;
+        border-radius: 10px;
+    }
+
+
+    .VideolistboxItemA {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .videothumbBox {
+        display: flex;
+        width: 100%;
+    }
+
+    .videothumbimg {
+        width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+
+    }
+
+    .VideoContentbox {
+        margin-left: 0px;
+
+    }
+
+
+    .VideoBoxFlex {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .VideoBoxFlexA {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .VideoBoxFlexB {
+
+        width: 100%;
+
+    }
+
+
+    .Videoeditcard {
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: 20px;
+
+    }
+
+    .VideoeditcardContent {
+
+        padding: 10px;
+    }
+
+    .LoginBoxContainer {
+
+        width: 100%;
+
+
+    }
+
+    .LoginBox {
+        margin-top: 50px;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+        border-radius: 10px;
+        padding: 20px;
+
+
+    }
+
+
+    .ProfileTabboxHeader {
+        overflow: auto;
+    }
+
+    .ProfileTabboxHeader::-webkit-scrollbar {
+        display: none;
+    }
+
 }

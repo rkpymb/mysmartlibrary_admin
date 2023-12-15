@@ -7,8 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import MYS from '../../../Styles/mystyle.module.css'
-import UploadDoimg from '../UploadDo/UploadDoimg'
-
+import FileUpload from '../Upload/FileUpload'
 import { useRouter, useParams } from 'next/router'
 
 import InputLabel from '@mui/material/InputLabel';
@@ -18,39 +17,70 @@ import Select from '@mui/material/Select';
 import SendIcon from '@mui/icons-material/Send';
 import LoadingButton from '@mui/lab/LoadingButton';
 import CheckloginContext from '../../../context/auth/CheckloginContext'
-import { DO_SPACES_URL, DO_SPACES_FOLDER } from '../../../Data/config'
+import { MediaFilesUrl, MediaFilesFolder } from '../../../Data/config'
 import {
   TextField,
   FormControl,
   styled
 } from '@mui/material';
-export default function ScrollDialog(props) {
+export default function ScrollDialog({ Tsdata }) {
   const Contextdata = useContext(CheckloginContext)
   const router = useRouter()
   const toast = useRef(null);
   const [open, setOpen] = useState(false);
   const [Mainimg, setMainimg] = useState('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png');
   const [scroll, setScroll] = useState('paper');
-  const [Title, setTitle] = useState(props.title);
-  const [Details, setDetails] = useState(props.details);
-  const [Stock, setStock] = useState(props.stock);
-  const [IsActive, setIsActive] = useState(props.isActive);
+  const [Title, setTitle] = useState();
+  const [Details, setDetails] = useState();
+  const [Stock, setStock] = useState();
+  const [IsActive, setIsActive] = useState();
 
-  const [Category, setCategory] = useState(props.catid);
-  const [Sprice, setSprice] = useState(props.sprice);
-  const [Mprice, setMprice] = useState(props.mprice);
-  const [Duration, setDuration] = useState(props.duration);
-  const [Tagline, setTagline] = useState(props.tagline);
-  const [Taglinetwo, setTaglinetwo] = useState(props.taglinetwo);
-  const [IsFree, setIsFree] = useState(props.isFree);
+  const [Category, setCategory] = useState();
+  const [Sprice, setSprice] = useState();
+  const [Mprice, setMprice] = useState();
+  const [Duration, setDuration] = useState();
+  const [Tagline, setTagline] = useState();
+  const [Taglinetwo, setTaglinetwo] = useState();
+  const [IsFree, setIsFree] = useState();
   const [CatListdata, setCatListdata] = useState([]);
-  const [ImageMain, setImageMain] = useState(props.img);
-  const [Productid, setProductid] = useState(props.id);
+  const [ImageMain, setImageMain] = useState();
+  const [Productid, setProductid] = useState();
   const [Btnloading, setBtnloading] = useState(false);
+  const [TSStatus, setTSStatus] = useState();
+
+
+  useEffect(() => {
+
+    setSprice(Tsdata.sprice)
+    setMprice(Tsdata.mprice)
+    setDuration(Tsdata.duration)
+    setTagline(Tsdata.tagline)
+    setTaglinetwo(Tsdata.taglinetwo)
+    setIsFree(Tsdata.isFree)
+    setTSStatus(Tsdata.isActive)
+
+    setImageMain(Tsdata.img)
+
+    setProductid(Tsdata._id)
+
+
+    setTitle(Tsdata.title)
+    setDetails(Tsdata.details)
+    setStock(Tsdata.stock)
+    setIsActive(Tsdata.isActive)
+
+
+    setCategory(Tsdata.catid)
+
+
+  }, [router.query])
+
+
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);
     setScroll(scrollType);
   };
+
 
   const handleClose = () => {
     setOpen(false);
@@ -81,12 +111,15 @@ export default function ScrollDialog(props) {
   const handleChangeFree = (event) => {
     setIsFree(event.target.value);
   };
+  const handleChangeTSStatus = (event) => {
+    setTSStatus(event.target.value);
+  };
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
   };
 
   const UpdateTS = async (e) => {
-    const sendUM = { catid: Category, title: Title, details: Details, img: e, mprice: Mprice, sprice: Sprice, isActive: IsActive,stock: Stock, duration: Duration, tagline: Tagline, taglinetwo: Taglinetwo, isFree: IsFree, Productid: Productid, JwtToken: Contextdata.JwtToken }
+    const sendUM = { catid: Category, title: Title, details: Details, img: e, mprice: Mprice, sprice: Sprice, isActive: IsActive, stock: Stock, duration: Duration, tagline: Tagline, taglinetwo: Taglinetwo, isFree: IsFree, isActive: TSStatus, Productid: Productid, JwtToken: Contextdata.JwtToken }
     const data = await fetch("/api/V3/Update/UpdateTS", {
       method: "POST",
       headers: {
@@ -99,9 +132,10 @@ export default function ScrollDialog(props) {
       .then((parsed) => {
         console.log(parsed)
         setBtnloading(false)
-        if (parsed.senddta) {
+        if (parsed.D.done) {
+          alert('Test Series Updated successfully')
           setOpen(false)
-          router.push('/Academics/TestSeries')
+          router.push(`/tsdetails/${Tsdata.pid}`)
         } else {
           alert('Something Went Wrong')
         }
@@ -146,13 +180,13 @@ export default function ScrollDialog(props) {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id="scroll-dialog-title">Edit : {props.title}</DialogTitle>
+        <DialogTitle id="scroll-dialog-title">Edit : {Title}</DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
 
           <div className={MYS.featuresimagebox}>
             <div className={MYS.featuresimageboxA}>
               <img
-                src={`${DO_SPACES_URL}${DO_SPACES_FOLDER}/${ImageMain}`}
+                src={`${MediaFilesUrl}${MediaFilesFolder}/${ImageMain}`}
                 width={100}
                 height={100}
                 layout='responsive'
@@ -165,7 +199,7 @@ export default function ScrollDialog(props) {
               </div>
             </div>
             <div className={MYS.featuresimageboxB}>
-              <UploadDoimg />
+              <FileUpload />
             </div>
           </div>
           <form onSubmit={handleSubmit} >
@@ -292,6 +326,24 @@ export default function ScrollDialog(props) {
               </FormControl>
             </div>
 
+            <div className={MYS.inputlogin}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={TSStatus}
+                  label="Status"
+                  onChange={handleChangeTSStatus}
+                >
+                  <MenuItem value={1}>upcoming</MenuItem>
+                  <MenuItem value={2}>Public</MenuItem>
+                  <MenuItem value={3}>Private</MenuItem>
+
+                </Select>
+              </FormControl>
+            </div>
+
 
             <input type="hidden" id="FinalFileName" value={ImageMain} />
 
@@ -301,7 +353,7 @@ export default function ScrollDialog(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          
+
           <LoadingButton
             size="small"
             onClick={handleSubmit}

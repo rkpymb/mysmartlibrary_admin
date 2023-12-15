@@ -25,7 +25,7 @@ function TokyoApp(props) {
     <CheckloginStates >
       <CacheProvider value={emotionCache}>
         <Head>
-          <title>Tokyo Free White NextJS Javascript Admin Dashboard</title>
+          <title>Admin Dashboard</title>
           <meta
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"

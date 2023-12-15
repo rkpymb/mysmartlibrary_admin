@@ -1,12 +1,11 @@
 import axios from 'axios';
 export default function handler(req, res) {
     if (req.method === 'POST') {
-    
-        axios.post(`${process.env.API_URL}adminlogin/Login`, { token: process.env.MYKEY, mobile: req.body.mobile, pass: req.body.pass }).then((response) => {
-           
+
+        axios.post(`${process.env.API_URL}Openendpoint/Educatorlistall`, { token: process.env.MYKEY }).then((response) => {
             const senddta = response.data;
             res.status(200).json({ ReqD: senddta })
-          
+
         });
 
     } else {

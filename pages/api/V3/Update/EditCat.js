@@ -6,8 +6,8 @@ export default function handler(req, res) {
             Authorization: `Bearer ${req.body.JwtToken}`,
         };
 
-        axios.post(`${process.env.API_URL}admin/EditCat`, { token: process.env.MYKEY, catid: req.body.catid, name: req.body.name, image: req.body.imageUrl, order: req.body.CatOrder }, { headers }).then((response) => {
-            console.log(response.data.MYTSData)
+        axios.post(`${process.env.API_URL}admin/EditCat`, { token: process.env.MYKEY, catid: req.body.catid, name: req.body.name, image: req.body.imageUrl, order: req.body.CatOrder, isActive: req.body.isActive }, { headers }).then((response) => {
+           
             res.status(200).json({ ReqData: response.data });
         });
 
