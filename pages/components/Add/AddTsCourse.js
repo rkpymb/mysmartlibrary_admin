@@ -55,7 +55,7 @@ export default function ScrollDialog({CourseSlug}) {
     const [Duration, setDuration] = useState('');
     const [Tagline, setTagline] = useState('');
     const [Taglinetwo, setTaglinetwo] = useState('');
-    const [TSStatus, setTSStatus] = useState(false);
+    const [TSStatus, setTSStatus] = useState(1);
     const [CatListdata, setCatListdata] = useState([]);
     const handleClickOpen = (scrollType) => () => {
         setOpen(true);
@@ -90,12 +90,8 @@ export default function ScrollDialog({CourseSlug}) {
 
 
     };
-    const handleChangeFree = (event) => {
-        setTSStatus(event.target.value);
-    };
-    const handleChangeCategory = (event) => {
-        setCategory(event.target.value);
-    };
+    
+   
 
 
     const AddTs = async (e) => {
@@ -120,30 +116,7 @@ export default function ScrollDialog({CourseSlug}) {
 
             })
     }
-    useEffect(() => {
-       
-        const handleSubmit = async () => {
-            const dataid = '08c5th4rh86ht57h6g';
-            const sendUM = { dataid }
-            const data = await fetch("/api/V3/List/CatList", {
-                method: "POST",
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(sendUM)
-            }).then((a) => {
-                return a.json();
-            })
-                .then((parsed) => {
-                    console.log(parsed.ReqD.categories)
-                    setCatListdata(parsed.ReqD.categories)
-                   
-                })
-        }
-        handleSubmit()
-
-
-    },[])
+   
 
     return (
         <div>

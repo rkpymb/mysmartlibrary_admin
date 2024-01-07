@@ -1,15 +1,306 @@
+
+.LbPosterGrid {
+    margin: 0 auto;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+}
+.LBPosteritemimg{
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.LBPosteritemBottom{
+    margin-top: 10px;
+}
+.LBPosteritem{
+   
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgb(233, 221, 221);
+    margin: 10px;
+   
+}
+.LBsmallBoxHeader{
+    display: flex;
+    justify-content: space-between;
+}
+.LBsmallBoxHeaderA span{
+    font-weight: 700;
+}
+
+
+/* Seat Layout */
+
+
+.SeatBoxLayout {
+    overflow: auto !important;
+    max-height: 540px;
+    padding: 50px;
+
+}
+
+.SeatItemMainB {
+    font-weight: bold;
+}
+
+.SeatItemMain {
+    width: 150px;
+    height: 70px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+
+}
+
+
+.SeatItemMainSelected {
+    width: 150px;
+    height: 70px;
+   
+    background-color: #5569ff;
+    color:white !important;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+    margin: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+
+.SeatItemOccupied {
+    width: 150px;
+    height: 70px;
+   
+    background-color: #ff5555;
+    color:white !important;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+    margin: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+
+.SeatBoxLayout::-webkit-scrollbar {
+    max-height: 8px;
+    width: 8px;
+}
+
+/* Define the style for the scrollbar thumb of the specific class */
+.SeatBoxLayout::-webkit-scrollbar-thumb {
+    background-color: #00a6ff;
+    /* Color of the thumb */
+    border-radius: 5px;
+    /* Rounded corners */
+
+
+}
+
+/* Define the style for the scrollbar track of the specific class when the thumb is being dragged */
+.SeatBoxLayout::-webkit-scrollbar-track {
+    background-color: #7bff00;
+    /* Color of the track */
+}
+
+/* Define the style for the corners of the scrollbar of the specific class */
+.SeatBoxLayout::-webkit-scrollbar-corner {
+    background-color: #310b0b;
+    /* Color of the corners */
+}
+
+
+.MainSeatBox {
+    background-color: #f7f6f4;
+    border-radius: 10px;
+}
+
+.SeatBlock1 {
+    margin-top: 250px;
+    transform: rotate(90deg);
+    padding: 20px;
+    width: auto !important;
+    height: auto;
+}
+
+.SeatBlock2 {
+    display: flex;
+}
+
+.SeatBlock2A {
+
+    width: 40%;
+
+}
+
+.SeatBlock2B {
+    z-index:+1;
+    width: 60%;
+    padding: 20px;
+    border-left: 1px dashed rgb(192, 171, 171);
+}
+
+
+
+.SeatItemMainA {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.SeatItemMainA small {
+    font-size: 10px;
+}
+
+/* Seat Layout End */
+.AddSubsBoxMian {
+    height: 90vh;
+    overflow: auto !important;
+    background-color: #F5EEF8;
+}
+
+.Inputlabletext {
+
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-size: 15px;
+    background-color: #e7e7ee;
+    color: #000000;
+    padding: 10px;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+.Addonlist {
+
+    border-bottom: 1px solid rgb(240, 215, 215);
+    color: rgb(77, 71, 71);
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.Branchitemlist {
+
+    border-bottom: 1px solid rgb(240, 215, 215);
+    color: rgb(77, 71, 71);
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.Branchitemlist:hover {
+    background-color: #5569ff;
+    color: rgb(255, 255, 255);
+}
+
+.BranchitemlistA {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.SelectBtn {
+    border-radius: 10px;
+    background-color: #201f1f;
+    color: rgb(255, 255, 255);
+    padding: 5px 25px 5px 25px;
+    font-size: 12px;
+}
+
+.AddSubsBoxMianPadding {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+}
+
+.BranchDataBox {
+
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+.BranchboxItem {
+
+    width: 'fit-content';
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+    margin: 10px;
+
+}
+
+.BranchDataBoxA {
+
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+    margin: 10px;
+
+}
+
+.BranchDataBoxB {
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+    margin: 10px;
+}
+
+.BrachDetailbox {
+
+    width: '100%';
+}
+
+.flextowdiv {
+    display: flex;
+}
+
+.flextowdivA {
+    width: 50%;
+}
+
+.flextowdivB {
+    width: 50%;
+}
+
 .ProfileTabbox {
     margin-top: 10px;
 }
-.logomainMobile{
+
+.logomainMobile {
     width: 100px;
 }
-.urlitem{
-    color:#5569ff;
+
+.urlitem {
+    color: #5569ff;
     cursor: pointer;
 }
-.urlitem:hover{
-    color:#ffbe55;
+
+.urlitem:hover {
+    color: #ffbe55;
     cursor: pointer;
 }
 
@@ -964,6 +1255,32 @@
 
     .ProfileTabboxHeader::-webkit-scrollbar {
         display: none;
+    }
+
+    .BranchDataBox {
+
+        display: flex;
+        flex-direction: column;
+
+
+    }
+
+    .BranchDataBoxA {
+
+        width: 100%;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+        margin: 0px;
+
+    }
+
+    .BranchDataBoxB {
+        width: 100%;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+        margin: 0px;
     }
 
 }

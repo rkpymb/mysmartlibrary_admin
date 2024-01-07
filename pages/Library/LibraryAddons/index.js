@@ -1,31 +1,44 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Head from 'next/head';
-import CheckloginContext from '/context/auth/CheckloginContext'
+import CheckloginContext from '../../../context/auth/CheckloginContext'
 import SidebarLayout from 'src/layouts/SidebarLayout';
-import MYS from '/Styles/mystyle.module.css'
+import MYS from '../../../Styles/mystyle.module.css'
 import { useRouter, useParams } from 'next/router'
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
 
-import Avatar from '@mui/material/Avatar';
+import DialogTitle from '@mui/material/DialogTitle';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SendIcon from '@mui/icons-material/Send';
 import Fade from '@mui/material/Fade';
 import Skeleton from '@mui/material/Skeleton';
 
-
+import { FiEdit, FiTrash, FiArrowRightCircle } from "react-icons/fi";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Image from 'next/image';
 
 import { FiFilter } from 'react-icons/fi';
+import EditAddon from '../../components/Library/Edit/EditAddon'
+
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Avatar from '@mui/material/Avatar';
 
 
 
-import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
+import { MediaFilesUrl, MediaFilesFolder } from '../../../Data/config'
 import Badge from '@mui/material/Badge';
 import { LuArrowLeft } from "react-icons/lu";
 
 
-import AddTsCourse from '../components/Add/AddTsCourse'
-
+import AddAddon from '../../components/Library/Add/AddAddon'
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
 import {
   Button,
 
@@ -40,38 +53,34 @@ import {
 
   TableRow,
   TableContainer,
+  FormControl,
 
 
 
 
 } from '@mui/material';
-
-export async function getServerSideProps(context) {
-    const courseid = context.query.pageno[0];
-    return {
-        props: { courseid },
-    }
-
-}
-function DashboardCrypto({courseid}) {
+function DashboardCrypto() {
+  const [OpenEdit, setOpenEdit] = React.useState(false);
+  const [scroll, setScroll] = React.useState('paper');
   const Contextdata = useContext(CheckloginContext)
   const [Retdata, setRetdata] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [FilterText, setFilterText] = useState('All');
   const [initialData, setInitialData] = useState([]);
-
+  const [Btnloading, setBtnloading] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const router = useRouter()
-
-
   const [searchQuery, setSearchQuery] = useState('');
+
 
   const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
 
+
+
   const GetData = async () => {
-   
-    const sendUM = { JwtToken: Contextdata.JwtToken ,courseid:courseid}
-    const data = await fetch("/api/V3/List/GetCourseTSlist", {
+
+    const sendUM = { JwtToken: Contextdata.JwtToken }
+    const data = await fetch("/api/V3/Library/Addons/LBAddonsAll", {
       method: "POST",
       headers: {
         'Content-type': 'application/json'
@@ -81,12 +90,12 @@ function DashboardCrypto({courseid}) {
       return a.json();
     })
       .then((parsed) => {
+        console.log(parsed.ReqD.AddonsList)
 
-        if (parsed.ReqD.TestSeries) {
+        if (parsed.ReqD.AddonsList) {
+          setInitialData(parsed.ReqD.AddonsList)
 
-          setInitialData(parsed.ReqD.TestSeries)
-
-          setRetdata(parsed.ReqD.TestSeries)
+          setRetdata(parsed.ReqD.AddonsList)
           setIsLoading(false)
 
         }
@@ -125,40 +134,28 @@ function DashboardCrypto({courseid}) {
     {
       id: 4
     }
-    ,
-    {
-      id: 5
-    },
-    {
-      id: 4
-    }
-    ,
-    {
-      id: 5
-    }
+
   ]
 
+  const handleChangeTSStatus = (event) => {
+    setIsActive(event.target.value);
+  };
 
-  const ShortbyPublic = () => {
+  const ShortbyActive = () => {
     const filteredData = initialData.filter(item => item.isActive === 3);
     setRetdata(filteredData);
     setAnchorEl(null);
-    setFilterText('Public')
+    setFilterText('Active')
   };
-  const ShortbyUpcoming = () => {
-    const filteredData = initialData.filter(item => item.isActive === 2);
+
+  // Function to sort products by price from high to low
+  const ShortbyNotActive = () => {
+    const filteredData = initialData.filter(item => item.isActive === 1 || item.isActive === 2);
     setRetdata(filteredData);
     setAnchorEl(null);
-    setFilterText('Upcoming')
+    setFilterText('Not Active');
   };
-  const ShortbyPrivate = () => {
-    const filteredData = initialData.filter(item => item.isActive === 1);
-    setRetdata(filteredData);
-    setAnchorEl(null);
-    setFilterText('Private')
-  };
- 
- 
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -170,16 +167,57 @@ function DashboardCrypto({courseid}) {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
     const filteredData = initialData.filter(item => (
-      item.title.toLowerCase().includes(query) 
+      item.title.toLowerCase().includes(query) ||
+      item.Branchcode.toLowerCase().includes(query)
+
     ));
 
     setRetdata(filteredData);
   };
 
+  const DeletePass = async (e) => {
+    let text = "Do you really want to delete This Addon ?";
+    if (confirm(text) == true) {
+
+      const sendUM = {
+        JwtToken: Contextdata.JwtToken,
+        id: e
+      }
+      const data = await fetch("/api/V3/Library/Addons/DeleteLBLBAddon", {
+        method: "POST",
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(sendUM)
+      }).then((a) => {
+        return a.json();
+      })
+        .then((parsed) => {
+
+          if (parsed.ReqD.done) {
+            alert(parsed.ReqD.done)
+            router.push('/Library/LibraryAddons')
+          } else {
+            alert('Something went wrong')
+          }
+
+
+
+        })
+    }
+
+
+
+  };
+
+
+
+
   return (
     <>
       <Head>
-        <title>Test Series</title>
+        <title>Library Addons
+        </title>
       </Head>
 
       <div className={MYS.marginTopMain}>
@@ -193,7 +231,7 @@ function DashboardCrypto({courseid}) {
             <div>
               {!isLoading ?
                 <div>
-                  <span>All Test Series : <span>{FilterText}</span> ({Retdata.length})</span>
+                  <span>Addons : <span>{FilterText}</span> ({Retdata.length})</span>
                 </div>
                 : <div>
                   <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={200} animation="wave" />
@@ -211,7 +249,7 @@ function DashboardCrypto({courseid}) {
                 <div className={MYS.TopbtnboxSearch}>
 
                   <TextField
-                    label="Search by Title, Slug"
+                    label="Search by Name, Branch Code"
 
                     defaultValue="Small"
                     size="small"
@@ -223,9 +261,8 @@ function DashboardCrypto({courseid}) {
 
                 <div className={MYS.Topbtnboxbtn}>
 
-                <AddTsCourse CourseSlug={courseid} />
+                  <AddAddon />
                 </div>
-
 
                 <div className={MYS.Topbtnboxbtn}>
                   <Button variant="contained" endIcon={<FiFilter />}
@@ -249,15 +286,11 @@ function DashboardCrypto({courseid}) {
                   onClose={handleClose}
                   TransitionComponent={Fade}
                 >
-
-                  <MenuItem onClick={ShortbyUpcoming}>
-                    <small>Upcoming</small>
+                  <MenuItem onClick={ShortbyActive}>
+                    <small>Active</small>
                   </MenuItem>
-                  <MenuItem onClick={ShortbyPublic}>
-                    <small>Public</small>
-                  </MenuItem>
-                  <MenuItem onClick={ShortbyPrivate}>
-                    <small>Private</small>
+                  <MenuItem onClick={ShortbyNotActive}>
+                    <small>Deactivated</small>
                   </MenuItem>
 
                 </Menu>
@@ -282,10 +315,10 @@ function DashboardCrypto({courseid}) {
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Test Series</TableCell>
-                   
+                    <TableCell>Library Addons</TableCell>
+                    <TableCell>Addons Details</TableCell>
+                    <TableCell>Branch Code</TableCell>
                     <TableCell>Status</TableCell>
-                    <TableCell>Date/Time</TableCell>
                     <TableCell>Action</TableCell>
                   </TableRow>
                 </TableHead>
@@ -294,74 +327,65 @@ function DashboardCrypto({courseid}) {
                   <TableBody>
 
                     {Retdata.map((item) => {
-                      return <TableRow className={MYS.CourselistItemTable} hover key={item._id} onClick={() => router.push(`/tsdetails/${item.pid}`)}>
+                      return <TableRow hover key={item._id}>
                         <TableCell>
-                          <div className={MYS.Courselistimgbox}>
-                            <div className={MYS.videothumbimg}>
-                              <Image
-                                src={`${MediaFilesUrl}${MediaFilesFolder}/${item.img}`}
 
-                                alt="image"
-                                layout="responsive"
-                                placeholder='blur'
-                                width={'100%'}
-                                height={70}
-                                quality={50}
-                                blurDataURL={blurredImageData}
-
-                              />
-                            </div>
-                            <div className={MYS.CourselistimgboxB} style={{maxWidth:'150px'}}>
-                              <Typography
-                                variant="body1"
-                                fontWeight="bold"
-                                color="text.primary"
-                                gutterBottom
-                                noWrap
-                              >
-                                {item.title}
-                              </Typography>
-                              <div>
-                                <span style={{fontSize:'12px'}}><b>Course</b> : {item.courseid}</span>
-                              </div>
-                              
-                            </div>
-
-
-                          </div>
-
-
-                        </TableCell>
-                       
-                        <TableCell>
-                          <div
-
-                          >
-                            {item.isActive == 1 && <span>Private</span> }
-                            {item.isActive == 2 && <span>Upcoming</span> }
-                            {item.isActive == 3 && <span>Public</span> }
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <div
-
-                          >
-                            <span> {item.date}</span>
+                          <div style={{ width: 200 }}>
                             <div>
-                              <small> {item.time}</small>
+                              <span style={{ fontWeight: 600 }}>{item.title}</span>
                             </div>
+                            <div>
+                              <span style={{ fontSize: 12 }}>Price : <del>₹{item.mprice}</del> ₹ {item.sprice} /day</span>
+                            </div>
+                          
+                            <div>
+                              <span style={{ fontSize: 12 }}>Created : {item.date}, {item.time}</span>
+                            </div>
+
+
                           </div>
                         </TableCell>
-                        <TableCell>
-                          <Button
 
-                            size='small'
-                            variant='outlined'
-                            color='primary'
-                          >
-                            View Details
-                          </Button>
+                        <TableCell>
+                          <div style={{ width: 200 }}>
+                            {item.details}
+
+
+                          </div>
+
                         </TableCell>
+                        <TableCell>
+                          {item.Branchcode}
+
+                        </TableCell>
+                        <TableCell>
+                          {item.isActive ==3  ? <span>Active</span> : <span>Deactivated</span>}
+
+                        </TableCell>
+
+                        <TableCell>
+                          <div className={MYS.Flexbtnbox}>
+
+                            <div style={{ minWidth: '10px' }}></div>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                              <IconButton aria-label="cart" onClick={() =>
+                                DeletePass(item._id)
+                              }>
+                                <StyledBadge color="secondary" >
+                                  <FiTrash size={15} />
+                                </StyledBadge>
+                              </IconButton>
+                              <div style={{ width: '5px' }}></div>
+                              <EditAddon PassData={item} />
+                            </div>
+                          </div>
+
+
+                        </TableCell>
+
+
+
+
                       </TableRow>
                     }
 
@@ -390,12 +414,8 @@ function DashboardCrypto({courseid}) {
                         <TableCell>
                           <Skeleton variant="text" sx={{ fontSize: '0.5rem' }} width={50} animation="wave" />
 
-
                         </TableCell>
-                        <TableCell>
-                          <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={200} animation="wave" />
 
-                        </TableCell>
                         <TableCell align="right">
                           <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Skeleton variant="text" sx={{ fontSize: '2rem' }} width={100} animation="wave" />
@@ -409,7 +429,11 @@ function DashboardCrypto({courseid}) {
 
                     )}
                   </TableBody>
+
+
                 }
+
+
 
 
               </Table>
@@ -419,6 +443,9 @@ function DashboardCrypto({courseid}) {
 
         </div>
       </div>
+
+
+
     </>
   );
 }

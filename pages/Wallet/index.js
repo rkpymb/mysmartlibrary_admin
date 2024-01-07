@@ -9,13 +9,14 @@ import Avatar from '@mui/material/Avatar';
 import Fade from '@mui/material/Fade';
 import Skeleton from '@mui/material/Skeleton';
 
-
+import { FiEye, FiTrash } from "react-icons/fi";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Image from 'next/image';
 
-import { FiFilter } from 'react-icons/fi';
+import { FiFilter, FiChevronRight } from 'react-icons/fi';
+
 
 
 
@@ -24,7 +25,7 @@ import Badge from '@mui/material/Badge';
 import { LuArrowLeft } from "react-icons/lu";
 
 
-import AddTsCourse from '../components/Add/AddTsCourse'
+
 
 import {
   Button,
@@ -45,15 +46,7 @@ import {
 
 
 } from '@mui/material';
-
-export async function getServerSideProps(context) {
-    const courseid = context.query.pageno[0];
-    return {
-        props: { courseid },
-    }
-
-}
-function DashboardCrypto({courseid}) {
+function DashboardCrypto() {
   const Contextdata = useContext(CheckloginContext)
   const [Retdata, setRetdata] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -66,12 +59,10 @@ function DashboardCrypto({courseid}) {
 
   const [searchQuery, setSearchQuery] = useState('');
 
-  const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
 
   const GetData = async () => {
-   
-    const sendUM = { JwtToken: Contextdata.JwtToken ,courseid:courseid}
-    const data = await fetch("/api/V3/List/GetCourseTSlist", {
+    const sendUM = { JwtToken: Contextdata.JwtToken }
+    const data = await fetch("/api/V3/Wallet/WalletTransactions", {
       method: "POST",
       headers: {
         'Content-type': 'application/json'
@@ -81,12 +72,13 @@ function DashboardCrypto({courseid}) {
       return a.json();
     })
       .then((parsed) => {
+        console.log(parsed.ReqD.WTlist)
 
-        if (parsed.ReqD.TestSeries) {
+        if (parsed.ReqD.WTlist) {
+          console.log(parsed.ReqD.WTlist)
 
-          setInitialData(parsed.ReqD.TestSeries)
-
-          setRetdata(parsed.ReqD.TestSeries)
+          setRetdata(parsed.ReqD.WTlist)
+          setInitialData(parsed.ReqD.WTlist)
           setIsLoading(false)
 
         }
@@ -125,40 +117,26 @@ function DashboardCrypto({courseid}) {
     {
       id: 4
     }
-    ,
-    {
-      id: 5
-    },
-    {
-      id: 4
-    }
-    ,
-    {
-      id: 5
-    }
+
   ]
 
 
-  const ShortbyPublic = () => {
-    const filteredData = initialData.filter(item => item.isActive === 3);
+
+
+
+  const ShortbyCredit = () => {
+    const filteredData = initialData.filter(item => item.WTData.isActive == true);
     setRetdata(filteredData);
     setAnchorEl(null);
-    setFilterText('Public')
+    setFilterText('Credited');
   };
-  const ShortbyUpcoming = () => {
-    const filteredData = initialData.filter(item => item.isActive === 2);
+  const ShortbyDebit = () => {
+    const filteredData = initialData.filter(item => item.WTData.isActive == false);
     setRetdata(filteredData);
     setAnchorEl(null);
-    setFilterText('Upcoming')
+    setFilterText('Debited');
   };
-  const ShortbyPrivate = () => {
-    const filteredData = initialData.filter(item => item.isActive === 1);
-    setRetdata(filteredData);
-    setAnchorEl(null);
-    setFilterText('Private')
-  };
- 
- 
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -170,16 +148,22 @@ function DashboardCrypto({courseid}) {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
     const filteredData = initialData.filter(item => (
-      item.title.toLowerCase().includes(query) 
+      item.WTData.title.toLowerCase().includes(query) ||
+      item.WTData.Refid.toLowerCase().includes(query) ||
+      item.WTData.TrnsactionId.toLowerCase().includes(query) ||
+      item.UserData.mobile.toString().includes(query) 
     ));
 
     setRetdata(filteredData);
   };
 
+
+
+
   return (
     <>
       <Head>
-        <title>Test Series</title>
+        <title>Wallet Transactions</title>
       </Head>
 
       <div className={MYS.marginTopMain}>
@@ -193,7 +177,7 @@ function DashboardCrypto({courseid}) {
             <div>
               {!isLoading ?
                 <div>
-                  <span>All Test Series : <span>{FilterText}</span> ({Retdata.length})</span>
+                  <span>Wallet Transactions : <span>{FilterText}</span> ({Retdata.length})</span>
                 </div>
                 : <div>
                   <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={200} animation="wave" />
@@ -211,7 +195,7 @@ function DashboardCrypto({courseid}) {
                 <div className={MYS.TopbtnboxSearch}>
 
                   <TextField
-                    label="Search by Title, Slug"
+                    label="Search by Title, Order ID, Mobile"
 
                     defaultValue="Small"
                     size="small"
@@ -221,10 +205,6 @@ function DashboardCrypto({courseid}) {
                   />
                 </div>
 
-                <div className={MYS.Topbtnboxbtn}>
-
-                <AddTsCourse CourseSlug={courseid} />
-                </div>
 
 
                 <div className={MYS.Topbtnboxbtn}>
@@ -249,16 +229,13 @@ function DashboardCrypto({courseid}) {
                   onClose={handleClose}
                   TransitionComponent={Fade}
                 >
-
-                  <MenuItem onClick={ShortbyUpcoming}>
-                    <small>Upcoming</small>
+                  <MenuItem onClick={ShortbyCredit}>
+                    <small>Credited</small>
                   </MenuItem>
-                  <MenuItem onClick={ShortbyPublic}>
-                    <small>Public</small>
+                  <MenuItem onClick={ShortbyDebit}>
+                    <small>Debited</small>
                   </MenuItem>
-                  <MenuItem onClick={ShortbyPrivate}>
-                    <small>Private</small>
-                  </MenuItem>
+                 
 
                 </Menu>
 
@@ -282,11 +259,11 @@ function DashboardCrypto({courseid}) {
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Test Series</TableCell>
-                   
+                    <TableCell>Transaction</TableCell>
+                    <TableCell>Amount</TableCell>
+                    <TableCell>User Details</TableCell>
+                    <TableCell>Type</TableCell>
                     <TableCell>Status</TableCell>
-                    <TableCell>Date/Time</TableCell>
-                    <TableCell>Action</TableCell>
                   </TableRow>
                 </TableHead>
 
@@ -294,74 +271,74 @@ function DashboardCrypto({courseid}) {
                   <TableBody>
 
                     {Retdata.map((item) => {
-                      return <TableRow className={MYS.CourselistItemTable} hover key={item._id} onClick={() => router.push(`/tsdetails/${item.pid}`)}>
+                      return <TableRow hover key={item._id} onClick={() => router.push(`/ManageOrder/${item._id}`)} style={{ cursor: 'pointer' }}>
                         <TableCell>
-                          <div className={MYS.Courselistimgbox}>
-                            <div className={MYS.videothumbimg}>
-                              <Image
-                                src={`${MediaFilesUrl}${MediaFilesFolder}/${item.img}`}
+                          <div style={{ maxWidth: '270px' }}>
 
-                                alt="image"
-                                layout="responsive"
-                                placeholder='blur'
-                                width={'100%'}
-                                height={70}
-                                quality={50}
-                                blurDataURL={blurredImageData}
 
-                              />
+                            <div style={{fontSize:'20px', fontWeight:600}}>
+                              {item.WTData.isActive ? <small style={{ color: 'blue' }}>+{item.WTData.amt}</small> : <small style={{ color: 'red' }}>-{item.WTData.amt}</small>}
                             </div>
-                            <div className={MYS.CourselistimgboxB} style={{maxWidth:'150px'}}>
-                              <Typography
-                                variant="body1"
-                                fontWeight="bold"
-                                color="text.primary"
-                                gutterBottom
-                                noWrap
-                              >
-                                {item.title}
-                              </Typography>
-                              <div>
-                                <span style={{fontSize:'12px'}}><b>Course</b> : {item.courseid}</span>
-                              </div>
-                              
-                            </div>
-
-
-                          </div>
-
-
-                        </TableCell>
-                       
-                        <TableCell>
-                          <div
-
-                          >
-                            {item.isActive == 1 && <span>Private</span> }
-                            {item.isActive == 2 && <span>Upcoming</span> }
-                            {item.isActive == 3 && <span>Public</span> }
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <div
-
-                          >
-                            <span> {item.date}</span>
                             <div>
-                              <small> {item.time}</small>
+                              <small>#{item.WTData.TrnsactionId}</small>
                             </div>
+                            <div>
+                              <small>{item.WTData.title}</small>
+                            </div>
+
+                            <div>
+                              <small>Ref ID :  {item.WTData.Refid}</small>
+                            </div>
+                            <div style={{ fontSize: '12px' }}>
+                              <small>{item.WTData.date},{item.WTData.time}</small>
+                            </div>
+
                           </div>
+
                         </TableCell>
                         <TableCell>
-                          <Button
+                          <div style={{ maxWidth: '150px' }}>
+                            <div style={{fontSize:'20px', fontWeight:600}}>
+                              {item.WTData.isActive ? <small style={{ color: 'blue' }}>+{item.WTData.amt}</small> : <small style={{ color: 'red' }}>-{item.WTData.amt}</small>}
 
-                            size='small'
-                            variant='outlined'
-                            color='primary'
-                          >
-                            View Details
-                          </Button>
+                            </div>
+                          </div>
+
                         </TableCell>
+                        <TableCell>
+                          <div style={{ maxWidth: '150px' }}>
+                            <span>By : {item.UserData.name}</span>
+                            <div><small>{item.UserData.mobile}</small></div>
+                            <div><small>{item.UserData.email}</small></div>
+
+                          </div>
+                        </TableCell>
+
+
+                        <TableCell>
+                          <div style={{ maxWidth: '150px' }}>
+                            <div>
+                              {item.WTData.isActive ? <small>Credited</small> : <small>Debited</small>}
+
+                            </div>
+                          </div>
+
+                        </TableCell>
+                        <TableCell>
+                          <div style={{ maxWidth: '150px' }}>
+                            <div>
+                              {item.WTData.StatusText}
+
+                            </div>
+                          </div>
+
+                        </TableCell>
+
+
+
+
+
+
                       </TableRow>
                     }
 
@@ -409,7 +386,11 @@ function DashboardCrypto({courseid}) {
 
                     )}
                   </TableBody>
+
+
                 }
+
+
 
 
               </Table>

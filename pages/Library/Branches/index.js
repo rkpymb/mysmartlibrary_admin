@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Head from 'next/head';
-import CheckloginContext from '/context/auth/CheckloginContext'
+import CheckloginContext from '../../../context/auth/CheckloginContext'
 import SidebarLayout from 'src/layouts/SidebarLayout';
-import MYS from '/Styles/mystyle.module.css'
+import MYS from '../../../Styles/mystyle.module.css'
 import { useRouter, useParams } from 'next/router'
 
-import Avatar from '@mui/material/Avatar';
+
 import Fade from '@mui/material/Fade';
 import Skeleton from '@mui/material/Skeleton';
 
-
+import { FiEye, FiTrash, FiArrowRightCircle } from "react-icons/fi";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
@@ -17,14 +17,23 @@ import Image from 'next/image';
 
 import { FiFilter } from 'react-icons/fi';
 
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Avatar from '@mui/material/Avatar';
 
 
-import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
+
+import { MediaFilesUrl, MediaFilesFolder } from '../../../Data/config'
 import Badge from '@mui/material/Badge';
 import { LuArrowLeft } from "react-icons/lu";
 
 
-import AddTsCourse from '../components/Add/AddTsCourse'
+import AddBranch from '../../components/Library/Add/AddBranch'
+
+
+import EditCatModal from '../../components/Edit/EditCatModal'
 
 import {
   Button,
@@ -45,15 +54,7 @@ import {
 
 
 } from '@mui/material';
-
-export async function getServerSideProps(context) {
-    const courseid = context.query.pageno[0];
-    return {
-        props: { courseid },
-    }
-
-}
-function DashboardCrypto({courseid}) {
+function DashboardCrypto() {
   const Contextdata = useContext(CheckloginContext)
   const [Retdata, setRetdata] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -67,11 +68,10 @@ function DashboardCrypto({courseid}) {
   const [searchQuery, setSearchQuery] = useState('');
 
   const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
-
   const GetData = async () => {
-   
-    const sendUM = { JwtToken: Contextdata.JwtToken ,courseid:courseid}
-    const data = await fetch("/api/V3/List/GetCourseTSlist", {
+    const dataid = '08c5th4rh86ht57h6g';
+    const sendUM = { JwtToken: Contextdata.JwtToken }
+    const data = await fetch("/api/V3/Library/Branches/AllBranches", {
       method: "POST",
       headers: {
         'Content-type': 'application/json'
@@ -81,12 +81,12 @@ function DashboardCrypto({courseid}) {
       return a.json();
     })
       .then((parsed) => {
+        console.log(parsed.ReqD.Branchlist)
 
-        if (parsed.ReqD.TestSeries) {
+        if (parsed.ReqD.Branchlist) {
+          setInitialData(parsed.ReqD.Branchlist)
 
-          setInitialData(parsed.ReqD.TestSeries)
-
-          setRetdata(parsed.ReqD.TestSeries)
+          setRetdata(parsed.ReqD.Branchlist)
           setIsLoading(false)
 
         }
@@ -125,40 +125,26 @@ function DashboardCrypto({courseid}) {
     {
       id: 4
     }
-    ,
-    {
-      id: 5
-    },
-    {
-      id: 4
-    }
-    ,
-    {
-      id: 5
-    }
+
   ]
 
 
-  const ShortbyPublic = () => {
-    const filteredData = initialData.filter(item => item.isActive === 3);
+
+  const ShortbyActive = () => {
+    const filteredData = initialData.filter(item => item.isActive == 3);
     setRetdata(filteredData);
     setAnchorEl(null);
-    setFilterText('Public')
+    setFilterText('Active')
   };
-  const ShortbyUpcoming = () => {
-    const filteredData = initialData.filter(item => item.isActive === 2);
+
+  // Function to sort products by price from high to low
+  const ShortbyNotActive = () => {
+    const filteredData = initialData.filter(item => !item.isActive == 3);
     setRetdata(filteredData);
     setAnchorEl(null);
-    setFilterText('Upcoming')
+    setFilterText('Not Active');
   };
-  const ShortbyPrivate = () => {
-    const filteredData = initialData.filter(item => item.isActive === 1);
-    setRetdata(filteredData);
-    setAnchorEl(null);
-    setFilterText('Private')
-  };
- 
- 
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -170,16 +156,20 @@ function DashboardCrypto({courseid}) {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
     const filteredData = initialData.filter(item => (
-      item.title.toLowerCase().includes(query) 
+      item.name.toLowerCase().includes(query) ||
+      item.BranchCode.toLowerCase().includes(query)
     ));
 
     setRetdata(filteredData);
   };
 
+
+
+
   return (
     <>
       <Head>
-        <title>Test Series</title>
+        <title>Library Branches</title>
       </Head>
 
       <div className={MYS.marginTopMain}>
@@ -193,7 +183,7 @@ function DashboardCrypto({courseid}) {
             <div>
               {!isLoading ?
                 <div>
-                  <span>All Test Series : <span>{FilterText}</span> ({Retdata.length})</span>
+                  <span>Library Branches : <span>{FilterText}</span> ({Retdata.length})</span>
                 </div>
                 : <div>
                   <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={200} animation="wave" />
@@ -211,7 +201,7 @@ function DashboardCrypto({courseid}) {
                 <div className={MYS.TopbtnboxSearch}>
 
                   <TextField
-                    label="Search by Title, Slug"
+                    label="Search by Name, Branch Code"
 
                     defaultValue="Small"
                     size="small"
@@ -223,9 +213,8 @@ function DashboardCrypto({courseid}) {
 
                 <div className={MYS.Topbtnboxbtn}>
 
-                <AddTsCourse CourseSlug={courseid} />
+                  <AddBranch />
                 </div>
-
 
                 <div className={MYS.Topbtnboxbtn}>
                   <Button variant="contained" endIcon={<FiFilter />}
@@ -249,15 +238,11 @@ function DashboardCrypto({courseid}) {
                   onClose={handleClose}
                   TransitionComponent={Fade}
                 >
-
-                  <MenuItem onClick={ShortbyUpcoming}>
-                    <small>Upcoming</small>
+                  <MenuItem onClick={ShortbyActive}>
+                    <small>Active</small>
                   </MenuItem>
-                  <MenuItem onClick={ShortbyPublic}>
-                    <small>Public</small>
-                  </MenuItem>
-                  <MenuItem onClick={ShortbyPrivate}>
-                    <small>Private</small>
+                  <MenuItem onClick={ShortbyNotActive}>
+                    <small>Deactivated</small>
                   </MenuItem>
 
                 </Menu>
@@ -282,10 +267,8 @@ function DashboardCrypto({courseid}) {
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Test Series</TableCell>
-                   
+                    <TableCell>Branch</TableCell>
                     <TableCell>Status</TableCell>
-                    <TableCell>Date/Time</TableCell>
                     <TableCell>Action</TableCell>
                   </TableRow>
                 </TableHead>
@@ -294,74 +277,48 @@ function DashboardCrypto({courseid}) {
                   <TableBody>
 
                     {Retdata.map((item) => {
-                      return <TableRow className={MYS.CourselistItemTable} hover key={item._id} onClick={() => router.push(`/tsdetails/${item.pid}`)}>
+                      return <TableRow hover key={item._id}>
                         <TableCell>
-                          <div className={MYS.Courselistimgbox}>
-                            <div className={MYS.videothumbimg}>
-                              <Image
-                                src={`${MediaFilesUrl}${MediaFilesFolder}/${item.img}`}
 
-                                alt="image"
-                                layout="responsive"
-                                placeholder='blur'
-                                width={'100%'}
-                                height={70}
-                                quality={50}
-                                blurDataURL={blurredImageData}
-
-                              />
-                            </div>
-                            <div className={MYS.CourselistimgboxB} style={{maxWidth:'150px'}}>
-                              <Typography
-                                variant="body1"
-                                fontWeight="bold"
-                                color="text.primary"
-                                gutterBottom
-                                noWrap
-                              >
-                                {item.title}
-                              </Typography>
-                              <div>
-                                <span style={{fontSize:'12px'}}><b>Course</b> : {item.courseid}</span>
-                              </div>
-                              
-                            </div>
-
-
-                          </div>
-
-
-                        </TableCell>
-                       
-                        <TableCell>
-                          <div
-
-                          >
-                            {item.isActive == 1 && <span>Private</span> }
-                            {item.isActive == 2 && <span>Upcoming</span> }
-                            {item.isActive == 3 && <span>Public</span> }
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <div
-
-                          >
-                            <span> {item.date}</span>
+                          <div style={{ maxWidth: 200 }}>
                             <div>
-                              <small> {item.time}</small>
+                              <span style={{ fontWeight: 600 }}>{item.name}</span>
+                            </div>
+                            <div>
+                              <span style={{ fontWeight: 500, fontSize: '12px' }}>{item.BranchCode}</span>
+                            </div>
+                            <div style={{ marginTop: '5px' }}>
+                              <span style={{ fontWeight: 500, fontSize: '12px' }}>{item.City}, {item.State} {item.pincode}</span>
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell>
-                          <Button
 
-                            size='small'
-                            variant='outlined'
-                            color='primary'
-                          >
-                            View Details
-                          </Button>
+                        <TableCell>
+                          {item.isActive ? <span>Active</span> : <span>Deactivated</span>}
+
                         </TableCell>
+
+                        <TableCell>
+                          <div className={MYS.Flexbtnbox}>
+
+                            <div style={{ minWidth: '10px' }}></div>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                              <IconButton aria-label="cart" onClick={() =>
+                                router.push(`/Library/BranchDetails/${item.BranchCode}`)
+                              }>
+                                <StyledBadge color="secondary" >
+                                  <FiArrowRightCircle size={15} />
+                                </StyledBadge>
+                              </IconButton>
+                            </div>
+                          </div>
+
+
+                        </TableCell>
+
+
+
+
                       </TableRow>
                     }
 
@@ -387,15 +344,7 @@ function DashboardCrypto({courseid}) {
                           <Skeleton variant="text" sx={{ fontSize: '0.5rem' }} width={50} animation="wave" />
 
                         </TableCell>
-                        <TableCell>
-                          <Skeleton variant="text" sx={{ fontSize: '0.5rem' }} width={50} animation="wave" />
 
-
-                        </TableCell>
-                        <TableCell>
-                          <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={200} animation="wave" />
-
-                        </TableCell>
                         <TableCell align="right">
                           <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Skeleton variant="text" sx={{ fontSize: '2rem' }} width={100} animation="wave" />
@@ -409,7 +358,11 @@ function DashboardCrypto({courseid}) {
 
                     )}
                   </TableBody>
+
+
                 }
+
+
 
 
               </Table>

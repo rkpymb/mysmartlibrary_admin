@@ -12,6 +12,8 @@ import {
 } from '@mui/material';
 import NextLink from 'next/link';
 import { SidebarContext } from 'src/contexts/SidebarContext';
+import { BsFillPersonLinesFill, BsFillGeoAltFill, BsFillLaptopFill, BsFillMortarboardFill, BsFillPeopleFill, BsCreditCard2BackFill, BsCurrencyRupee, BsFillGearFill } from "react-icons/bs";
+
 
 import DesignServicesTwoToneIcon from '@mui/icons-material/DesignServicesTwoTone';
 import BrightnessLowTwoToneIcon from '@mui/icons-material/BrightnessLowTwoTone';
@@ -148,9 +150,9 @@ const SubMenuWrapper = styled(Box)(
                 background: ${theme.colors.alpha.trueWhite[100]};
                 opacity: 0;
                 transition: ${theme.transitions.create([
-                  'transform',
-                  'opacity'
-                ])};
+    'transform',
+    'opacity'
+  ])};
                 width: 6px;
                 height: 6px;
                 transform: scale(0);
@@ -183,12 +185,12 @@ function SidebarMenu() {
   return (
     <>
       <MenuWrapper>
-       
+
         <List
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-             Main Dashboards
+              Main Dashboards
             </ListSubheader>
           }
         >
@@ -203,7 +205,7 @@ function SidebarMenu() {
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<BrightnessLowTwoToneIcon />}
+                    startIcon={<BsFillLaptopFill />}
                   >
                     Dashboard
                   </Button>
@@ -218,7 +220,7 @@ function SidebarMenu() {
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<EmojiEventsTwoToneIcon />}
+                    startIcon={<BsFillMortarboardFill />}
                   >
                     Academics
                   </Button>
@@ -233,7 +235,7 @@ function SidebarMenu() {
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<EmojiEventsTwoToneIcon />}
+                    startIcon={<BsFillPeopleFill />}
                   >
                     Users
                   </Button>
@@ -248,9 +250,39 @@ function SidebarMenu() {
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<EmojiEventsTwoToneIcon />}
+                    startIcon={<BsFillPersonLinesFill />}
                   >
                     Educators
+                  </Button>
+                </NextLink>
+              </ListItem>
+              <ListItem component="div">
+                <NextLink href="/Library/main" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/Library/main' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<BsFillGeoAltFill />}
+                  >
+                    Library & Study Center
+                  </Button>
+                </NextLink>
+              </ListItem>
+              <ListItem component="div">
+                <NextLink href="/Settngs/main" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/Settngs/main' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<BsFillGearFill />}
+                  >
+                    Settngs
                   </Button>
                 </NextLink>
               </ListItem>
@@ -261,12 +293,27 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-            Reports
+              Reports
             </ListSubheader>
           }
         >
           <SubMenuWrapper>
             <List component="div">
+              <ListItem component="div">
+                <NextLink href="/Wallet" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/Wallet' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<BsCreditCard2BackFill />}
+                  >
+                    Wallet
+                  </Button>
+                </NextLink>
+              </ListItem>
               <ListItem component="div">
                 <NextLink href="/SubscriptionOrders" passHref>
                   <Button
@@ -276,18 +323,18 @@ function SidebarMenu() {
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<BrightnessLowTwoToneIcon />}
+                    startIcon={<BsCurrencyRupee />}
                   >
-                    Subscription Orders
+                    Orders
                   </Button>
                 </NextLink>
               </ListItem>
-             
+
             </List>
           </SubMenuWrapper>
         </List>
-        
-       
+
+
       </MenuWrapper>
     </>
   );
