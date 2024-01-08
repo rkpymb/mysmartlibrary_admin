@@ -1,4 +1,9 @@
-
+.DatepikerCustom{
+    padding: 10px;
+    border-radius: 10px;
+    outline: none !important;
+    border: none !important;
+}
 .LbPosterGrid {
     margin: 0 auto;
     display: grid;

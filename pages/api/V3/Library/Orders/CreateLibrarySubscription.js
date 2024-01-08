@@ -13,6 +13,7 @@ export default function handler(req, res) {
             AddonsData : req.body.AddonsData,
             ShiftData : req.body.ShiftData,
             UserData : req.body.UserData,
+            DateValue : req.body.DateValue,
             
 
 

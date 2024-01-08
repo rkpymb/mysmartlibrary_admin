@@ -26,6 +26,14 @@ import Badge from '@mui/material/Badge';
 import { BsArrowRightShort } from "react-icons/bs";
 import { LuArrowLeft } from "react-icons/lu";
 import { FiPlusCircle, FiCheckCircle } from "react-icons/fi";
+
+import dayjs from 'dayjs';
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+
+
 import {
     FormControl,
     TextField,
@@ -47,6 +55,7 @@ export default function FullScreenDialog() {
 
     const [BranchCode, setBranchCode] = useState('');
     const [passid, setPassid] = useState('');
+    const [DateValue, setDateValue] = useState('');
     const [Shiftid, setShiftid] = useState('');
     const [SelectedAddonNow, setSelectedAddonNow] = useState([]);
     const [isActive, setIsActive] = useState(3);
@@ -152,33 +161,41 @@ export default function FullScreenDialog() {
 
     const CreateLibrarySubscription = async (e) => {
         e.preventDefault();
-        setBtnloading(true)
-        const sendUM = {
-            JwtToken: Contextdata.JwtToken,
-            PassData: PassData,
-            SeatData: SeatData,
-            AddonsData: selectedItems,
-            ShiftData: ShiftData,
-            UserData: UserData,
-        }
-        const data = await fetch("/api/V3/Library/Orders/CreateLibrarySubscription", {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(sendUM)
-        }).then((a) => {
-            return a.json();
-        })
-            .then((parsed) => {
-                setBtnloading(false)
-                if (parsed.ReqD.done) {
-                    alert(parsed.ReqD.done)
-                    window.location.reload();
-                } else {
-                    alert('Something went wrong')
-                }
+        if (DateValue !== '') {
+           
+            setBtnloading(true)
+            const sendUM = {
+                JwtToken: Contextdata.JwtToken,
+                PassData: PassData,
+                SeatData: SeatData,
+                AddonsData: selectedItems,
+                ShiftData: ShiftData,
+                UserData: UserData,
+                DateValue: DateValue,
+            }
+            const data = await fetch("/api/V3/Library/Orders/CreateLibrarySubscription", {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(sendUM)
+            }).then((a) => {
+                return a.json();
             })
+                .then((parsed) => {
+                    setBtnloading(false)
+                    if (parsed.ReqD.done) {
+                        alert(parsed.ReqD.done)
+                        window.location.reload();
+                    } else {
+                        alert('Something went wrong')
+                    }
+                })
+        } else {
+            alert('Plese Select validy start Date')
+        }
+
+
     };
 
     const BranchSlected = async (e) => {
@@ -251,6 +268,7 @@ export default function FullScreenDialog() {
     };
 
     const handleSearchBranch = (e) => {
+        ResetData()
         const query = e.target.value.toLowerCase();
         setSearchQuery(query);
         const filteredData = BranchList.filter(item => (
@@ -260,8 +278,7 @@ export default function FullScreenDialog() {
 
         setBranchListSearch(filteredData);
     };
-    const Changeuser = async (e) => {
-
+    const ResetData = () => {
         setDiscount(0)
         setTotalamt(0)
         setMainPrice(0)
@@ -270,6 +287,24 @@ export default function FullScreenDialog() {
         setShiftBox(false)
         setPricingBox(false)
         setAddonsBox(false)
+        setAddonsListSearch([])
+        setShiftListSearch([])
+        setPassListSearch([])
+        setDateValue('')
+        setPassid('')
+        setPassData([])
+        setShiftid('')
+        setShiftData([])
+        setSelectedItems([]);
+
+                setSelectedSeat({})
+     
+       
+        setSeatData([])
+    };
+    const Changeuser = async (e) => {
+
+        ResetData()
         const mob = e.target.value
         if (UserMobile !== '' && mob.length == 10) {
             const sendUM = { JwtToken: Contextdata.JwtToken, mobile: mob }
@@ -406,7 +441,7 @@ export default function FullScreenDialog() {
         const sendUM = {
             JwtToken: Contextdata.JwtToken,
             BranchCode: BranchCode,
-            Shiftid:e
+            Shiftid: e
 
         }
         const data = await fetch("/api/V3/Library/Seats/GetLBSeatsbyBranchCode", {
@@ -459,22 +494,22 @@ export default function FullScreenDialog() {
 
         seats.forEach((seat, index) => {
             currentRow.push(
-                <div key={seat._id} 
-                className={
-                    seat.SeatCode === SelectedSeat.SeatCode
-                      ? MYS.SeatItemMainSelected
-                      : seat.Occupied
-                      ? MYS.SeatItemOccupied
-                      : MYS.SeatItemMain
-                  }
-                
-                
-                onClick={() => 
-                    seat.Occupied
-                    ? null
-                    : SeatSlected(seat)
+                <div key={seat._id}
+                    className={
+                        seat.SeatCode === SelectedSeat.SeatCode
+                            ? MYS.SeatItemMainSelected
+                            : seat.Occupied
+                                ? MYS.SeatItemOccupied
+                                : MYS.SeatItemMain
+                    }
 
-                }>
+
+                    onClick={() =>
+                        seat.Occupied
+                            ? null
+                            : SeatSlected(seat)
+
+                    }>
                     <div className={MYS.SeatItemMainA}>
                         <span style={{ fontWeight: 500, fontSize: '12px' }}>{seat.title}</span>
                         <small>Facing : {seat.Facing}</small>
@@ -822,10 +857,10 @@ export default function FullScreenDialog() {
                                                         <div style={{ height: '20px' }}></div>
                                                         <div className={MYS.MainSeatBox}>
                                                             <div className={MYS.SeatBoxLayout}>
-                                                                
+
                                                                 <div className={MYS.SeatBlock1}>
                                                                     <div>
-                                                                    <small style={{ fontSize: '10px' }}> BLOCK 2</small>
+                                                                        <small style={{ fontSize: '10px' }}> BLOCK 2</small>
                                                                         {renderSeatsInRows(row2Seats)}
                                                                     </div>
                                                                 </div>
@@ -975,6 +1010,20 @@ export default function FullScreenDialog() {
                                             // onChange={Changeuser}
                                             />
                                         </div>
+                                        <div style={{ height: '10px' }}></div>
+                                        <div>
+                                        <div style={{ height: '10px' }}></div>
+                                        <span>Validity Start Date : </span>
+                                        <div style={{ height: '10px' }}></div>
+
+                                            <input className={MYS.DatepikerCustom} type='date' 
+                                            value={DateValue} 
+                                          
+                                            onInput={e => setDateValue(e.target.value)}
+                                            />
+
+
+                                        </div>
                                         <div style={{ height: '20px' }}></div>
 
                                         <LoadingButton
@@ -995,12 +1044,7 @@ export default function FullScreenDialog() {
                                 }
 
                             </div>
-                            <div className={MYS.inputlogin}>
 
-
-
-
-                            </div>
 
                             <div style={{ minHeight: 25 }}></div>
 

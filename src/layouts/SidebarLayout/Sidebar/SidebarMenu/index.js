@@ -15,25 +15,6 @@ import { SidebarContext } from 'src/contexts/SidebarContext';
 import { BsFillPersonLinesFill, BsFillGeoAltFill, BsFillLaptopFill, BsFillMortarboardFill, BsFillPeopleFill, BsCreditCard2BackFill, BsCurrencyRupee, BsFillGearFill } from "react-icons/bs";
 
 
-import DesignServicesTwoToneIcon from '@mui/icons-material/DesignServicesTwoTone';
-import BrightnessLowTwoToneIcon from '@mui/icons-material/BrightnessLowTwoTone';
-import MmsTwoToneIcon from '@mui/icons-material/MmsTwoTone';
-import TableChartTwoToneIcon from '@mui/icons-material/TableChartTwoTone';
-import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
-import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
-import BeachAccessTwoToneIcon from '@mui/icons-material/BeachAccessTwoTone';
-import EmojiEventsTwoToneIcon from '@mui/icons-material/EmojiEventsTwoTone';
-import FilterVintageTwoToneIcon from '@mui/icons-material/FilterVintageTwoTone';
-import HowToVoteTwoToneIcon from '@mui/icons-material/HowToVoteTwoTone';
-import LocalPharmacyTwoToneIcon from '@mui/icons-material/LocalPharmacyTwoTone';
-import RedeemTwoToneIcon from '@mui/icons-material/RedeemTwoTone';
-import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
-import TrafficTwoToneIcon from '@mui/icons-material/TrafficTwoTone';
-import CheckBoxTwoToneIcon from '@mui/icons-material/CheckBoxTwoTone';
-import ChromeReaderModeTwoToneIcon from '@mui/icons-material/ChromeReaderModeTwoTone';
-import WorkspacePremiumTwoToneIcon from '@mui/icons-material/WorkspacePremiumTwoTone';
-import CameraFrontTwoToneIcon from '@mui/icons-material/CameraFrontTwoTone';
-import DisplaySettingsTwoToneIcon from '@mui/icons-material/DisplaySettingsTwoTone';
 
 const MenuWrapper = styled(Box)(
   ({ theme }) => `
@@ -272,17 +253,17 @@ function SidebarMenu() {
                 </NextLink>
               </ListItem>
               <ListItem component="div">
-                <NextLink href="/Settngs/main" passHref>
+                <NextLink href="/Settings/main" passHref>
                   <Button
                     className={
-                      currentRoute === '/Settngs/main' ? 'active' : ''
+                      currentRoute === '/Settings/main' ? 'active' : ''
                     }
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
                     startIcon={<BsFillGearFill />}
                   >
-                    Settngs
+                    Settings
                   </Button>
                 </NextLink>
               </ListItem>
@@ -315,17 +296,17 @@ function SidebarMenu() {
                 </NextLink>
               </ListItem>
               <ListItem component="div">
-                <NextLink href="/SubscriptionOrders" passHref>
+                <NextLink href="/AllOrders" passHref>
                   <Button
                     className={
-                      currentRoute === '/SubscriptionOrders' ? 'active' : ''
+                      currentRoute === '/AllOrders' ? 'active' : ''
                     }
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
                     startIcon={<BsCurrencyRupee />}
                   >
-                    Orders
+                    Manage Orders
                   </Button>
                 </NextLink>
               </ListItem>
