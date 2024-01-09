@@ -99,9 +99,7 @@ export default function ScrollDialog() {
     };
 
 
-    const Addposter = async (e) => {
-       
-    }
+   
 
 
     const handlePType = (event) => {
