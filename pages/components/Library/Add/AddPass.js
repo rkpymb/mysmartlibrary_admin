@@ -131,7 +131,7 @@ const EditCatModal = () => {
             JwtToken: Contextdata.JwtToken,
             title: title,
             Branchcode: Branchcode,
-            img: Logo,
+            img: e,
             details: details,
             Validity: Validity,
             isActive: isActive,

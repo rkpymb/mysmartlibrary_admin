@@ -105,7 +105,7 @@ const EditCatModal = ({ PassData }) => {
         const sendUM = {
             JwtToken: Contextdata.JwtToken,
             title: title,
-            img: Logo,
+            img: e,
             details: details,
             Validity: Validity,
             isActive: isActive,
