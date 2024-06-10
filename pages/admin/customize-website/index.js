@@ -4,7 +4,7 @@ import CheckloginContext from '/context/auth/CheckloginContext'
 import SidebarLayout from 'src/layouts/SidebarLayout';
 import MYS from '/Styles/mystyle.module.css'
 import { useRouter, useParams } from 'next/router'
-import FileUpload from '../../components/Admin/FileUpload'
+import Uploadimg from '../Comp/Uploadimg'
 
 import LoadingButton from '@mui/lab/LoadingButton';
 import { LuChevronRight } from "react-icons/lu";
@@ -18,11 +18,11 @@ import * as animationData from '/Data/Lottie/webappanima.json'
 
 
 import {
- 
+
   TextField,
-  
+
   styled,
- 
+
 } from '@mui/material';
 function DashboardCrypto() {
   const router = useRouter()
@@ -35,6 +35,14 @@ function DashboardCrypto() {
   const [LongDesc, setLongDesc] = useState('');
   const [Logo, setLogo] = useState('');
 
+  const onImageUpload = (Filedata) => {
+    if (Filedata) {
+      alert('Image Upload Successfully, please click update button to save changes');
+      setLogo(Filedata.postData.fileName)
+    }
+  };
+
+
 
   const defaultOptions = {
     loop: true,
@@ -44,9 +52,9 @@ function DashboardCrypto() {
       preserveAspectRatio: 'xMidYMid slice'
     }
   }
-let sendUM ={}
+  let sendUM = {}
   const GetData = async () => {
-   
+
     const data = await fetch("/api/V3/Admin/GetWebData", {
       method: "POST",
       headers: {
@@ -57,14 +65,14 @@ let sendUM ={}
       return a.json();
     })
       .then((parsed) => {
-      
+
         if (parsed.ReqData.done) {
           setRetdata(parsed.ReqData.done)
           setWebName(parsed.ReqData.done.WebData.WebName)
           setShortDesc(parsed.ReqData.done.WebData.ShortDesc)
           setLongDesc(parsed.ReqData.done.WebData.LongDesc)
           setLogo(parsed.ReqData.done.WebData.Logo)
-        
+
           setLoading(false)
 
         }
@@ -78,12 +86,12 @@ let sendUM ={}
 
   const UpdateWeb = async (e) => {
     e.preventDefault();
-    let FinalFileName = document.querySelector('#FinalFileName').value
+    let FinalFileName = Logo
 
-    if (WebName !== '' && ShortDesc !== '' && LongDesc !== '' && FinalFileName !== '') {
+    if (WebName !== '' && ShortDesc !== '' && LongDesc !== '' && FinalFileName !== null) {
       setBtnloading(true)
       const sendUM = {
-       
+
         WebName: WebName,
         Logo: FinalFileName,
         ShortDesc: ShortDesc,
@@ -167,20 +175,19 @@ let sendUM ={}
                   <img
                     src={`${MediaFilesUrl}${MediaFilesFolder}/${Logo}`}
                     width={'100%'}
-                    
+
                     layout='responsive'
                     alt='img'
                     id="Fimage"
 
                   />
-                  <div>
-                    <small>Logo</small>
-                  </div>
+
                 </div>
 
                 <div className={MYS.featuresimageboxB}>
-                  <FileUpload />
+                  <Uploadimg onImageUpload={onImageUpload} Title={'Change Website Logo'} />
                 </div>
+
               </div>
               <input type="hidden" value={Logo} id="FinalFileName" />
 
@@ -188,7 +195,7 @@ let sendUM ={}
 
             </form>
             <LoadingButton
-             
+
               onClick={UpdateWeb}
               endIcon={<LuChevronRight />}
               loading={Btnloading}

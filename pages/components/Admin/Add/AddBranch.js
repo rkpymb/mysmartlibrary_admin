@@ -9,7 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import MYS from '/Styles/mystyle.module.css'
 
-import FileUpload from '../FileUpload'
+import Uploadimg from '../../../admin/Comp/Uploadimg'
 import { Toast } from 'primereact/toast';
 import { useRouter, useParams } from 'next/router'
 
@@ -27,8 +27,8 @@ export default function ScrollDialog() {
     const router = useRouter()
 
     const [open, setOpen] = useState(false);
-   
-    const [Mainimg, setMainimg] = useState('/img/picture.png');
+
+    const [Mainimg, setMainimg] = useState(null);
     const [scroll, setScroll] = useState('paper');
     const [name, setName] = useState('');
     const [Sname, setSname] = useState('');
@@ -43,7 +43,7 @@ export default function ScrollDialog() {
     const [MobileNum, setMobileNum] = useState('');
     const [Email, setEmail] = useState('');
     const [Whatsapp, setWhatsapp] = useState('');
-    
+
     const handleClickOpen = (scrollType) => () => {
         setOpen(true);
         setScroll(scrollType);
@@ -63,17 +63,21 @@ export default function ScrollDialog() {
         }
     }, [open]);
 
+
+
+    
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        let FinalFileName = document.querySelector('#FinalFileName').value
-        if (name !== '' 
-        && Sname !=='' 
-        && City !==''
-        && State !== ''
-        && pincode !== ''
-        && Address !== ''
-        && FinalFileName !== ''
-         ) {
+        let FinalFileName = Mainimg
+        if (name !== ''
+            && Sname !== ''
+            && City !== ''
+            && State !== ''
+            && pincode !== ''
+            && Address !== ''
+            && FinalFileName !== ''
+        ) {
             setBtnloading(true)
             AddBranch(FinalFileName)
         } else {
@@ -86,13 +90,13 @@ export default function ScrollDialog() {
 
     const AddBranch = async (e) => {
 
-       
-        const sendUM = { 
-           
+
+        const sendUM = {
+
             name: name,
             Sname: Sname,
             logo: e,
-            City:City,
+            City: City,
             Address: Address,
             State: State,
             pincode: pincode,
@@ -100,10 +104,10 @@ export default function ScrollDialog() {
             latitude: latitude,
             GoogleMap: GoogleMap,
             isActive: isActive,
-            MobileNum:MobileNum,
+            MobileNum: MobileNum,
             Email: Email,
-            Whatsapp:Whatsapp,
-        
+            Whatsapp: Whatsapp,
+
         }
         const data = await fetch("/api/V3/Admin/Branches/AddBranch", {
             method: "POST",
@@ -131,23 +135,38 @@ export default function ScrollDialog() {
 
     useEffect(() => {
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            function (position) {
-              const latitude = position.coords.latitude;
-              const longitude = position.coords.longitude;
-              setLatitude(latitude);
-              setLongitude(longitude);
-              const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
-              setGoogleMap(googleMapsLink)
-            },
-            function (error) {
-              console.error('Error getting geolocation: ' + error.message);
-            }
-          );
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    setLatitude(latitude);
+                    setLongitude(longitude);
+                    const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                    setGoogleMap(googleMapsLink)
+                },
+                function (error) {
+                    console.error('Error getting geolocation: ' + error.message);
+                }
+            );
         } else {
-          console.error('Geolocation is not supported by this browser.');
+            console.error('Geolocation is not supported by this browser.');
         }
-      }, []);
+    }, []);
+    useEffect(() => {
+     
+        const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+        setGoogleMap(googleMapsLink)
+    }, [latitude,longitude]);
+
+
+    const onImageUpload = (Filedata) => {
+        if (Filedata) {
+         
+            setMainimg(Filedata.postData.fileName)
+        } else {
+            setMainimg(null)
+        }
+    };
 
 
     return (
@@ -173,23 +192,7 @@ export default function ScrollDialog() {
 
                     <div>
                         <div className={MYS.featuresimagebox}>
-                            <div className={MYS.featuresimageboxA}>
-                                <img
-                                    src={`${Mainimg}`}
-                                    width={100}
-                                    height={100}
-                                    layout='responsive'
-                                    alt='img'
-                                    id="Fimage"
-
-                                />
-                                <div>
-                                    <small>Branch Logo</small>
-                                </div>
-                            </div>
-                            <div className={MYS.featuresimageboxB}>
-                                <FileUpload />
-                            </div>
+                            <Uploadimg onImageUpload={onImageUpload} Title={'Upload Branch Logo'} />
                         </div>
                         <form onSubmit={handleSubmit} >
                             <div className={MYS.inputlogin}>
@@ -337,7 +340,7 @@ export default function ScrollDialog() {
                     <LoadingButton
                         size="small"
                         onClick={handleSubmit}
-                     
+
                         loading={Btnloading}
                         loadingPosition="end"
                         variant="contained"

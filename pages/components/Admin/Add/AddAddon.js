@@ -5,7 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import DialogTitle from '@mui/material/DialogTitle';
-import FileUpload from '../FileUpload'
+import Uploadimg from '../../../admin/Comp/Uploadimg'
 
 import Skeleton from '@mui/material/Skeleton';
 import Select from '@mui/material/Select';
@@ -28,7 +28,7 @@ import {
 } from '@mui/material';
 import CheckloginContext from '/context/auth/CheckloginContext'
 const EditCatModal = () => {
-    const [Logo, setLogo] = useState('/img/picture.png');
+  
     const Contextdata = useContext(CheckloginContext)
     const router = useRouter()
     const [Btnloading, setBtnloading] = useState(false);
@@ -42,6 +42,7 @@ const EditCatModal = () => {
     const [Branchcode, setBranchcode] = useState('');
     const [ValidityDay, setValidityDay] = useState(1);
     const [Loadingbranch, setLoadingbranch] = useState(false);
+    const [UploadedImage, setUploadedImage] = useState(null);
 
     const [BranchList, setBranchList] = useState([]);
 
@@ -109,13 +110,13 @@ const EditCatModal = () => {
     const handleSubmit = (e) => {
 
         e.preventDefault();
-        let FinalFileName = document.querySelector('#FinalFileName').value
+        let FinalFileName = UploadedImage
         if (title !== ''
             && Branchcode !== ''
             && details !== ''
             && sprice !== ''
             && mprice !== ''
-            && FinalFileName !== ''
+            && FinalFileName !== null
         ) {
             setBtnloading(true)
             AddPass(FinalFileName)
@@ -125,6 +126,16 @@ const EditCatModal = () => {
         }
 
 
+    };
+
+
+    const onImageUpload = (Filedata) => {
+        if (Filedata) {
+
+            setUploadedImage(Filedata.postData.fileName)
+        } else {
+            setUploadedImage(null)
+        }
     };
 
     const AddPass = async (e) => {
@@ -301,27 +312,8 @@ const EditCatModal = () => {
 
                             <div style={{ minHeight: 25 }}></div>
                             <div className={MYS.featuresimagebox}>
-                                <div className={MYS.featuresimageboxA}>
-                                    <img
-                                        src={`${Logo}`}
-                                        width={100}
-                                        height={100}
-                                        layout='responsive'
-                                        alt='img'
-                                        id="Fimage"
-
-                                    />
-                                    <div>
-                                        <small>Addon image</small>
-                                    </div>
-                                </div>
-
-                                <div className={MYS.featuresimageboxB}>
-                                    <FileUpload />
-                                </div>
+                                <Uploadimg onImageUpload={onImageUpload} Title={'Upload Addon Image'} />
                             </div>
-                            <input type="hidden" value={Logo} id="FinalFileName" />
-
                             <div style={{ minHeight: 25 }}></div>
 
                         </form>

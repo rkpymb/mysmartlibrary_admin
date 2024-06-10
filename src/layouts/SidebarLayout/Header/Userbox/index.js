@@ -83,10 +83,8 @@ function HeaderUserbox() {
   const LogOutUser = async () => {
     let text = "Do you Really want to log out?";
     if (confirm(text) == true) {
-      Show && Contextdata.Logout()
-      removeCookie('jwt_token');
-      setShow(false);
-
+      router.push('/Logout')
+    
     }
 
 
@@ -99,11 +97,7 @@ function HeaderUserbox() {
 
   }, [Contextdata.Data]);
 
-  const removeCookie = (name) => {
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-    alert('Logout Succesfully', 'success');
-    window.location.reload();
-  };
+ 
 
   return (
     <>

@@ -12,6 +12,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { LuArrowRight } from "react-icons/lu";
 import DbTopBox from './DbTopBox'
 
+
 import Badge from '@mui/material/Badge';
 
 import {
@@ -82,7 +83,7 @@ const WebAllData = () => {
 
         <div className={MYS.BtnboxPage}>
           <div className={MYS.BtnboxPageA}>
-            Credits Balance :  ₹ {AllData && AllData.Balance}
+            Credits Balance :  ₹ {AllData && AllData.Balance || 0}
           </div>
           <div className={MYS.BtnboxPageB}>
             <LoadingButton

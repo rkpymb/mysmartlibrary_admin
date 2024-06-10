@@ -10,13 +10,15 @@ import Image from 'next/image'
 import ClickCopyText from './ClickCopyText'
 import { WebMainDomain } from '/Data/config'
 
+import { LuPencilRuler } from "react-icons/lu";
+
 import Skeleton from '@mui/material/Skeleton';
 
 import Badge from '@mui/material/Badge';
 import {
   styled,
 } from '@mui/material';
-const DbTopBox = ({AllData}) => {
+const DbTopBox = ({ AllData }) => {
   const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
 
   const router = useRouter()
@@ -71,11 +73,11 @@ const DbTopBox = ({AllData}) => {
               <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={'70%'} />
             </div> :
             <div className={MYS.WebLive}>
-               {AllData && AllData.SubSData == 0 ?
-                 <div className={MYS.Pmtag} style={{backgroundColor:'red'}}><span>Deactivated</span></div>:
-                 <div className={MYS.Pmtag}><span>Active</span></div>
+              {AllData && AllData.SubSData == 0 ?
+                <div className={MYS.Pmtag} style={{ backgroundColor: 'red' }}><span>Deactivated</span></div> :
+                <div className={MYS.Pmtag}><span>Active</span></div>
               }
-            
+              <div className={MYS.Pmtag} style={{backgroundColor:"#F39C12"}}  onClick={() => router.push('/admin/customize-website')}> <LuPencilRuler color='white' />  <span style={{marginLeft:'5px'}}>Customize</span></div>
             </div>
           }
 

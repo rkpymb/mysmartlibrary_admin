@@ -168,7 +168,7 @@ const EditCatModal = () => {
                 >
                     <DialogTitle id="scroll-dialog-title">Set Primary Branch</DialogTitle>
                     <DialogContent dividers={scroll === 'paper'}>
-                        {Loading ? <Skeleton variant="text" animation='wave' sx={{ fontSize: '2rem' }} width={'100%'} /> :
+                        {Loading && Contextdata.Data == null ? <Skeleton variant="text" animation='wave' sx={{ fontSize: '2rem' }} width={'100%'} /> :
 
                             <div>
                                 <div className={MYS.BlistGrid}>
@@ -191,7 +191,7 @@ const EditCatModal = () => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    {Contextdata.Data.BranchCode == item.BranchCode ? <div className={MYS.Statustag}>
+                                                    {Contextdata.Data && Contextdata.Data.BranchCode == item.BranchCode ? <div className={MYS.Statustag}>
                                                         <span>Primary</span>
 
                                                     </div> : null}
@@ -213,15 +213,15 @@ const EditCatModal = () => {
                                             <div className={MYS.PMItemFotter}>
 
                                                 <LoadingButton
-                                                    endIcon={Contextdata.Data.BranchCode == item.BranchCode ? <LuCheckCheck /> : <LuChevronRight />}
+                                                    endIcon={Contextdata.Data && Contextdata.Data.BranchCode == item.BranchCode ? <LuCheckCheck /> : <LuChevronRight />}
                                                     loading={BtnLoading}
                                                     disabled={BtnLoading}
                                                     loadingPosition="end"
-                                                    variant={Contextdata.Data.BranchCode == item.BranchCode ? "contained" : "outlined"}
+                                                    variant={Contextdata.Data && Contextdata.Data.BranchCode == item.BranchCode ? "contained" : "outlined"}
                                                     fullWidth
                                                     onClick={() => SelectedBranch(item)}
                                                 >
-                                                    <span>{Contextdata.Data.BranchCode == item.BranchCode ? "Selected" : "Select Branch "}</span>
+                                                    <span>{Contextdata.Data && Contextdata.Data.BranchCode == item.BranchCode ? "Selected" : "Select Branch "}</span>
                                                 </LoadingButton>
                                             </div>
 
@@ -239,68 +239,7 @@ const EditCatModal = () => {
                 </Dialog>
             </div>
 
-            {/* <div hover key={index} className={MYS.UserItemMain}>
-
-                <div className={MYS.LBlogo}>
-                    <img
-                        src={`${MediaFilesUrl}${MediaFilesFolder}/${item.logo}`}
-                        alt="image"
-                        layout="responsive"
-                        placeholder='blur'
-
-                        width={'100%'}
-
-                        quality={100}
-
-
-                    />
-                </div>
-
-                <div className={MYS.UserItemTitle}>
-                    <span>{item.name} ({item.Sname})</span>
-                    <small>Branch Code: {item.BranchCode}</small>
-                </div>
-                <div className={MYS.UserItemDescB}>
-                    <small>{item.Address} </small>
-                    <small>{item.City} {item.State} {item.pincode}</small>
-                </div>
-
-                <div className={MYS.PMItemFotter}>
-                    <div className={MYS.PMItemFA}>
-                        <div className={MYS.Pmtag}>
-
-                            <span>  {item.isActive == 3 ? 'Active' : 'Disabled'}</span>
-
-
-                        </div>
-
-                    </div>
-                    <div className={MYS.PMItemFB}>
-
-                        <div className={MYS.Flexbtnbox}>
-
-                            <div style={{ minWidth: '10px' }}></div>
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <LoadingButton
-                                    endIcon={<LuChevronRight />}
-                                    loading={false}
-                                    loadingPosition="end"
-                                    variant="contained"
-                                    fullWidth
-                                    onClick={() => router.push(`/admin/recharge?amt=${PayCredit}`)}
-                                >
-                                    <span>Recharge Now</span>
-                                </LoadingButton>
-
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-
-            </div> */}
+          
         </div>
     )
 }

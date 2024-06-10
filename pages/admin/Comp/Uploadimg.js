@@ -24,7 +24,7 @@ import {
     useTheme,
 } from '@mui/material';
 import { SellTwoTone } from '@mui/icons-material';
-const UploadFiles = ({ onImageUpload }) => {
+const UploadFiles = ({ onImageUpload,Title }) => {
     const router = useRouter()
 
     const Contextdata = useContext(CheckloginContext)
@@ -167,7 +167,7 @@ const UploadFiles = ({ onImageUpload }) => {
                     >
                         <img src='/img/upload.png' width={'100%'} />
                     </IconButton>
-                    <span className={MYS.ChoosefileText}>Upload Image</span>
+                    <span className={MYS.ChoosefileText}>{Title? Title: 'Upload Image'}</span>
 
                 </div>
 

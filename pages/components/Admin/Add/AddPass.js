@@ -5,8 +5,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import DialogTitle from '@mui/material/DialogTitle';
-import FileUpload from '../FileUpload'
-import EditIcon from '@mui/icons-material/Edit';
+import Uploadimg from '../../../admin/Comp/Uploadimg'
+
 import Skeleton from '@mui/material/Skeleton';
 import Select from '@mui/material/Select';
 import { FiEdit, FiTrash } from "react-icons/fi";
@@ -29,7 +29,7 @@ import {
 } from '@mui/material';
 import CheckloginContext from '/context/auth/CheckloginContext'
 const EditCatModal = () => {
-    const [Logo, setLogo] = useState('/img/picture.png');
+    const [UploadedImage, setUploadedImage] = useState(null);
     const Contextdata = useContext(CheckloginContext)
     const router = useRouter()
     const [Btnloading, setBtnloading] = useState(false);
@@ -61,7 +61,7 @@ const EditCatModal = () => {
         setBranchcode(event.target.value);
         alert(`This Pass will be added to ${event.target.value}`)
     };
-   
+
     const GetBranchList = async () => {
         const dataid = '08c5th4rh86ht57h6g';
         const sendUM = { dataid }
@@ -89,6 +89,17 @@ const EditCatModal = () => {
         GetBranchList()
     }, [router.query])
 
+
+    const onImageUpload = (Filedata) => {
+        if (Filedata) {
+
+            setUploadedImage(Filedata.postData.fileName)
+        } else {
+            setUploadedImage(null)
+        }
+    };
+
+
     const handleChangeTSStatus = (event) => {
         setIsActive(event.target.value);
     };
@@ -108,11 +119,11 @@ const EditCatModal = () => {
     const handleSubmit = (e) => {
 
         e.preventDefault();
-        let FinalFileName = document.querySelector('#FinalFileName').value
+        let FinalFileName = UploadedImage
         if (title !== ''
             && details !== ''
             && Validity !== ''
-            && FinalFileName !== ''
+            && FinalFileName !== null
         ) {
             setBtnloading(true)
             AddPass(FinalFileName)
@@ -124,11 +135,13 @@ const EditCatModal = () => {
 
     };
 
+    
+
     const AddPass = async (e) => {
 
 
         const sendUM = {
-           
+
             title: title,
             Branchcode: Branchcode,
             img: e,
@@ -185,7 +198,7 @@ const EditCatModal = () => {
                     <DialogTitle id="scroll-dialog-title">Add New Subscription Pass</DialogTitle>
                     <DialogContent dividers={scroll === 'paper'}>
                         <form onSubmit={handleSubmit} >
-                        <div className={MYS.inputlogin}>
+                            <div className={MYS.inputlogin}>
                                 {Loadingbranch &&
                                     <div>
                                         <Skeleton variant="rounded" width='100%' height={60} />
@@ -278,26 +291,9 @@ const EditCatModal = () => {
 
                             <div style={{ minHeight: 25 }}></div>
                             <div className={MYS.featuresimagebox}>
-                                <div className={MYS.featuresimageboxA}>
-                                    <img
-                                        src={`${Logo}`}
-                                        width={100}
-                                        height={100}
-                                        layout='responsive'
-                                        alt='img'
-                                        id="Fimage"
-
-                                    />
-                                    <div>
-                                        <small>Pass image</small>
-                                    </div>
-                                </div>
-
-                                <div className={MYS.featuresimageboxB}>
-                                    <FileUpload />
-                                </div>
+                                <Uploadimg onImageUpload={onImageUpload} Title={'Upload Pass Icon'} />
                             </div>
-                            <input type="hidden" value={Logo} id="FinalFileName" />
+                           
 
                             <div style={{ minHeight: 25 }}></div>
 
@@ -308,7 +304,7 @@ const EditCatModal = () => {
                         <LoadingButton
                             size="small"
                             onClick={handleSubmit}
-                         
+
                             loading={Btnloading}
                             loadingPosition="end"
                             variant="contained"

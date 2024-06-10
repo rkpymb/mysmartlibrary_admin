@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 
 import DialogTitle from '@mui/material/DialogTitle';
-import FileUpload from '../../components/Admin/FileUpload'
+import Uploadimg from '../Comp/Uploadimg'
 import SidebarLayout from 'src/layouts/SidebarLayout';
 import MYS from '/Styles/mystyle.module.css'
 
@@ -49,6 +49,8 @@ function DashboardCrypto() {
   const [limit, setlimit] = useState(10);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
+
+
 
   const [Btnloading, setBtnloading] = useState(false);
   const [open, setOpen] = React.useState(false);
@@ -136,7 +138,7 @@ function DashboardCrypto() {
 
 
   useEffect(() => {
-setPage(1);
+    setPage(1);
     GetData();
 
   }, [router.query])
@@ -157,7 +159,7 @@ setPage(1);
     if (confirm(text) == true) {
 
       const sendUM = {
-       
+
         id: e
       }
       const data = await fetch("/api/V3/Admin/Passes/DeletePass", {
@@ -206,76 +208,81 @@ setPage(1);
   }, [open]);
 
   const EditPass = (Data) => {
-  
+
     setPassData(Data)
 
     setLogo(Data.img);
     setTitle(Data.title);
     setdetails(Data.details);
-    
+
     setIsActive(Data.isActive);
     setValidity(Data.Validity);
     setOpen(true)
 
 
   };
- 
+
   const handleSubmit = (e) => {
 
     e.preventDefault();
-    let FinalFileName = document.querySelector('#FinalFileName').value
+    let FinalFileName = Logo
     if (title !== ''
-        && details !== ''
-        && Validity !== ''
-        && FinalFileName !== ''
+      && details !== ''
+      && Validity !== ''
+      && FinalFileName !== ''
     ) {
-        setBtnloading(true)
-        UpdatePassData(FinalFileName)
+      setBtnloading(true)
+      UpdatePassData(FinalFileName)
 
     } else {
-        alert('all fields are required');
+      alert('all fields are required');
     }
 
 
-};
+  };
 
-const UpdatePassData = async (e) => {
+  const UpdatePassData = async (e) => {
 
 
     const sendUM = {
-      
-        title: title,
-        img: e,
-        details: details,
-        Validity: Validity,
-        isActive: isActive,
-        id: PassData._id,
+
+      title: title,
+      img: e,
+      details: details,
+      Validity: Validity,
+      isActive: isActive,
+      id: PassData._id,
 
     }
     const data = await fetch("/api/V3/Admin/Passes/UpdatePass", {
-        method: "POST",
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(sendUM)
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(sendUM)
     }).then((a) => {
-        return a.json();
+      return a.json();
     })
-        .then((parsed) => {
-            setBtnloading(false)
-            if (parsed.ReqD.done) {
-                alert(`${title} Subscription Pass Updated Successfully`)
-                setOpen(false)
-                router.push(`/admin/subscription-pass/`)
-            } else {
+      .then((parsed) => {
+        setBtnloading(false)
+        if (parsed.ReqD.done) {
+          alert(`${title} Subscription Pass Updated Successfully`)
+          setOpen(false)
+          router.push(`/admin/subscription-pass/`)
+        } else {
 
-                alert('Something went Wrong, please try again')
-            }
+          alert('Something went Wrong, please try again')
+        }
 
 
-        })
-}
-
+      })
+  }
+  const onImageUpload = (Filedata) => {
+    if (Filedata) {
+      alert('Image Upload Successfully, please click update button to save changes');
+      setLogo(Filedata.postData.fileName)
+    }
+  };
 
   return (
     <>
@@ -284,7 +291,7 @@ const UpdatePassData = async (e) => {
       <div className={MYS.MboxMain}>
         <div className={MYS.BtnboxPage}>
           <div className={MYS.BtnboxPageA}>
-          Subscription Pass : {AllData}
+            Subscription Pass : {AllData}
           </div>
           <div className={MYS.BtnboxPageB}>
             <AddPass />
@@ -333,7 +340,7 @@ const UpdatePassData = async (e) => {
 
                 </div>
                 <div className={MYS.UserItemDescB}>
-                
+
                   <small>Validity in Day :  {item.Validity} </small>
 
                 </div>
@@ -419,7 +426,7 @@ const UpdatePassData = async (e) => {
 
               />
             </div>
-           
+
 
             <div className={MYS.inputlogin}>
               <TextField
@@ -457,26 +464,8 @@ const UpdatePassData = async (e) => {
 
             <div style={{ minHeight: 25 }}></div>
             <div className={MYS.featuresimagebox}>
-              <div className={MYS.featuresimageboxA}>
-                <img
-                  src={`${MediaFilesUrl}${MediaFilesFolder}/${Logo}`}
-                  width={100}
-                  height={100}
-                  layout='responsive'
-                  alt='img'
-                  id="Fimage"
-
-                />
-                <div>
-                  <small>Pass image</small>
-                </div>
-              </div>
-
-              <div className={MYS.featuresimageboxB}>
-                <FileUpload />
-              </div>
+              <Uploadimg onImageUpload={onImageUpload} Title={'Change Pass Icon'} />
             </div>
-            <input type="hidden" value={Logo} id="FinalFileName" />
 
             <div style={{ minHeight: 25 }}></div>
 

@@ -14,6 +14,7 @@ import BranchDetails from '../comp/BranchDetails'
 
 import LibraryPosters from '../comp/LibraryPosters'
 import LibraryPhotos from '../comp/LibraryPhotos'
+import BranchAmenities from '../comp/BranchAmenities'
 
 
 
@@ -103,27 +104,32 @@ function DashboardCrypto({ BranchCode }) {
 
 
             <div>
-                
+
                 <div className={MYS.MboxMain}>
-                    
-                            {!IsLoading &&
 
-                                <BranchDetails BranchData={BranchData} />
-                            }
-                            {!IsLoading &&
+                    {!IsLoading &&
 
-                                <LibraryPosters BranchData={BranchData} />
-                            }
-                            {!IsLoading &&
+                        <BranchDetails BranchData={BranchData} />
+                    }
+                    {!IsLoading &&
 
-                                <LibraryPhotos BranchData={BranchData} />
-                            }
+                        <BranchAmenities BranchData={BranchData} />
+                    }
+
+                    {!IsLoading &&
+
+                        <LibraryPosters BranchData={BranchData} />
+                    }
+                    {!IsLoading &&
+
+                        <LibraryPhotos BranchData={BranchData} />
+                    }
 
 
 
 
 
-                        </div>
+                </div>
 
             </div>
 

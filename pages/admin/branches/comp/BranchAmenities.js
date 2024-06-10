@@ -24,7 +24,7 @@ import SendIcon from '@mui/icons-material/Send';
 import Select from '@mui/material/Select';
 
 
-import Uploadimg from '../../../admin/Comp/Uploadimg'
+import Uploadimg from '../../Comp/Uploadimg'
 
 import {
   IconButton,
@@ -37,7 +37,7 @@ import {
 } from '@mui/material';
 
 
-const BranchDetails = ({ BranchData }) => {
+const BranchAmenities = ({ BranchData }) => {
   const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
 
 
@@ -47,14 +47,16 @@ const BranchDetails = ({ BranchData }) => {
 
   const [UploadedImage, setUploadedImage] = useState(null);
   const Contextdata = useContext(CheckloginContext)
+  const [AmenitieTitle, setAmenitieTitle] = useState('');
   const [Description, setDescription] = useState('');
+  const [Order, setOrder] = useState(0);
   const [Btnloading, setBtnloading] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState('paper');
 
   const [isActive, setIsActive] = useState(3);
 
-  const [PhotosList, setPhotosList] = useState([]);
+  const [Amenities, setAmenities] = useState([]);
 
 
   const handleClickOpen = (scrollType) => () => {
@@ -97,21 +99,20 @@ const BranchDetails = ({ BranchData }) => {
     },
   }));
   useEffect(() => {
-    console.log('BranchData')
-    console.log(BranchData.BranchCode)
-    GetAllPhotos(BranchData.BranchCode)
+
+    GetAllAmenities(BranchData.BranchCode)
   }, [])
 
 
-  const DeletePhoto = async (e) => {
-    let text = "Do you really want to delete This Photo ?";
+  const DeleteAmenitiePhoto = async (e) => {
+    let text = "Do you really want to delete This Amenitie ?";
     if (confirm(text) == true) {
 
       const sendUM = {
 
         id: e
       }
-      const data = await fetch("/api/V3/Admin/Photos/DeleteLBphoto", {
+      const data = await fetch("/api/V3/Admin/Amenities/DeleteAmenitie", {
         method: "POST",
         headers: {
           'Content-type': 'application/json'
@@ -124,7 +125,7 @@ const BranchDetails = ({ BranchData }) => {
 
           if (parsed.ReqD.done) {
             alert(parsed.ReqD.done)
-            GetAllPhotos(BranchData.BranchCode)
+            GetAllAmenities(BranchData.BranchCode)
 
           } else {
             alert('Something went wrong')
@@ -139,13 +140,13 @@ const BranchDetails = ({ BranchData }) => {
 
   };
 
-  const GetAllPhotos = async (e) => {
+  const GetAllAmenities = async (e) => {
 
     const sendUM = {
 
       BranchCode: e
     }
-    const data = await fetch("/api/V3/Admin/Photos/AllLBPhoto", {
+    const data = await fetch("/api/V3/Admin/Amenities/GetAllAmenities", {
       method: "POST",
       headers: {
         'Content-type': 'application/json'
@@ -155,9 +156,9 @@ const BranchDetails = ({ BranchData }) => {
       return a.json();
     })
       .then((parsed) => {
-        console.log(parsed.ReqD.Photoslist)
-        if (parsed.ReqD.Photoslist) {
-          setPhotosList(parsed.ReqD.Photoslist)
+      
+        if (parsed.ReqD.Amenities) {
+          setAmenities(parsed.ReqD.Amenities)
           setIsLoading(false)
         }
 
@@ -173,9 +174,9 @@ const BranchDetails = ({ BranchData }) => {
 
     e.preventDefault();
     let FinalFileName = UploadedImage
-    if (FinalFileName !== null && Description !== '') {
+    if (FinalFileName !== null && AmenitieTitle !== '') {
       setBtnloading(true)
-      AddPass(FinalFileName)
+      AddAmenities(FinalFileName)
 
     } else {
       alert('all fields are required');
@@ -184,17 +185,18 @@ const BranchDetails = ({ BranchData }) => {
 
   };
 
-  const AddPass = async (e) => {
+  const AddAmenities = async (e) => {
     const sendUM = {
-
       BranchCode: BranchData.BranchCode,
       img: e,
+      Title: AmenitieTitle,
       Description: Description,
-      isActive: true,
+      isActive: isActive,
+      order: Order,
 
 
     }
-    const data = await fetch("/api/V3/Admin/Photos/AddLBPhoto", {
+    const data = await fetch("/api/V3/Admin/Amenities/AddLbAmenities", {
       method: "POST",
       headers: {
         'Content-type': 'application/json'
@@ -206,9 +208,9 @@ const BranchDetails = ({ BranchData }) => {
       .then((parsed) => {
         setBtnloading(false)
         if (parsed.ReqD.done) {
-          alert(`Photo Added successfully`)
+          alert(`${AmenitieTitle} Added successfully`)
           setOpen(false)
-          GetAllPhotos(BranchData.BranchCode)
+          GetAllAmenities(BranchData.BranchCode)
         } else {
 
           alert('Something went Wrong, please try again')
@@ -225,7 +227,7 @@ const BranchDetails = ({ BranchData }) => {
       <div className={MYS.BranchDataBoxB}>
         <div className={MYS.LBsmallBoxHeader}>
           <div className={MYS.LBsmallBoxHeaderA}>
-            <span>Library Photos</span>
+            <span>BranchAmenities</span>
           </div>
           <div className={MYS.LBsmallBoxHeaderB}>
             {!IsLoading &&
@@ -241,10 +243,10 @@ const BranchDetails = ({ BranchData }) => {
         </div>
         <div>
           {!IsLoading ?
-            <div className={MYS.LbPosterGrid}>
-              {PhotosList.map((item) => {
-                return <div className={MYS.LBPosteritem} key={item._id}>
-                  <div className={MYS.LBPosteritemimg}>
+            <div className={MYS.AmenitiesGrid}>
+              {Amenities.map((item) => {
+                return <div className={MYS.AmenitiesItem} key={item._id}>
+                  <div className={MYS.AmenitiesGridimg}>
                     <Image
                       src={`${MediaFilesUrl}${MediaFilesFolder}/${item.img}`}
 
@@ -252,15 +254,18 @@ const BranchDetails = ({ BranchData }) => {
                       layout="responsive"
                       placeholder='blur'
                       width={'100%'}
-                      height={70}
-                      quality={50}
+                      height={100}
+                      quality={100}
                       blurDataURL={blurredImageData}
 
                     />
                   </div>
-                  <div className={MYS.LBPosteritemBottom}>
+                  <div className={MYS.AmenitiesText}>
+                    {item.Title}
+                  </div>
+                  <div className={MYS.AmenitiesBtm}>
                     <IconButton aria-label="cart" onClick={() =>
-                      DeletePhoto(item._id)
+                      DeleteAmenitiePhoto(item._id)
                     }>
                       <StyledBadge color="secondary" >
                         <FiTrash size={15} />
@@ -287,18 +292,25 @@ const BranchDetails = ({ BranchData }) => {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id="scroll-dialog-title">Add New Photo</DialogTitle>
+        <DialogTitle id="scroll-dialog-title">Add Branch Amenitie</DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
           <form onSubmit={handleSubmit} >
+
             <div className={MYS.inputlogin}>
+              <TextField
+                required
+                label="Amenitie Title"
+                fullWidth
+                value={AmenitieTitle}
 
+                onInput={e => setAmenitieTitle(e.target.value)}
 
-
+              />
             </div>
             <div className={MYS.inputlogin}>
               <TextField
                 required
-                label="Photo Description"
+                label="Description"
                 fullWidth
                 value={Description}
 
@@ -306,8 +318,17 @@ const BranchDetails = ({ BranchData }) => {
 
               />
             </div>
+            <div className={MYS.inputlogin}>
+              <TextField
+                required
+                label="Order"
+                fullWidth
+                value={Order}
+                type='Number'
+                onInput={e => setOrder(e.target.value)}
 
-
+              />
+            </div>
 
 
 
@@ -334,9 +355,9 @@ const BranchDetails = ({ BranchData }) => {
 
             <div style={{ minHeight: 25 }}></div>
             <div className={MYS.featuresimagebox}>
-                <Uploadimg onImageUpload={onImageUpload} Title={'Upload Photo'} />
-              </div>
-         
+              <Uploadimg onImageUpload={onImageUpload} Title={'Upload Icon'} />
+            </div>
+
 
             <div style={{ minHeight: 25 }}></div>
 
@@ -352,7 +373,7 @@ const BranchDetails = ({ BranchData }) => {
             loadingPosition="end"
             variant="contained"
           >
-            <span>Save</span>
+            <span>Save Data</span>
           </LoadingButton>
         </DialogActions>
       </Dialog>
@@ -360,4 +381,4 @@ const BranchDetails = ({ BranchData }) => {
   )
 }
 
-export default BranchDetails
+export default BranchAmenities

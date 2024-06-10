@@ -53,12 +53,11 @@ const CheckloginStates = (props) => {
                     body: JSON.stringify(sendUM)
                 });
                 const parsed = await data.json();
-                console.log('parsed C')
-                console.log(parsed)
-
+              
                 if (parsed.ReqData.WebData && parsed.ReqData.SatusData == true) {
                     setIsLogin(true);
                     setWebData(parsed.ReqData.WebData)
+                    console.log(parsed.ReqData)
 
                     setData(parsed.ReqData.UserData)
                 }

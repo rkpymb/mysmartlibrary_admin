@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 
 import DialogTitle from '@mui/material/DialogTitle';
-import FileUpload from '../../components/Admin/FileUpload'
+import Uploadimg from '../Comp/Uploadimg'
 import SidebarLayout from 'src/layouts/SidebarLayout';
 import MYS from '../../../Styles/mystyle.module.css'
 import Skeleton from '@mui/material/Skeleton';
@@ -55,7 +55,7 @@ function DashboardCrypto() {
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState('paper');
 
-  const [Logo, setLogo] = useState('');
+  const [Logo, setLogo] = useState(null);
   const [title, setTitle] = useState('');
   const [details, setdetails] = useState('');
   const [sprice, setSprice] = useState('');
@@ -224,12 +224,12 @@ setPage(1);
   const handleSubmit = (e) => {
 
     e.preventDefault();
-    let FinalFileName = document.querySelector('#FinalFileName').value
+    let FinalFileName = Logo
     if (title !== ''
       && details !== ''
       && sprice !== ''
       && mprice !== ''
-      && FinalFileName !== ''
+      && FinalFileName !== null
     ) {
       setBtnloading(true)
       UpdateAddon(FinalFileName)
@@ -279,6 +279,14 @@ setPage(1);
 
       })
   }
+
+  const onImageUpload = (Filedata) => {
+    if (Filedata) {
+      alert('Image Upload Successfully, please click update button to save changes');
+      setLogo(Filedata.postData.fileName)
+    }
+  };
+
 
   return (
     <>
@@ -481,26 +489,8 @@ setPage(1);
 
             <div style={{ minHeight: 25 }}></div>
             <div className={MYS.featuresimagebox}>
-              <div className={MYS.featuresimageboxA}>
-                <img
-                  src={`${MediaFilesUrl}${MediaFilesFolder}/${Logo}`}
-                  width={100}
-                  height={100}
-                  layout='responsive'
-                  alt='img'
-                  id="Fimage"
-
-                />
-                <div>
-                  <small>Addon image</small>
-                </div>
-              </div>
-
-              <div className={MYS.featuresimageboxB}>
-                <FileUpload />
-              </div>
+              <Uploadimg onImageUpload={onImageUpload} Title={'Change Addon Image'} />
             </div>
-            <input type="hidden" value={Logo} id="FinalFileName" />
 
             <div style={{ minHeight: 25 }}></div>
 

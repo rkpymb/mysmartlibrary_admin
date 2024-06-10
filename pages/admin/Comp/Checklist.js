@@ -80,7 +80,6 @@ const steps = [
     description:
       'Publish your website on the internet, please recheck all Details before publishing your Website',
     btntext: "GO LIVE",
-
     Url: "/admin/subscriptions"
   }
 ];
@@ -151,37 +150,45 @@ function DashboardCrypto({ ShowMainData }) {
     })
       .then((parsed) => {
         if (parsed.ReqData) {
-          setChecklistData(parsed.ReqData.Checklist);
-          console.log(parsed.ReqData.Checklist)
+          const ParseData = parsed.ReqData
+          setChecklistData(ParseData.Checklist);
 
-          if (parsed.ReqData.Checklist.WebsiteCheck == 1) {
+          if (ParseData.Checklist.WebsiteCheck !== null) {
             setActiveStep(1);
 
           }
-          if (parsed.ReqData.Checklist.Branch > 0) {
+          if (ParseData.Checklist.Branch > 0) {
             setActiveStep(2);
 
           }
-          if (parsed.ReqData.Checklist.Shift > 0) {
+          if (ParseData.Checklist.Shift > 0) {
             setActiveStep(3);
 
           }
-          if (parsed.ReqData.Checklist.Seats > 0) {
+          if (ParseData.Checklist.Seats > 0) {
             setActiveStep(4);
 
           }
-          if (parsed.ReqData.Checklist.Pass > 0) {
+          if (ParseData.Checklist.Pass > 0) {
             setActiveStep(5);
 
           }
-          const GmailSettings = parsed.ReqData.Checklist.Settings.SettingsData.GmailSmtp
-          const AttendanceSettings = parsed.ReqData.Checklist.Settings.SettingsData.AttendanceSettings
-          const PwaSetting = parsed.ReqData.Checklist.Settings.SettingsData.PwaSetting
-          if (parsed.ReqData.Checklist.Settings !== null && GmailSettings && AttendanceSettings && PwaSetting ) {
-            setActiveStep(6);
-
-          }
           
+
+          if (ParseData.Checklist.Settings) {
+            const GmailSettings = ParseData.Checklist.Settings.SettingsData.GmailSmtp
+            const AttendanceSettings = ParseData.Checklist.Settings.SettingsData.AttendanceSettings
+            const PwaSetting = ParseData.Checklist.Settings.SettingsData.PwaSetting
+            if (GmailSettings !== null && AttendanceSettings !== null && PwaSetting !== null) {
+            
+              if(ParseData.Checklist.WebsiteCheck.isActive == true) {
+               
+                setActiveStep(6);
+                ShowMainData(true)
+              }
+            }
+          }
+
 
           setLoading(false)
         }
@@ -189,16 +196,8 @@ function DashboardCrypto({ ShowMainData }) {
       })
   }
   useEffect(() => {
-
     GetData()
   }, [Contextdata.WebData, router.query])
-  useEffect(() => {
-
-    if (activeStep == 6) {
-      setActiveStep(7);
-      ShowMainData(true)
-    }
-  }, [activeStep])
 
 
   const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -215,7 +214,7 @@ function DashboardCrypto({ ShowMainData }) {
         <div>
 
 
-          {activeStep < 7 &&
+          {activeStep < 6 &&
             <div>
               <div className={MYS.Comlteebox}>
                 <span>Complete Required Steps</span>
@@ -228,7 +227,7 @@ function DashboardCrypto({ ShowMainData }) {
                   <Step key={step.label}>
                     <StepLabel
                       optional={
-                        index === 7 ? (
+                        index === 6 ? (
                           <Typography>Ready to Go Live ?</Typography>
                         ) : null
                       }
@@ -241,7 +240,7 @@ function DashboardCrypto({ ShowMainData }) {
                         <div>
 
 
-                          {index === 7 ?
+                          {index === 6 ?
 
                             <LoadingButton
                               endIcon={<LuChevronRight />}

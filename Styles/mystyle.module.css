@@ -1,4 +1,4 @@
-.IconBoxPwa{
+.IconBoxPwa {
     display: flex;
     align-items: center;
     margin-top: 15px;
@@ -12,15 +12,18 @@
     padding: 10px;
 
 }
-.IconBoxPwaB small{
+
+.IconBoxPwaB small {
     font-weight: 600;
     color: #b1b7ba;
     margin: 10px;
 
 }
-.IconBoxPwaB{
+
+.IconBoxPwaB {
     margin-left: 10px;
 }
+
 .FileGridItemimg {
     width: 80px;
 
@@ -67,7 +70,10 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    width: fit-content;
+    overflow: hidden;
 }
+
 
 .UploadteUploadDetalisBox {
 
@@ -876,7 +882,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 5px;
+
 
     background-color: #ffffff;
     padding: 10px;
@@ -1194,6 +1200,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    cursor: pointer;
 
 }
 
@@ -1240,12 +1247,7 @@
     padding-top: 10px;
 }
 
-.LbPosterGrid {
-    margin: 0 auto;
-    display: grid;
-    gap: 0.5rem;
-    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
-}
+
 
 
 .containerLogin {
@@ -1338,6 +1340,40 @@
     border: none !important;
 }
 
+.AmenitiesGridimg {
+    width: 50px;
+    margin: auto;
+}
+
+.AmenitiesBtm {
+    margin-top: 5px;
+}
+
+.AmenitiesGrid {
+    margin: 10px auto;
+    display: grid;
+    gap: 0.2rem;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.AmenitiesText {
+    text-align: center;
+    padding: 5px;
+}
+
+.AmenitiesItem {
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid rgb(233, 221, 221);
+    margin: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+
 .LbPosterGrid {
     margin: 0 auto;
     display: grid;
@@ -1361,7 +1397,7 @@
     padding: 10px;
     border-radius: 10px;
     border: 1px solid rgb(233, 221, 221);
-    margin: 10px;
+    margin: 2px;
 
 }
 
@@ -1580,6 +1616,8 @@
     border-radius: 10px;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
     margin: 10px;
+    background-color: white;
+
 
 }
 
@@ -1589,6 +1627,7 @@
     border-radius: 10px;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
     margin: 10px;
+    background-color: white;
 }
 
 .BrachDetailbox {
@@ -2259,6 +2298,12 @@
     cursor: pointer;
 }
 
+.WebLive {
+
+    display: flex;
+    align-items: center;
+}
+
 .Catgrid:hover {
     border: 1px dashed #5569ff;
 }
@@ -2269,11 +2314,7 @@
 }
 
 .featuresimagebox {
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px dashed rgb(211, 199, 199);
-    display: flex;
-    align-items: center;
+    min-width: 500px;
 
 }
 
@@ -2657,19 +2698,20 @@
     .BranchDataBoxA {
 
         width: 100%;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: none;
         margin: 0px;
 
     }
 
     .BranchDataBoxB {
         width: 100%;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
-        margin: 0px;
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: none;
+        margin: 0;
+        margin-top: 10px;
     }
 
     .MboxMain {
@@ -2816,20 +2858,43 @@
         flex-direction: column;
 
     }
+
     .SettingsItemBox {
         width: 100%;
         border-radius: 20px;
         box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
         padding: 10px;
         background-color: white;
-    
+
     }
+
     .SettingsItem {
         display: flex;
         flex-direction: column-reverse;
         justify-content: space-between;
-      
-       
+
+
     }
-   
+
+    .LbPosterGrid {
+        display: flex;
+        overflow: auto;
+        gap: 0rem;
+        margin-top: 10px;
+    }
+
+    .LbPosterGrid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .LBPosteritem {
+        background-color: white;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid rgb(233, 221, 221);
+        margin: 2px;
+        min-width: 50%;
+
+    }
+
 }

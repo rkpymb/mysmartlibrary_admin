@@ -5,7 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 
 import DialogTitle from '@mui/material/DialogTitle';
-import FileUpload from '../FileUpload'
+
 
 import Select from '@mui/material/Select';
 import { FiEdit, FiTrash } from "react-icons/fi";
@@ -17,6 +17,7 @@ import SendIcon from '@mui/icons-material/Send';
 import Badge from '@mui/material/Badge';
 import { useRouter, useParams } from 'next/router'
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
+import Uploadimg from '../../../admin/Comp/Uploadimg'
 import MYS from '/Styles/mystyle.module.css'
 import {
     Tooltip,
@@ -49,6 +50,14 @@ const EditCatModal = ({ BranchData }) => {
     const [MobileNum, setMobileNum] = useState('');
     const [Email, setEmail] = useState('');
     const [Whatsapp, setWhatsapp] = useState('');
+
+
+    const onImageUpload = (Filedata) => {
+        if (Filedata) {
+            alert('Image Upload Successfully, please click update button to save changes');
+            setLogo(Filedata.postData.fileName)
+        } 
+    };
 
     const handleClickOpen = (scrollType) => () => {
         setOpen(true);
@@ -90,6 +99,12 @@ const EditCatModal = ({ BranchData }) => {
         setOpen(false);
     };
     const descriptionElementRef = React.useRef(null);
+
+    useEffect(() => {
+     
+        const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+        setGoogleMap(googleMapsLink)
+    }, [latitude,longitude]);
     useEffect(() => {
         if (open) {
             const { current: descriptionElement } = descriptionElementRef;
@@ -102,7 +117,7 @@ const EditCatModal = ({ BranchData }) => {
     const handleSubmit = (e) => {
 
         e.preventDefault();
-        let FinalFileName = document.querySelector('#FinalFileName').value
+        let FinalFileName = Logo
         if (name !== ''
             && Sname !== ''
             && City !== ''
@@ -125,11 +140,11 @@ const EditCatModal = ({ BranchData }) => {
 
 
         const sendUM = {
-           
+
             name: name,
             Sname: Sname,
             logo: e,
-            City:City,
+            City: City,
             Address: Address,
             State: State,
             pincode: pincode,
@@ -137,10 +152,10 @@ const EditCatModal = ({ BranchData }) => {
             latitude: latitude,
             GoogleMap: GoogleMap,
             isActive: isActive,
-            MobileNum:MobileNum,
+            MobileNum: MobileNum,
             Email: Email,
-            Whatsapp:Whatsapp,
-            id:BranchData._id,
+            Whatsapp: Whatsapp,
+            id: BranchData._id,
 
         }
         const data = await fetch("/api/V3/Admin/Branches/UpdateLibraryBranch", {
@@ -157,7 +172,7 @@ const EditCatModal = ({ BranchData }) => {
                 if (parsed.ReqD.done) {
                     alert('Branch Updated Successfully')
                     setOpen(false)
-                  
+
                 } else {
 
                     alert('Something went Wrong, please try again')
@@ -354,20 +369,20 @@ const EditCatModal = ({ BranchData }) => {
                                     <img
                                         src={`${MediaFilesUrl}${MediaFilesFolder}/${Logo}`}
                                         width={'100%'}
-                                        
+
                                         layout='responsive'
                                         alt='img'
                                         id="Fimage"
 
                                     />
-                                    
+
                                 </div>
 
-                                <div className={MYS.featuresimageboxB}>
-                                    <FileUpload />
+                                <div className={MYS.featuresimagebox}>
+                                    <Uploadimg onImageUpload={onImageUpload} Title={'Change Branch Logo'} />
                                 </div>
                             </div>
-                            <input type="hidden" value={Logo} id="FinalFileName" />
+                           
 
                             <div style={{ minHeight: 25 }}></div>
 
@@ -378,7 +393,7 @@ const EditCatModal = ({ BranchData }) => {
                         <LoadingButton
                             size="small"
                             onClick={handleSubmit}
-                           
+
                             loading={Btnloading}
                             loadingPosition="end"
                             variant="contained"

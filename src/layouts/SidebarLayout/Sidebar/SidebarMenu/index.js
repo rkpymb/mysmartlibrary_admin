@@ -168,7 +168,7 @@ function SidebarMenu() {
 
   return (
     <>
-      {Contextdata.Data.Role == 1 &&
+      {Contextdata.Data && Contextdata.Data.Role == 1 &&
         <MenuWrapper>
 
           <List
