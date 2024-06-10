@@ -108,7 +108,7 @@ function Hero() {
 
         <div className={MYS.LoginBox}>
           <div className={MYS.logomainDB}>
-            <img src='/logo/logo.png' alt='logo' width={'100%'} />
+            <img src='/Logo/logo.png' alt='logo' width={'100%'} />
           </div>
           <div style={{ height: "20px" }}></div>
 
