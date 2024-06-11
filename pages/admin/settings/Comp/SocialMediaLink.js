@@ -11,23 +11,27 @@ import {
     TextField,
     styled
 } from '@mui/material';
-const GmailSmtp = ({ SData }) => {
+const SocialMediaLink = ({ SData }) => {
     const router = useRouter()
-    const [GmailUserEmail, setGmailUserEmail] = useState(null);
-    const [GmailPass, setGmailPass] = useState(null);
-    const [CustomEmail, setCustomEmail] = useState(null);
+    const [Facbook, setFacbook] = useState(null);
+    const [Instagram, setInstagram] = useState(null);
+    const [YouTube, setYouTube] = useState(null);
+    const [Xcom, setXcom] = useState(null);
+    const [LinkedIn, setLinkedIn] = useState(null);
     const [BtnLoading, setBtnLoading] = useState(false);
     const [SettingData, setSettingData] = useState(null);
     const [Sid, setSid] = useState(null);
-    const [Skey, setSkey] = useState('GmailSmtp');
+    const [Skey, setSkey] = useState('SocialMediaLink');
 
     useEffect(() => {
-       
+
         setSid(SData._id)
-        if (SData.SettingsData.GmailSmtp) {
-            setGmailUserEmail(SData.SettingsData.GmailSmtp.GmailUserEmail)
-            setGmailPass(SData.SettingsData.GmailSmtp.GmailPass)
-            setCustomEmail(SData.SettingsData.GmailSmtp.CustomEmail)
+        if (SData.SettingsData.SocialMediaLink) {
+            setFacbook(SData.SettingsData.SocialMediaLink.Facbook)
+            setInstagram(SData.SettingsData.SocialMediaLink.Instagram)
+            setXcom(SData.SettingsData.SocialMediaLink.Xcom)
+            setYouTube(SData.SettingsData.SocialMediaLink.YouTube)
+            setLinkedIn(SData.SettingsData.SocialMediaLink.LinkedIn)
         }
 
 
@@ -35,15 +39,18 @@ const GmailSmtp = ({ SData }) => {
     useEffect(() => {
         const DataNow = {
 
-            GmailUserEmail: GmailUserEmail,
-            GmailPass: GmailPass,
-            CustomEmail: CustomEmail,
+            Facbook: Facbook,
+            Instagram: Instagram,
+            Xcom: Xcom,
+            YouTube: YouTube,
+            LinkedIn: LinkedIn
+
 
         }
         setSettingData(DataNow)
 
 
-    }, [GmailUserEmail, GmailPass, CustomEmail])
+    }, [Facbook, Instagram, Xcom,YouTube,LinkedIn])
 
 
 
@@ -66,16 +73,16 @@ const GmailSmtp = ({ SData }) => {
                 return a.json();
             })
                 .then((parsed) => {
-                
+
                     if (parsed.ReqD.Settings) {
                         setTimeout(function () {
                             alert('Settings updated successfully')
                             setBtnLoading(false)
 
                         }, 2000);
-                    }else{
+                    } else {
                         setBtnLoading(false)
-                       
+
                         alert('Something went wrong')
                     }
                 })
@@ -93,8 +100,8 @@ const GmailSmtp = ({ SData }) => {
             <div className={MYS.SettingsItem}>
                 <div className={MYS.SettingsItemA}>
                     <div className={MYS.STitle}>
-                        <span>Gmail SMTP</span>
-                        <small>please provide your Gmail SMTP credentials to send email notifications to users seamlessly</small>
+                        <span>Social Media Links</span>
+                        <small>Add Your Social Media Links Here</small>
 
                     </div>
 
@@ -104,10 +111,10 @@ const GmailSmtp = ({ SData }) => {
                             <div className={MYS.inputlogin}>
                                 <TextField
                                     fullWidth
-                                    value={GmailUserEmail}
-                                    onInput={e => setGmailUserEmail(e.target.value)}
+                                    value={Facbook}
+                                    onInput={e => setFacbook(e.target.value)}
                                     required
-                                    label="Gmail User Email"
+                                    label="Facbook"
 
                                 />
 
@@ -115,10 +122,10 @@ const GmailSmtp = ({ SData }) => {
                             <div className={MYS.inputlogin}>
                                 <TextField
                                     fullWidth
-                                    value={CustomEmail}
-                                    onInput={e => setCustomEmail(e.target.value)}
+                                    value={Xcom}
+                                    onInput={e => setXcom(e.target.value)}
                                     required
-                                    label="Business Email"
+                                    label="X (Twitter)"
 
                                 />
 
@@ -127,17 +134,37 @@ const GmailSmtp = ({ SData }) => {
                             <div className={MYS.inputlogin}>
                                 <TextField
                                     fullWidth
-                                    value={GmailPass}
-                                    onInput={e => setGmailPass(e.target.value)}
+                                    value={Instagram}
+                                    onInput={e => setInstagram(e.target.value)}
                                     required
-                                    label="Gmail Pass Key"
-                                    
+                                    label="Instagram"
+
+                                />
+                            </div>
+                            <div className={MYS.inputlogin}>
+                                <TextField
+                                    fullWidth
+                                    value={LinkedIn}
+                                    onInput={e => setLinkedIn(e.target.value)}
+                                    required
+                                    label="LinkedIn"
+
+                                />
+                            </div>
+                            <div className={MYS.inputlogin}>
+                                <TextField
+                                    fullWidth
+                                    value={YouTube}
+                                    onInput={e => setYouTube(e.target.value)}
+                                    required
+                                    label="YouTube"
+
                                 />
                             </div>
                             <div className={MYS.inputlogin}>
                                 <LoadingButton
                                     type="submit"
-                                   
+
                                     endIcon={<LuArrowRight />}
                                     loading={BtnLoading}
                                     loadingPosition="end"
@@ -162,7 +189,7 @@ const GmailSmtp = ({ SData }) => {
 
                     <div className={MYS.PMItemAImg}>
                         <Image
-                            src={`/img/GmailSmtp.png`}
+                            src={`/img/social-media.png`}
                             alt="image"
                             layout="responsive"
                             placeholder='blur'
@@ -185,4 +212,4 @@ const GmailSmtp = ({ SData }) => {
     )
 }
 
-export default GmailSmtp
+export default SocialMediaLink

@@ -136,64 +136,7 @@ function DashboardCrypto() {
       <div className={MYS.marginTopMain}>
         <div className={MYS.MB}>
           <div className={MYS.MB}>
-            <form onSubmit={UpdateWeb} >
-              <div className={MYS.inputlogin}>
-                <TextField
-                  required
-                  label="Website Title"
-                  fullWidth
-                  value={WebName}
-                  onInput={e => setWebName(e.target.value)}
-
-                />
-              </div>
-              <div className={MYS.inputlogin}>
-                <TextField
-                  required
-                  label="Short Description"
-                  fullWidth
-                  value={ShortDesc}
-
-                  onInput={e => setShortDesc(e.target.value)}
-
-                />
-              </div>
-              <div className={MYS.inputlogin}>
-                <TextField
-                  required
-                  label="Full Description"
-                  fullWidth
-                  value={LongDesc}
-                  onInput={e => setLongDesc(e.target.value)}
-
-                />
-              </div>
-
-              <div style={{ minHeight: 25 }}></div>
-              <div className={MYS.featuresimagebox}>
-                <div className={MYS.featuresimageboxA}>
-                  <img
-                    src={`${MediaFilesUrl}${MediaFilesFolder}/${Logo}`}
-                    width={'100%'}
-
-                    layout='responsive'
-                    alt='img'
-                    id="Fimage"
-
-                  />
-
-                </div>
-
-                <div className={MYS.featuresimageboxB}>
-                  <Uploadimg onImageUpload={onImageUpload} Title={'Change Website Logo'} />
-                </div>
-
-              </div>
-              <input type="hidden" value={Logo} id="FinalFileName" />
-
-              <div style={{ minHeight: 25 }}></div>
-
-            </form>
+           
             <LoadingButton
 
               onClick={UpdateWeb}

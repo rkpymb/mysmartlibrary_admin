@@ -10,7 +10,7 @@ import Image from 'next/image'
 import ClickCopyText from './ClickCopyText'
 import { WebMainDomain } from '/Data/config'
 
-import { LuPencilRuler } from "react-icons/lu";
+import { LuSettings  } from "react-icons/lu";
 
 import Skeleton from '@mui/material/Skeleton';
 
@@ -77,7 +77,7 @@ const DbTopBox = ({ AllData }) => {
                 <div className={MYS.Pmtag} style={{ backgroundColor: 'red' }}><span>Deactivated</span></div> :
                 <div className={MYS.Pmtag}><span>Active</span></div>
               }
-              <div className={MYS.Pmtag} style={{backgroundColor:"#F39C12"}}  onClick={() => router.push('/admin/customize-website')}> <LuPencilRuler color='white' />  <span style={{marginLeft:'5px'}}>Customize</span></div>
+              <div className={MYS.Pmtag} style={{backgroundColor:"#F39C12"}}  onClick={() => router.push('/admin/settings')}> <LuSettings  color='white' />  <span style={{marginLeft:'5px'}}>Open Settings</span></div>
             </div>
           }
 

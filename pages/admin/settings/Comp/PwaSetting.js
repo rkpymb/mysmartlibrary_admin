@@ -208,7 +208,7 @@ const PwaSetting = ({ SData }) => {
                             <div className={MYS.inputlogin}>
                                 <LoadingButton
                                     type="submit"
-                                    fullWidth
+                                  
                                     endIcon={<LuArrowRight />}
                                     loading={BtnLoading}
                                     loadingPosition="end"

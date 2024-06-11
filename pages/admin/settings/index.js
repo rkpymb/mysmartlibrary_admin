@@ -13,6 +13,8 @@ import TitleNav from '../../../src/components/Parts/TitleNav'
 import GmailSmtp from './Comp/GmailSmtp'
 import AttendanceSettings from './Comp/AttendanceSettings'
 import PwaSetting from './Comp/PwaSetting'
+import CustmizeWeb from './Comp/CustmizeWeb'
+import SocialMediaLink from './Comp/SocialMediaLink'
 
 
 import {
@@ -108,11 +110,19 @@ function DashboardCrypto() {
                         <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={'50%'} />
                     </div> :
                     <div>
+                        <div style={{ height: '20px' }}></div>
+                        <CustmizeWeb />
+                        <div style={{ height: '20px' }}></div>
                         <GmailSmtp SData={Settings}/>
                         <div style={{ height: '20px' }}></div>
                         <AttendanceSettings SData={Settings}/>
                         <div style={{ height: '20px' }}></div>
                         <PwaSetting SData={Settings}/>
+                        <div style={{ height: '20px' }}></div>
+                        <SocialMediaLink SData={Settings}/>
+                        <div style={{ height: '20px' }}></div>
+                        
+
                     </div>
 
 
