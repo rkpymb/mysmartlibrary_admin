@@ -68,6 +68,7 @@ const CustmizeWeb = () => {
             .then((parsed) => {
 
                 if (parsed.ReqData.done) {
+                    console.log(parsed.ReqData.done.WebData)
                     setRetdata(parsed.ReqData.done)
                     setWebName(parsed.ReqData.done.WebData.WebName)
                     setShortDesc(parsed.ReqData.done.WebData.ShortDesc)

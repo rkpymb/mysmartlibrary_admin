@@ -5,6 +5,7 @@ import CheckloginContext from '/context/auth/CheckloginContext'
 import SidebarLayout from 'src/layouts/SidebarLayout';
 import MYS from '/Styles/mystyle.module.css'
 import { useRouter, useParams } from 'next/router'
+import QRCodeGenerator from './QRCodeGenerator'
 
 import Image from 'next/image'
 
@@ -12,6 +13,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { LuArrowRight } from "react-icons/lu";
 import DbTopBox from './DbTopBox'
 
+import { WebMainDomain } from '/Data/config'
 
 import Badge from '@mui/material/Badge';
 
@@ -24,6 +26,7 @@ const WebAllData = () => {
 
   const Contextdata = useContext(CheckloginContext)
   const [AllData, setAllData] = useState(null);
+  const [qrValue, setQrValue] = useState(null);
   const [CounterLoading, setCounterLoading] = useState(true);
   const GetData = async () => {
     const dataid = '08c5th4rh86ht57h6g';
@@ -40,7 +43,9 @@ const WebAllData = () => {
       .then((parsed) => {
         if (parsed.ReqData) {
           setAllData(parsed.ReqData)
+          console.log('parsed')
           console.log(parsed)
+
           setCounterLoading(false);
         }
 
@@ -50,7 +55,11 @@ const WebAllData = () => {
 
   useEffect(() => {
     GetData()
-  }, [])
+    if (Contextdata.WebData) {
+      setQrValue(`${WebMainDomain}${Contextdata.WebData.webid}`)
+    }
+
+  }, [Contextdata.WebData])
   return (
     <div>
       <DbTopBox AllData={AllData} />
@@ -59,7 +68,7 @@ const WebAllData = () => {
         {AllData && AllData.SubSData == 0 &&
           <div className={MYS.WaringBox}>
             <div className={MYS.WaringBoxA}>
-              <h2 style={{color:"red"}}>Your Websit is Offline</h2>
+              <h2 style={{ color: "red" }}>Your Websit is Offline</h2>
               You Don't Have Any Active Subscription Plan yet, please subscribe to a Plan to Avoid Data deletation.
               <div>
                 <small>Data Will be Deleted After 10 Days of Last Plan Expiry. </small>
@@ -99,7 +108,9 @@ const WebAllData = () => {
           </div>
         </div>
 
-
+        {qrValue &&
+          <QRCodeGenerator qrValue={qrValue}  webid={Contextdata.WebData.webid}/>
+        }
 
       </div>
     </div>

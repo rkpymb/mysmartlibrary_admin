@@ -71,6 +71,8 @@ function DashboardCrypto({ responseData }) {
            
             <WebAllData/>
             <DbCounter/>
+
+            <div style={{height:'30px'}}></div>
             
           </div>
 
