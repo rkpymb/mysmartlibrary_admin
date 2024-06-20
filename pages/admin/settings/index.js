@@ -102,7 +102,7 @@ function DashboardCrypto() {
         <>
             <TitleNav Title={`Settigns`} />
 
-            <div className={MYS.MboxMain}>
+            <div className={MYS.MboxMain} >
                 {isLoading ?
                     <div>
                         <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={'100%'} />
