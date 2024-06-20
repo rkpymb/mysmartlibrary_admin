@@ -173,17 +173,17 @@ function DashboardCrypto({ ShowMainData }) {
             setActiveStep(5);
 
           }
-          
+
 
           if (ParseData.Checklist.Settings) {
+            console.log('dwsds')
+            console.log(ParseData.Checklist.Settings)
             const GmailSettings = ParseData.Checklist.Settings.SettingsData.GmailSmtp
             const AttendanceSettings = ParseData.Checklist.Settings.SettingsData.AttendanceSettings
             const PwaSetting = ParseData.Checklist.Settings.SettingsData.PwaSetting
             if (GmailSettings !== null && AttendanceSettings !== null && PwaSetting !== null) {
-            
-              if(ParseData.Checklist.WebsiteCheck.isActive == true) {
-               
-                setActiveStep(6);
+              setActiveStep(6);
+              if (ParseData.Checklist.WebsiteCheck.isActive == true) {
                 ShowMainData(true)
               }
             }
@@ -214,7 +214,7 @@ function DashboardCrypto({ ShowMainData }) {
         <div>
 
 
-          {activeStep < 6 &&
+          {activeStep < 7 &&
             <div>
               <div className={MYS.Comlteebox}>
                 <span>Complete Required Steps</span>
