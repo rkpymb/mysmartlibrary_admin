@@ -32,6 +32,7 @@ const DbTopBox = ({ AllData }) => {
 
   useEffect(() => {
     if (Contextdata.WebData !== null) {
+      setCopyData(`${WebMainDomain}${Contextdata.WebData.webid}`)
       setLoading(false)
     }
 
@@ -92,7 +93,7 @@ const DbTopBox = ({ AllData }) => {
           <div className={MYS.UrlBox}>
             <div className={MYS.UrlBoxText}>
               <small> Website Link</small>
-              <span>{WebMainDomain}{Contextdata.WebData.webid}</span>
+              <span>{CopyData}</span>
             </div>
 
             <div>

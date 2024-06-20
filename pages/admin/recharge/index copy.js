@@ -5,7 +5,6 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 import { useRouter, useParams } from 'next/router'
 
-import PaymentButton from './PaymentButton'
 import MYS from '/Styles/mystyle.module.css'
 import { LuArrowRight } from "react-icons/lu";
 import {
@@ -28,7 +27,6 @@ function DashboardCrypto() {
   const router = useRouter()
   const [Amount, setAmount] = useState(0);
   const [CreditValue, setCreditValue] = useState(0);
-
   const [GstAmt, setGstAmt] = useState(0);
   const [GstText, setGstText] = useState('18 % GST');
 
@@ -73,12 +71,10 @@ function DashboardCrypto() {
         }
         const parsed = await response.json();
 
-        if (parsed && parsed.ReqD.done) {
+        if (parsed.ReqD.done) {
 
-          const OrderData = parsed.ReqD.done
-
-          RazorPayPg(OrderData)
-
+          const PGUrl = parsed.ReqD.order.qr_data.payment_url
+          router.push(PGUrl);
 
         } else {
           setBtnloading(false)
@@ -96,75 +92,62 @@ function DashboardCrypto() {
     }
 
   }
+  const RechargeProceedOld = async () => {
+    if (Amount >= 1) {
+      setBtnloading(true)
 
+      const Recharge = {
+        amount: Amount,
+        CreditValue: CreditValue
 
+      }
 
-  const RazorPayPg = async (OrderData) => {
+      const TaxData = {
+        TaxAmt: GstAmt,
+        GstText: GstText
 
-    const amount = OrderData.amt
-    const Orderid = OrderData.Orderid
+      }
 
-    const orderResponse = await fetch('/api/order/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ amount, currency: 'INR', receipt: Orderid }),
-    });
+      const sendUM = {
+        Recharge: Recharge,
+        TaxData: TaxData,
+      };
 
-    const order = await orderResponse.json();
-
-    const options = {
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-      amount: order.amount,
-      currency: order.currency,
-      name: 'My Smart Library',
-
-      description: OrderData.OrderTitle,
-      order_id: order.id,
-      handler: async function (response) {
-        const razorpay_payment_id = response.razorpay_payment_id
-        const verificationResponse = await fetch('/api/order/verify', {
-          method: 'POST',
+      try {
+        const response = await fetch("/api/V3/Admin/Credit/CreateOrder", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            'Content-type': 'application/json'
           },
-          body: JSON.stringify({
-            order_id: order.id,
-            payment_id: razorpay_payment_id,
-            signature: response.razorpay_signature,
-            Orderid: Orderid,
-          }),
+          body: JSON.stringify(sendUM)
         });
 
-        const verificationResult = await verificationResponse.json();
-        if (verificationResult.verified) {
-          setBtnloading(true);
-          router.push('/admin/credits')
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const parsed = await response.json();
+
+        if (parsed.ReqD.done) {
+
+          const PGUrl = parsed.ReqD.order.qr_data.payment_url
+          router.push(PGUrl);
 
         } else {
-          setBtnloading(false);
-          alert('Payment verification failed!');
+          setBtnloading(false)
+          alert('Something went wrong try after some time');
         }
-      },
-      prefill: {
-        name: OrderData.UserData.name,
-        email: OrderData.UserData.email,
-        contact: OrderData.mobile,
-      },
-      notes: {
-        Type: 'Web_Credit_Recharge',
-        Orderid: Orderid,
-      },
-      theme: {
-        color: '#3399cc',
-      },
-    };
 
-    const rzp1 = new Razorpay(options);
-    rzp1.open();
-    setBtnloading(false);
-  };
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+
+      }
+
+    } else {
+      alert('Please enter valid amount')
+    }
+
+  }
   const ChangeAmt = async (Amt) => {
     if (Amt >= 1) {
       setCreditValue(Amt)
@@ -197,7 +180,7 @@ function DashboardCrypto() {
             <form onSubmit={RechargeProceed} >
               <div className={MYS.RechargeBoxHeader}>
                 <span>Enter Amount to Add Credit</span>
-                <div style={{ height: '5px' }}></div>
+                <div style={{height:'5px'}}></div>
                 <small>Credits can be used for Purchage of Subscription or Portal Functionality Fee. </small>
               </div>
               <div className={MYS.inputlogin}>

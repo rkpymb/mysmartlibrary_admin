@@ -11,6 +11,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import CheckloginStates from '../context/auth/CheckloginStates'
 const clientSideEmotionCache = createEmotionCache();
+import Script from 'next/script';
 
 function TokyoApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
@@ -36,6 +37,8 @@ function TokyoApp(props) {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <CssBaseline />
               {getLayout(<Component {...pageProps} />)}
+
+              <Script src="https://checkout.razorpay.com/v1/checkout.js" />
             </LocalizationProvider>
           </ThemeProvider>
         </SidebarProvider>
