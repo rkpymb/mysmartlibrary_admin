@@ -13,7 +13,7 @@ import {
 import NextLink from 'next/link';
 import { SidebarContext } from 'src/contexts/SidebarContext';
 import CheckloginContext from '/context/auth/CheckloginContext'
-import { BsFillTicketPerforatedFill, BsStack, BsFillGeoAltFill, BsFillLaptopFill, BsTicketDetailed, BsUiChecksGrid, BsFillPeopleFill, BsPersonFillLock, BsPlugin, BsCurrencyRupee, BsFileEarmarkTextFill, BsShieldCheck, BsCalendar2CheckFill, BsFillPieChartFill, BsCartPlusFill } from "react-icons/bs";
+import { BsFillTicketPerforatedFill, BsStack, BsFillGeoAltFill, BsFillLaptopFill, BsTicketDetailed, BsUiChecksGrid, BsFillPeopleFill, BsWindow , BsPlugin, BsCurrencyRupee, BsFileEarmarkTextFill, BsShieldCheck, BsCalendar2CheckFill, BsFillPieChartFill, BsCartPlusFill } from "react-icons/bs";
 
 
 
@@ -333,6 +333,21 @@ function SidebarMenu() {
                       startIcon={<BsCurrencyRupee />}
                     >
                       User Wallet
+                    </Button>
+                  </NextLink>
+                </ListItem>
+                <ListItem component="div">
+                  <NextLink href="/admin/pages" passHref>
+                    <Button
+                      className={
+                        currentRoute === '/admin/pages' ? 'active' : ''
+                      }
+                      disableRipple
+                      component="a"
+                      onClick={closeSidebar}
+                      startIcon={<BsWindow  />}
+                    >
+                      Pages
                     </Button>
                   </NextLink>
                 </ListItem>

@@ -7,7 +7,7 @@ import MYS from '../../../Styles/mystyle.module.css'
 import Fade from '@mui/material/Fade';
 import Link from 'next/link';
 import Skeleton from '@mui/material/Skeleton';
-import AddEducator from '../../components/Add/AddEducator'
+
 import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
 import { LuArrowLeft } from "react-icons/lu";
@@ -203,7 +203,7 @@ function DashboardCrypto() {
                                     >
                                         Add Educator
                                     </Button> */}
-                                    <AddEducator/>
+                                  
                                 </div>
 
                                 <div className={MYS.Topbtnboxbtn}>

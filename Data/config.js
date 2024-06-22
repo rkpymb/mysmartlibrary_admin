@@ -1,8 +1,8 @@
 export const BASE_URL = 'https://api.mysmartlibrary.in/';
 
 export const API_URL = 'https://api.mysmartlibrary.in/';
-export const AppName = 'DR IT EDUCATION';
-export const AppDesc = 'Innovative Best Education for a Smarter Tomorrow : Best Courses in india, Exam Ready Online Courses';
+export const AppName = 'My Smart Library';
+export const AppDesc = '';
 export const DomainURL = 'mysmartlibrary.in';
 export const WebMainDomain = 'https://mysmartlibrary.in/';
 export const CryptoJSKEY = 'XYZ';
@@ -12,10 +12,10 @@ export const MediaFilesUrl = 'https://api.mysmartlibrary.in/';
 export const MediaFilesFolder = 'images'
 
 export const SocialHandles = {
-    Facebook: 'https://www.facebook.com/driteducation',
-    Twitter: 'https://twitter.com/driteducation',
-    Instagram: 'https://www.instagram.com/driteducation',
-    Linkedin: 'https://www.linkedin.com/driteducation',
+    Facebook: 'https://www.facebook.com/mysmartlibrary',
+    Twitter: 'https://twitter.com/mysmartlibrary',
+    Instagram: 'https://www.instagram.com/mysmartlibrary',
+    Linkedin: 'https://www.linkedin.com/mysmartlibrary',
 
 };
 export const Logos = {
