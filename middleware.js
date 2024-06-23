@@ -26,9 +26,9 @@ export async function middleware(request) {
           console.log('Error in API response:', data.error);
           return NextResponse.redirect(new URL('/Login', request.url));
         } else {
-          console.log(data)
+         
           const response = NextResponse.next();
-          console.log('Setting cookie with apiData:', data);
+    
 
           // Clear the existing cookie
           response.cookies.delete('api_data', { path: '/' });
