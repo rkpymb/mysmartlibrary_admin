@@ -302,7 +302,7 @@ const LibrarySubscriptions = () => {
                                     <div className={MYS.UserItemTopA}>
                                         <div className={MYS.USerDP}>
                                             <Image
-                                                src={`${MediaFilesUrl}${MediaFilesFolder}/${item.img}`}
+                                                src={`${MediaFilesUrl}${MediaFilesFolder}/${item.ListData.img}`}
                                                 alt="image"
                                                 layout="responsive"
                                                 placeholder='blur'
@@ -317,21 +317,29 @@ const LibrarySubscriptions = () => {
                                     </div>
                                     <div className={MYS.UserItemTopB}>
                                         <div className={MYS.UserItemTitle}>
-                                            <span>{item.title}</span>
-                                            <small>ORDER ID : {item.Orderid}</small>
+                                            <span>{item.ListData.title}</span>
+                                            <small>ORDER ID : {item.ListData.Orderid}</small>
+                                        </div>
+
+                                        <div className={MYS.itemOrderM}>
+                                    <span> Order By</span>
+                                    <small>Name  : {item.UData  && item.UData.name}</small>
+                                    <small>Mobile : {item.UData  &&item.UData.mobile}</small>
+                                    <small>Email : {item.UData  &&item.UData.email}</small>
+                                </div>
+                                
+                                        <div className={MYS.UserItemDescB}>
+                                            <small>Branch Code : {item.ListData.BranchCode}</small>
+                                            <small>Pass ID : {item.ListData.passid}</small>
                                         </div>
                                         <div className={MYS.UserItemDescB}>
-                                            <small>Branch Code : {item.BranchCode}</small>
-                                            <small>Pass ID : {item.passid}</small>
+                                            <small>Shift : {item.ListData.ShiftData.title} ({item.ListData.ShiftData.uptime} - {item.ListData.ShiftData.downtime})</small>
+                                            <small>Seat : {item.ListData.SeatData.title}</small>
                                         </div>
                                         <div className={MYS.UserItemDescB}>
-                                            <small>Shift : {item.ShiftData.title} ({item.ShiftData.uptime} - {item.ShiftData.downtime})</small>
-                                            <small>Seat : {item.SeatData.title}</small>
-                                        </div>
-                                        <div className={MYS.UserItemDescB}>
-                                            <small>Addons : {item.Addon.length} </small>
+                                            <small>Addons : {item.ListData.Addon.length} </small>
                                             <div>
-                                                {item.Addon.map((item, index) => {
+                                                {item.ListData.Addon.map((item, index) => {
 
                                                     return <div key={index} style={{ fontSize: '10px' }}>✅ {item.title}</div>
                                                 }
@@ -341,7 +349,7 @@ const LibrarySubscriptions = () => {
 
                                         </div>
                                         <div className={MYS.UserItemDesc}>
-                                            <small>{item.validityStartDate} - {item.validityEndDate}</small>
+                                            <small>{item.ListData.validityStartDate} - {item.ListData.validityEndDate}</small>
                                         </div>
 
                                     </div>
@@ -350,7 +358,7 @@ const LibrarySubscriptions = () => {
                                 <div className={MYS.PMItemFotter}>
                                     <div className={MYS.PMItemFA}>
                                         <div className={MYS.Pmtag}>
-                                            <span> {item.StatusText}</span>
+                                            <span> {item.ListData.StatusText}</span>
 
 
                                         </div>
@@ -363,7 +371,7 @@ const LibrarySubscriptions = () => {
                                             <div style={{ minWidth: '10px' }}></div>
                                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                                 <IconButton aria-label="cart" onClick={() =>
-                                                    DeleteShift(item._id)
+                                                    DeleteShift(item.ListData._id)
                                                 }>
                                                     <StyledBadge color="secondary" >
                                                         <FiTrash size={15} />
@@ -371,7 +379,7 @@ const LibrarySubscriptions = () => {
                                                 </IconButton>
                                                 <div style={{ width: '5px' }}></div>
                                                 <IconButton aria-label="cart" onClick={() =>
-                                                    EditShift(item)
+                                                    EditShift(item.ListData)
                                                 }>
                                                     <StyledBadge color="secondary" >
                                                         <FiEdit size={15} />

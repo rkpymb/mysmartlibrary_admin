@@ -207,7 +207,7 @@ function DashboardCrypto() {
 
 
                         <IconButton aria-label="cart" onClick={() =>
-                          router.push(`/admin/branches/details/${item.BranchCode}`)
+                          router.push(`/admin/branches/details?BranchCode=${item.BranchCode}`)
                         }>
                           <StyledBadge color="secondary" >
                             <FiEdit size={15} />

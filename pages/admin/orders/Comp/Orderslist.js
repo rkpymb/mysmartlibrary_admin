@@ -156,25 +156,32 @@ const LibrarySubscriptions = () => {
                             return <div hover key={index} className={MYS.UserItemMain}>
 
                                 <div className={MYS.itemOrderM}>
-                                    <span> {item.OrderTitle}</span>
-                                    <small>ORDER ID  : {item.Orderid}</small>
-                                    <small>Type : {item.ProductType}</small>
+                                    <span> {item.ListData.OrderTitle}</span>
+                                    <small>ORDER ID  : {item.ListData.Orderid}</small>
+                                    <small>Type : {item.ListData.ProductType}</small>
                                 </div>
+                                
                                 <div className={MYS.itemOrderBB}>
-                                    <span>Price : ₹ {item.mprice}</span>
-                                    <span>Discount : -₹ {item.TotalDiscount}</span>
-                                    <span style={{ fontWeight: 600 }}>Total : ₹ {item.amt}</span>
+                                    <span>Price : ₹ {item.ListData.mprice}</span>
+                                    <span>Discount : -₹ {item.ListData.TotalDiscount}</span>
+                                    <span style={{ fontWeight: 600 }}>Total : ₹ {item.ListData.amt}</span>
                                 </div>
 
+                                <div className={MYS.itemOrderM}>
+                                    <span> Order By</span>
+                                    <small>Name  : {item.UData  && item.UData.name}</small>
+                                    <small>Mobile : {item.UData  &&item.UData.mobile}</small>
+                                    <small>Email : {item.UData  &&item.UData.email}</small>
+                                </div>
 
                                 <div className={MYS.PMItemFotter}>
                                     <div className={MYS.PMItemFABB}>
                                         <div className={MYS.Pmtag}>
-                                            <span>{item.OrderStatusText}</span>
+                                            <span>{item.ListData.OrderStatusText}</span>
                                         </div>
                                         <div style={{ minWidth: '10px' }}></div>
                                         <div className={MYS.Pmtag}>
-                                            <span>{item.PayStatusText}</span>
+                                            <span>{item.ListData.PayStatusText}</span>
                                         </div>
 
                                     </div>
@@ -187,7 +194,7 @@ const LibrarySubscriptions = () => {
 
                                                 <div style={{ width: '5px' }}></div>
                                                 <IconButton aria-label="cart" onClick={() =>
-                                                    router.push(`/admin/orders/manage/${item._id}`)
+                                                    router.push(`/admin/orders/manage/?Orderid=${item.ListData._id}`)
                                                 }>
                                                     <StyledBadge color="secondary" >
                                                         <FiEye size={15} />

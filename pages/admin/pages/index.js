@@ -266,7 +266,7 @@ function DashboardCrypto() {
 
                         <IconButton aria-label="cart"
                           onClick={() =>
-                            router.push(`/admin/pages/edit/${item.PageSlug}`)
+                            router.push(`/admin/pages/edit?PageSlug=${item.PageSlug}`)
                           }
                         >
                           <StyledBadge color="secondary" >

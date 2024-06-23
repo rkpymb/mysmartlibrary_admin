@@ -22,7 +22,7 @@ import {
     IconButton,
 
     styled,
-  
+
     FormControl,
 
 } from '@mui/material';
@@ -37,7 +37,7 @@ const LibrarySubscriptions = () => {
 
     const [OpenEdit, setOpenEdit] = React.useState(false);
     const [scroll, setScroll] = React.useState('paper');
-    
+
     const [ReqData, setReqData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [AllData, setAllData] = useState(0);
@@ -53,7 +53,7 @@ const LibrarySubscriptions = () => {
     const [validityEndDate, setValidityEndDate] = useState('');
     const [isActive, setIsActive] = useState(false);
     const [Btnloading, setBtnloading] = useState(false);
-   
+
 
     const handleChangeTSStatus = (event) => {
         setIsActive(event.target.value);
@@ -81,7 +81,7 @@ const LibrarySubscriptions = () => {
 
             page: page,
             limit: limit,
-           
+
         };
 
         try {
@@ -197,7 +197,7 @@ const LibrarySubscriptions = () => {
         setStatusText(SeatD.StatusText)
         setValidityStartDate(SeatD.validityStartDate)
         setValidityEndDate(SeatD.validityEndDate)
-       
+
         setIsActive(SeatD.isActive)
         setCurrentSubID(SeatD._id)
         setCurrentOID(`${SeatD.Orderid}`)
@@ -208,15 +208,15 @@ const LibrarySubscriptions = () => {
     const UpdateShift = async () => {
         if (StatusText !== '' && validityStartDate !== '' && validityEndDate !== '') {
             setBtnloading(true)
-           
-            
+
+
             const sendUM = {
 
                 isActive: isActive,
                 StatusText: StatusText,
                 validityStartDate: validityStartDate,
                 validityEndDate: validityEndDate,
-               
+
                 id: CurrentSubID,
 
             }
@@ -234,7 +234,7 @@ const LibrarySubscriptions = () => {
                     if (parsed.ReqD.done) {
                         alert(`${CurrentOID} Updated Successfully`)
                         setOpenEdit(false)
-                        
+
                         router.push(`/admin/addon-subscriptions`)
                     } else {
 
@@ -274,119 +274,127 @@ const LibrarySubscriptions = () => {
                     </div>
                 </div>
 
-               
-            <InfiniteScroll
-                dataLength={ReqData.length}
-                next={loadMoreData}
-                hasMore={hasMore}
-                scrollThreshold={0.2}
-                loader={<div style={{ textAlign: 'center', margin: 'auto', marginTop: '20px' }} >
-                    <CircularProgress size={25} color="success" />
-                </div>}
-                endMessage={
-                    <div style={{ textAlign: 'center', margin: 'auto', marginTop: '20px' }} >
-                        <b>Yay! You have seen it all 🎉</b>
-                    </div>
-                }
-            >
 
-                <div className={MYS.UserGrid}>
-                    {ReqData.map((item,index) => {
-                        return <div hover key={index} className={MYS.UserItemMain}>
-
-                            <div className={MYS.UserItemTop}>
-                                <div className={MYS.UserItemTopA}>
-                                    <div className={MYS.USerDP}>
-                                        <Image
-                                            src={`${MediaFilesUrl}${MediaFilesFolder}/${item.Addon[0].img}`}
-                                            alt="image"
-                                            layout="responsive"
-                                            placeholder='blur'
-                                            width={30}
-                                            height={30}
-                                            quality={100}
-                                            blurDataURL={blurredImageData}
-
-                                        />
-                                    </div>
-
-                                </div>
-                                <div className={MYS.UserItemTopB}>
-                                    <div className={MYS.UserItemTitle}>
-                                        <span>{item.Addon[0].title}</span>
-                                        <small>ORDER ID : {item.Orderid}</small>
-                                    </div>
-                                    <div className={MYS.UserItemDescB}>
-                                        <small>Branch Code : {item.BranchCode}</small>
-                                        
-                                    </div>
-                                   
-                                    <div className={MYS.UserItemDescB}>
-                                        <small>Addons : {item.Addon.length} </small>
-                                        <div>
-                                            {item.Addon.map((item, index) => {
-
-                                                return <div key={index} style={{fontSize:'10px'}}>✅ {item.title}</div>
-                                            }
-
-                                            )}
-                                        </div>
-
-                                    </div>
-                                    <div className={MYS.UserItemDesc}>
-                                        <small>{item.validityStartDate} - {item.validityEndDate}</small>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div className={MYS.PMItemFotter}>
-                                <div className={MYS.PMItemFA}>
-                                    <div className={MYS.Pmtag}>
-                                        <span> {item.StatusText}</span>
-
-
-                                    </div>
-
-                                </div>
-                                <div className={MYS.PMItemFB}>
-
-                                    <div className={MYS.Flexbtnbox}>
-
-                                        <div style={{ minWidth: '10px' }}></div>
-                                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                                            <IconButton aria-label="cart" onClick={() =>
-                                                DeleteShift(item._id)
-                                            }>
-                                                <StyledBadge color="secondary" >
-                                                    <FiTrash size={15} />
-                                                </StyledBadge>
-                                            </IconButton>
-                                            <div style={{ width: '5px' }}></div>
-                                            <IconButton aria-label="cart" onClick={() =>
-                                                EditShift(item)
-                                            }>
-                                                <StyledBadge color="secondary" >
-                                                    <FiEdit size={15} />
-                                                </StyledBadge>
-                                            </IconButton>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
+                <InfiniteScroll
+                    dataLength={ReqData.length}
+                    next={loadMoreData}
+                    hasMore={hasMore}
+                    scrollThreshold={0.2}
+                    loader={<div style={{ textAlign: 'center', margin: 'auto', marginTop: '20px' }} >
+                        <CircularProgress size={25} color="success" />
+                    </div>}
+                    endMessage={
+                        <div style={{ textAlign: 'center', margin: 'auto', marginTop: '20px' }} >
+                            <b>Yay! You have seen it all 🎉</b>
                         </div>
                     }
+                >
 
-                    )}
-                </div>
-            </InfiniteScroll>
+                    <div className={MYS.UserGrid}>
+                        {ReqData.map((item, index) => {
+                            return <div hover key={index} className={MYS.UserItemMain}>
 
-            
+                                <div className={MYS.UserItemTop}>
+                                    <div className={MYS.UserItemTopA}>
+                                        <div className={MYS.USerDP}>
+                                            <Image
+                                                src={`${MediaFilesUrl}${MediaFilesFolder}/${item.ListData.img}`}
+                                                alt="image"
+                                                layout="responsive"
+                                                placeholder='blur'
+                                                width={30}
+                                                height={30}
+                                                quality={100}
+                                                blurDataURL={blurredImageData}
+
+                                            />
+                                        </div>
+
+                                    </div>
+                                    <div className={MYS.UserItemTopB}>
+                                        <div className={MYS.UserItemTitle}>
+                                            <span>{item.ListData.title}</span>
+                                            <small>ORDER ID : {item.ListData.Orderid}</small>
+                                        </div>
+
+                                        <div className={MYS.itemOrderM}>
+                                            <span> Order By</span>
+                                            <small>Name  : {item.UData && item.UData.name}</small>
+                                            <small>Mobile : {item.UData && item.UData.mobile}</small>
+                                            <small>Email : {item.UData && item.UData.email}</small>
+                                        </div>
+
+                                        <div className={MYS.UserItemDescB}>
+                                            <small>Branch Code : {item.ListData.BranchCode}</small>
+                                          
+                                        </div>
+                                       
+                                        <div className={MYS.UserItemDescB}>
+                                            <small>Addons : {item.ListData.Addon.length} </small>
+                                            <div>
+                                                {item.ListData.Addon.map((item, index) => {
+
+                                                    return <div key={index} style={{ fontSize: '10px' }}>✅ {item.title}</div>
+                                                }
+
+                                                )}
+                                            </div>
+
+                                        </div>
+                                        <div className={MYS.UserItemDesc}>
+                                            <small>{item.ListData.validityStartDate} - {item.ListData.validityEndDate}</small>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div className={MYS.PMItemFotter}>
+                                    <div className={MYS.PMItemFA}>
+                                        <div className={MYS.Pmtag}>
+                                            <span> {item.ListData.StatusText}</span>
+
+
+                                        </div>
+
+                                    </div>
+                                    <div className={MYS.PMItemFB}>
+
+                                        <div className={MYS.Flexbtnbox}>
+
+                                            <div style={{ minWidth: '10px' }}></div>
+                                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                <IconButton aria-label="cart" onClick={() =>
+                                                    DeleteShift(item.ListData._id)
+                                                }>
+                                                    <StyledBadge color="secondary" >
+                                                        <FiTrash size={15} />
+                                                    </StyledBadge>
+                                                </IconButton>
+                                                <div style={{ width: '5px' }}></div>
+                                                <IconButton aria-label="cart" onClick={() =>
+                                                    EditShift(item.ListData)
+                                                }>
+                                                    <StyledBadge color="secondary" >
+                                                        <FiEdit size={15} />
+                                                    </StyledBadge>
+                                                </IconButton>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        }
+
+                        )}
+                    </div>
+                </InfiniteScroll>
+
+
             </div>
-           
+
             <Dialog
                 open={OpenEdit}
                 onClose={handleCloseShiftEdit}
@@ -471,7 +479,7 @@ const LibrarySubscriptions = () => {
                     </LoadingButton>
                 </DialogActions>
             </Dialog>
-               
+
         </div>
     )
 }
