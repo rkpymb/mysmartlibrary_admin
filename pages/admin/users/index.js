@@ -178,7 +178,7 @@ function DashboardCrypto() {
 
                     <div className={MYS.UserGrid}>
                         {ReqData.map((item) => {
-                            return <div hover key={item._id} className={MYS.UserItemMain} onClick={() => router.push(`/admin/users/profile/${item.mobile}/${item._id}`)}>
+                            return <div hover key={item._id} className={MYS.UserItemMain} onClick={() => router.push(`/admin/users/profile?UserMobile=${item.mobile}&UserID=${item._id}`)}>
 
                                 <div className={MYS.UserItemTop}>
                                     <div className={MYS.UserItemTopA}>
