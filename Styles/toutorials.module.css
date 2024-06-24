@@ -1,0 +1,259 @@
+.SearchResultBox{
+    margin-top: 20px;
+}
+.tutorialItemImg {
+    width: 100%;
+    height: 250px;
+}
+
+.RsultTxt{
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.tutorialItem {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+    overflow: hidden;
+    cursor: pointer;
+
+
+}
+
+.tutorialItemBDate {
+    margin-bottom: 5px;
+
+}
+
+.tutorialItemBDate small {
+    font-size: 10px;
+    color: rgb(204, 153, 51);
+    font-weight: 600;
+}
+
+.tutorialItem:hover {
+    background-color: antiquewhite;
+
+
+}
+
+.tutorialItemA {
+    min-width: 100%;
+    overflow: hidden;
+
+
+}
+
+.tutorialItemB {
+    padding: 20px;
+
+}
+
+.tutorialItemB span {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+.tutorialGrid {
+    margin: 0 auto;
+    display: grid;
+    gap: 0rem;
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+}
+
+.Pagebox {
+    width: 70%;
+    margin: 0 auto;
+
+}
+
+.PageboxTitle {
+    display: flex;
+    flex-direction: column;
+}
+
+.PageboxTitle span {
+    font-size: 15px;
+    font-weight: 600;
+
+}
+
+.ToutorialBox {
+    width: 70%;
+    margin: 80px auto;
+    min-height: 100vh;
+
+}
+
+.inputlogin {
+    margin-top: 20px;
+}
+
+.ToutorialNav {
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+    z-index: 9999;
+
+}
+
+.ToutorialNavBox {
+    min-height: 40px;
+
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
+    padding: 5px;
+
+}
+
+.ToutorialNavBox_title {
+    min-height: 40px;
+
+    width: 70%;
+    display: flex;
+    align-items: center;
+
+    margin: auto;
+    padding: 5px;
+
+}
+
+.logomain {
+    width: 100px;
+    cursor: pointer;
+}
+
+.SearchBoxmain {
+    padding: 10px;
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+    display: flex;
+    justify-content: space-between;
+}
+
+.SearchBoxmain input {
+    outline: none;
+    border: none !important;
+    width: 100%;
+    padding: 20px;
+    font-size: 20px;
+    color: rgb(219, 204, 204);
+}
+
+@media only screen and (max-width: 1100px) {
+
+    .ToutorialNavBox_title {
+        min-height: 40px;
+
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        margin: auto;
+        padding: 5px;
+
+    }
+
+
+    .ToutorialBox {
+        width: 100%;
+        margin: 80px auto;
+        min-height: 100vh;
+
+    }
+
+    .ToutorialNav {
+        background-color: rgb(255, 255, 255);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        overflow: hidden;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+
+    }
+
+    .ToutorialNavBox {
+        min-height: 40px;
+
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: auto;
+        padding: 8px;
+
+    }
+
+    .logomain {
+        width: 80px;
+    }
+
+    .ToutorialBox {
+        width: 100%;
+        margin: 80px auto;
+        min-height: 100vh;
+        padding: 10px;
+
+    }
+
+    .Pagebox {
+        width: 100%;
+        margin: 0 auto;
+
+    }
+
+    .tutorialGrid {
+        margin: 0 auto;
+        display: grid;
+        gap: 0.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
+
+    .tutorialItem {
+        display: flex;
+        flex-direction: column;
+        margin: 2px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+        overflow: hidden;
+        cursor: pointer;
+
+
+    }
+
+    .tutorialItemB {
+        padding: 15px;
+
+    }
+
+    .SearchBoxmain {
+        padding: 10px;
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .SearchBoxmain input {
+        outline: none;
+        border: none !important;
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        color: rgb(219, 204, 204);
+    }
+
+
+}

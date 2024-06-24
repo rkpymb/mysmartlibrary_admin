@@ -68,7 +68,7 @@ function Status404() {
                 sx={{ mb: 4 }}
               >
                 It's on us, we moved the content to a different page. The search
-                below should help!
+                below should help!!
               </Typography>
             </Box>
             <Container maxWidth="sm">
