@@ -207,7 +207,7 @@ const LibrarySubscriptions = () => {
                                             <span>  {item.Tagline}</span>
                                         </div>
                                         <div className={MYS.PmtagCredit}>
-                                            <span>{item.FreeCredits || 0}</span>
+                                            <span>{item.IncludedItems.FreeCredits || 0}</span>
                                             <small>Free Credits</small>
                                         </div>
                                     </div>
@@ -258,7 +258,7 @@ const LibrarySubscriptions = () => {
                                             <span>{item.IncludedItems.Staffs}</span>
                                         </div>
                                     </div>
-                                   
+
                                     <div className={MYS.PlanInItem}>
                                         <div className={MYS.PlanInItemA}>
                                             <span>Addon Products</span>
@@ -291,7 +291,7 @@ const LibrarySubscriptions = () => {
                                             <span>{item.IncludedItems.Pwa}</span>
                                         </div>
                                     </div>
-                                   
+
 
                                 </div>
 

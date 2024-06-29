@@ -13,7 +13,7 @@ import {
 import NextLink from 'next/link';
 import { SidebarContext } from 'src/contexts/SidebarContext';
 import CheckloginContext from '/context/auth/CheckloginContext'
-import { BsFillTicketPerforatedFill, BsStack, BsFillGeoAltFill, BsFillLaptopFill,BsPlayCircleFill, BsTicketDetailed, BsUiChecksGrid, BsFillPeopleFill, BsWindow , BsPlugin, BsCurrencyRupee, BsFileEarmarkTextFill, BsShieldCheck, BsCalendar2CheckFill, BsFillPieChartFill, BsCartPlusFill } from "react-icons/bs";
+import { BsFillTicketPerforatedFill, BsStack, BsFillGeoAltFill, BsFillLaptopFill,BsPlayCircleFill, BsTicketDetailed, BsUiChecksGrid, BsFillPeopleFill, BsWindow , BsPlugin, BsCurrencyRupee, BsFileEarmarkTextFill, BsShieldCheck, BsCalendar2CheckFill, BsFillPieChartFill, BsCartPlusFill,BsClipboardCheckFill } from "react-icons/bs";
 
 
 
@@ -193,6 +193,21 @@ function SidebarMenu() {
                       startIcon={<BsFillLaptopFill />}
                     >
                       Dashboard
+                    </Button>
+                  </NextLink>
+                </ListItem>
+                <ListItem component="div">
+                  <NextLink href="/admin/customer_enquiries" passHref>
+                    <Button
+                      className={
+                        currentRoute === '/admin/customer_enquiries' ? 'active' : ''
+                      }
+                      disableRipple
+                      component="a"
+                      onClick={closeSidebar}
+                      startIcon={<BsClipboardCheckFill />}
+                    >
+                  Customer Enquiries
                     </Button>
                   </NextLink>
                 </ListItem>

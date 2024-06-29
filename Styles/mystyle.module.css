@@ -3,7 +3,8 @@
     align-items: center;
     margin-top: 15px;
 }
-.QRCodeBox{
+
+.QRCodeBox {
     border-radius: 10px;
     box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
     padding: 20px;
@@ -211,6 +212,22 @@
     display: flex;
     align-items: center;
 
+}
+
+.EnqMsg {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #eff4f3;
+    display: flex;
+    flex-direction: column;
+    max-height: 150px;
+    overflow: auto;
+}
+
+.EnqMsg span {
+    font-weight: 600;
 }
 
 .DbTopBoxMain {
@@ -968,6 +985,9 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
     margin: 5px;
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .itemOrderM span {
@@ -994,6 +1014,83 @@
 
 }
 
+.Enqstatusbox {
+    width: fit-content;
+}
+
+.EnqBox {
+    margin: 80px auto;
+    background-color: white;
+    display: flex;
+    min-height: 100vh;
+
+
+}
+
+.Noteitem {
+    margin: 5px;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, .08);
+}
+
+.NoteitemText {
+    font-size: 13px;
+
+}
+
+.NoteitemFooter {
+    margin-top: 10px;
+    font-size: 10px;
+    font-weight: 500;
+
+}
+
+.NoteGrid {
+    margin: 20px auto;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+
+
+}
+
+.AddNoteForm {
+
+    padding: 20px;
+    overflow: hidden;
+    margin-top: 20px;
+
+    background-color: white;
+
+    border-radius: 10px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+}
+
+.AddNoteBoxHeaderA {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.AddNoteBoxHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.EnqBoxA {
+    width: 50%;
+    padding: 20px;
+
+}
+
+.EnqBoxB {
+    width: 50%;
+    padding: 20px;
+
+}
+
 .Pagebox {
 
     margin: 80px auto;
@@ -1005,6 +1102,7 @@
     border-radius: 10px;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
 }
+
 .MboxMain {
     margin-top: 60px;
     padding: 20px;
@@ -2926,10 +3024,37 @@
         width: 100%;
         padding: 20px;
         overflow: hidden;
-    
+
         background-color: white;
         border-radius: 10px;
         box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+    }
+
+    .EnqBox {
+        margin: 80px auto;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+
+
+    }
+
+    .EnqBoxA {
+        width: 100%;
+        padding: 0px;
+
+    }
+
+    .EnqBoxB {
+        width: 100%;
+        padding: 0px;
+
+    }
+    .AddNoteBoxHeader{
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-top: 10px;
     }
 
 }
