@@ -1015,7 +1015,9 @@
 }
 
 .Enqstatusbox {
-    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .EnqBox {
@@ -1309,7 +1311,7 @@
 }
 
 .Pmtag {
-    margin: 5px;
+    margin: 0px;
 
     text-transform: uppercase;
 

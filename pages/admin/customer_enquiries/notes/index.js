@@ -9,10 +9,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import LoadingButton from '@mui/lab/LoadingButton';
 
-import { FiEye, FiX, FiPlus, FiChevronRight } from "react-icons/fi";
+import { FiCheckSquare, FiX, FiPlus, FiChevronRight } from "react-icons/fi";
 
 
-import { LuChevronRight } from "react-icons/lu";
 
 const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
 import 'react-quill/dist/quill.snow.css';
@@ -36,6 +35,7 @@ function DashboardCrypto() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [LoadingNotelist, setLoadingNotelist] = useState(true);
+    const [StatusLoadingbtn, setStatusLoadingbtn] = useState(false);
 
     const [Btnloading, setBtnloading] = useState(false);
 
@@ -126,10 +126,10 @@ function DashboardCrypto() {
 
                 const result = await response.json();
                 if (result.ReqD && result.ReqD.done) {
-                   
+
                     alert('Note Added successfully!');
                     router.push(`/admin/customer_enquiries/notes?Enqid=${Enqid}`);
-                    
+
                 } else {
                     alert('Something went wrong');
                 }
@@ -227,6 +227,44 @@ function DashboardCrypto() {
         }
     };
 
+
+    const CloseEnqStatus = async () => {
+        let text = "Do you really want to Close this Enquiry ?";
+        if (confirm(text) == true) {
+
+            setStatusLoadingbtn(true)
+            const sendUM = {
+                Enqid: Enqid
+            }
+            const data = await fetch("/api/V3/Admin/customer_enquiries/close_enq", {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(sendUM)
+            }).then((a) => {
+                return a.json();
+            })
+                .then((parsed) => {
+                  
+                    if (parsed.ReqD.done) {
+                        alert('Equiry Closed Successfully')
+                        window.location.reload();
+
+                    } else {
+                        alert('Something went wrong')
+                    }
+
+                    setStatusLoadingbtn(false)
+
+
+
+                })
+        }
+
+
+
+    };
     return (
         <>
 
@@ -251,7 +289,25 @@ function DashboardCrypto() {
                                 <div className={MYS.Pmtag}>
                                     {EnqData.isActive == true ? <span>Open</span> : <span style={{ color: 'yellow' }}>Closed</span>}
                                 </div>
+                                {EnqData.isActive == true &&
+                                  <div>
+                                  <LoadingButton
+                                      size="small"
+                                      startIcon={<FiCheckSquare />}
+                                      loading={StatusLoadingbtn}
+                                      disabled={StatusLoadingbtn}
+                                      loadingPosition="end"
+                                      variant="text"
+
+                                      onClick={CloseEnqStatus}
+                                  >
+                                      <span style={{ color: 'green' }}> Mark as closed</span>
+                                  </LoadingButton>
+                              </div>
+                                }
+                              
                             </div>
+                            <div style={{height:'5px'}}></div>
 
                             <div className={MYS.UserItemTitle}>
                                 <span>{EnqData.title}</span>
@@ -290,18 +346,23 @@ function DashboardCrypto() {
                                 <div className={MYS.AddNoteBoxHeaderA}>
                                     <span>{AllData} Notes</span>
                                 </div>
-                                <div className={MYS.AddNoteBoxHeaderB}>
-                                    <LoadingButton
-                                        size="small"
-                                        startIcon={AddNoteShow ? <FiX /> : <FiPlus />}
-                                        onClick={OpenAddNote}
-                                        loadingPosition="end"
-                                        variant="outlined"
 
-                                    >
-                                        {AddNoteShow ? <span>Close</span> : <span>Add Note</span>}
-                                    </LoadingButton>
-                                </div>
+                                {EnqData.isActive == true &&
+ <div className={MYS.AddNoteBoxHeaderB}>
+ <LoadingButton
+     size="small"
+     startIcon={AddNoteShow ? <FiX /> : <FiPlus />}
+     onClick={OpenAddNote}
+     loadingPosition="end"
+     variant="outlined"
+
+ >
+     {AddNoteShow ? <span>Close</span> : <span>Add Note</span>}
+ </LoadingButton>
+</div>
+
+                                }
+                               
                             </div>
 
                             {AddNoteShow &&
