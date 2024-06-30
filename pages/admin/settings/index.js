@@ -15,6 +15,7 @@ import AttendanceSettings from './Comp/AttendanceSettings'
 import PwaSetting from './Comp/PwaSetting'
 import CustmizeWeb from './Comp/CustmizeWeb'
 import SocialMediaLink from './Comp/SocialMediaLink'
+import GstSettings from './Comp/GstSettings'
 
 
 import {
@@ -121,6 +122,9 @@ function DashboardCrypto() {
                         <div style={{ height: '20px' }}></div>
                         <SocialMediaLink SData={Settings}/>
                         <div style={{ height: '20px' }}></div>
+                        <GstSettings SData={Settings}/>
+                        <div style={{ height: '20px' }}></div>
+
                         
 
                     </div>

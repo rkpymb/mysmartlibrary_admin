@@ -246,7 +246,7 @@ function DashboardCrypto() {
                 return a.json();
             })
                 .then((parsed) => {
-                  
+
                     if (parsed.ReqD.done) {
                         alert('Equiry Closed Successfully')
                         window.location.reload();
@@ -290,24 +290,24 @@ function DashboardCrypto() {
                                     {EnqData.isActive == true ? <span>Open</span> : <span style={{ color: 'yellow' }}>Closed</span>}
                                 </div>
                                 {EnqData.isActive == true &&
-                                  <div>
-                                  <LoadingButton
-                                      size="small"
-                                      startIcon={<FiCheckSquare />}
-                                      loading={StatusLoadingbtn}
-                                      disabled={StatusLoadingbtn}
-                                      loadingPosition="end"
-                                      variant="text"
+                                    <div>
+                                        <LoadingButton
+                                            size="small"
+                                            startIcon={<FiCheckSquare />}
+                                            loading={StatusLoadingbtn}
+                                            disabled={StatusLoadingbtn}
+                                            loadingPosition="end"
+                                            variant="text"
 
-                                      onClick={CloseEnqStatus}
-                                  >
-                                      <span style={{ color: 'green' }}> Mark as closed</span>
-                                  </LoadingButton>
-                              </div>
+                                            onClick={CloseEnqStatus}
+                                        >
+                                            <span style={{ color: 'green' }}> Mark as closed</span>
+                                        </LoadingButton>
+                                    </div>
                                 }
-                              
+
                             </div>
-                            <div style={{height:'5px'}}></div>
+                            <div style={{ height: '5px' }}></div>
 
                             <div className={MYS.UserItemTitle}>
                                 <span>{EnqData.title}</span>
@@ -348,21 +348,21 @@ function DashboardCrypto() {
                                 </div>
 
                                 {EnqData.isActive == true &&
- <div className={MYS.AddNoteBoxHeaderB}>
- <LoadingButton
-     size="small"
-     startIcon={AddNoteShow ? <FiX /> : <FiPlus />}
-     onClick={OpenAddNote}
-     loadingPosition="end"
-     variant="outlined"
+                                    <div className={MYS.AddNoteBoxHeaderB}>
+                                        <LoadingButton
+                                            size="small"
+                                            startIcon={AddNoteShow ? <FiX /> : <FiPlus />}
+                                            onClick={OpenAddNote}
+                                            loadingPosition="end"
+                                            variant="outlined"
 
- >
-     {AddNoteShow ? <span>Close</span> : <span>Add Note</span>}
- </LoadingButton>
-</div>
+                                        >
+                                            {AddNoteShow ? <span>Close</span> : <span>Add Note</span>}
+                                        </LoadingButton>
+                                    </div>
 
                                 }
-                               
+
                             </div>
 
                             {AddNoteShow &&

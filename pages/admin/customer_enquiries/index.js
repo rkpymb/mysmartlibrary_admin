@@ -207,7 +207,7 @@ function DashboardCrypto() {
                   <small>ENQ ID : {item.EnqData.Enqid}</small>
 
                   <small>Branch Code : {item.EnqData.Branchcode} </small>
-                  <small>Branch Name : {item.EnqData.Enqdata.BranchData && item.EnqData.Enqdata.BranchData.name} </small>
+                  <small>Branch Name : {item.EnqData.Enqdata && item.EnqData.Enqdata.BranchData.name} </small>
                 </div>
 
                 <div className={MYS.itemOrderM}>
@@ -215,7 +215,7 @@ function DashboardCrypto() {
                   <small>Name  : {item.EnqData.FullName}</small>
                   <small>Mobile : {item.EnqData.MobileNumber}</small>
                   <small>Email : {item.EnqData.Email}</small>
-                  <small>Address : {item.EnqData.Enqdata.Address}</small>
+                  <small>Address : {item.EnqData.Enqdata && item.EnqData.Enqdata.Address}</small>
 
                 </div>
                 <div className={MYS.EnqMsg}>
@@ -225,7 +225,7 @@ function DashboardCrypto() {
                 </div>
                 <div style={{ height: '10px' }}></div>
                 <div className={MYS.UserItemTitle}>
-                  <small>Last Updated : {item.EnqData.date} {item.EnqData.time}</small>
+                  <small>Date: {item.EnqData.date} {item.EnqData.time}</small>
                 </div>
 
 

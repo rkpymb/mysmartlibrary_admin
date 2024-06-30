@@ -171,9 +171,17 @@
     flex-direction: column;
     line-height: normal;
     text-transform: uppercase;
+    width: 100%;
+   
+    text-wrap: wrap;
+ 
 
 }
-
+.DbTOptext span {
+    font-size: 20px;
+    font-weight: 600;
+   
+}
 .UrlBoxText {
     display: flex;
     flex-direction: column;
@@ -199,10 +207,6 @@
     margin-left: 10px;
 }
 
-.DbTOptext span {
-    font-size: 20px;
-    font-weight: 600;
-}
 
 .SqureimgDb {
     min-width: 50px;
@@ -3058,5 +3062,30 @@
         padding-right: 10px;
         margin-top: 10px;
     }
-
+    .DbTOptext {
+        display: flex;
+        flex-direction: column;
+        line-height: normal;
+        text-transform: uppercase;
+        width: 100%;
+       
+        text-wrap: wrap;
+        margin-bottom: 10px;
+     
+    
+    }
+    .DbTOptext span {
+        font-size: 15px;
+        font-weight: 600;
+       
+    }
+    .DbTopBox {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+       
+        margin-bottom: 10px;
+    }
 }

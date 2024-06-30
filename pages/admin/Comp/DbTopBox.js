@@ -78,7 +78,7 @@ const DbTopBox = ({ AllData }) => {
                 <div className={MYS.Pmtag} style={{ backgroundColor: 'red' }}><span>Deactivated</span></div> :
                 <div className={MYS.Pmtag}><span>Active</span></div>
               }
-              <div className={MYS.Pmtag} style={{backgroundColor:"#F39C12"}}  onClick={() => router.push('/admin/settings')}> <LuSettings  color='white' />  <span style={{marginLeft:'5px'}}>Open Settings</span></div>
+              <div className={MYS.Pmtag} style={{backgroundColor:"#F39C12", marginLeft:'10px'}}  onClick={() => router.push('/admin/settings')}> <LuSettings  color='white' />  <span style={{marginLeft:'5px'}}>Open Settings</span></div>
             </div>
           }
 

@@ -31,9 +31,7 @@ function DashboardCrypto() {
   const [UserMobile, setUserMobile] = useState('');
   const [UserData, setUserData] = useState(null);
   const [GstAmt, setGstAmt] = useState(0);
-  const [GstText, setGstText] = useState('18 % GST');
-
-  ;
+  const [GstText, setGstText] = useState('');
 
 
   const [Btnloading, setBtnloading] = useState(false);
@@ -56,7 +54,7 @@ function DashboardCrypto() {
 
       const TaxData = {
         TaxAmt: GstAmt,
-        GstText: GstText,
+        GstText: `${GstText}`,
 
       }
 
@@ -106,13 +104,69 @@ function DashboardCrypto() {
     }
 
   }
+  const GetFinalAmt = async (Amt) => {
+    if (Amt >= 1) {
+      setBtnloading(true)
+
+      setDesabledBtn(true)
+
+
+      const sendUM = {
+
+        amount: Amt,
+
+
+      };
+
+      try {
+        const response = await fetch("/api/V3/Admin/Wallet/UserWalletPrice", {
+          method: "POST",
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(sendUM)
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const parsed = await response.json();
+
+        if (parsed.ReqD.done) {
+
+          const GstSetting = parsed.ReqD.GstSetting
+
+          const tax_amount = parsed.ReqD.tax_amount
+          const main_amount = parsed.ReqD.main_amount
+          const credit_value = parsed.ReqD.credit_value
+          const final_amount = parsed.ReqD.final_amount
+
+          setCreditValue(credit_value)
+          setGstAmt(tax_amount)
+          setGstText('')
+
+          setBtnloading(false)
+          setDesabledBtn(false)
+
+        } else {
+          setBtnloading(false)
+          setDesabledBtn(false)
+          alert('Something Went wrong')
+        }
+
+
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+
+      }
+
+    }
+
+  }
   const ChangeAmt = async (Amt) => {
     if (Amt >= 1) {
-      setCreditValue(Amt)
-
-      const taxRate = 0.18; // 18% tax rate
-      const taxAmount = Amt * taxRate;
-      setGstAmt(taxAmount.toFixed(2))
+      GetFinalAmt(Amt)
 
     }
 
@@ -155,7 +209,7 @@ function DashboardCrypto() {
             if (parsed.ReqD.Userlist.length > 0) {
               const ud = parsed.ReqD.Userlist[0]
               setUserData(ud)
-             
+
               setDesabledBtn(false)
               setLoadinguser(false)
 
@@ -257,7 +311,7 @@ function DashboardCrypto() {
                   </div>
                   <div className={MYS.RbboxItem}>
                     <div className={MYS.RbboxItemA}>
-                      <span>GST (18.00%)</span>
+                      <span>{GstText} GST</span>
                     </div>
                     <div className={MYS.RbboxItemB}>
                       <span>₹ {GstAmt}</span>
@@ -268,7 +322,7 @@ function DashboardCrypto() {
                       <span>Total Amount *</span>
                     </div>
                     <div className={MYS.RbboxItemB}>
-                      <span>₹ {parseInt(Amount) + parseInt(GstAmt)}</span>
+                      <span>₹ {parseFloat(Amount) + parseFloat(GstAmt)}</span>
                     </div>
                   </div>
                 </div>
